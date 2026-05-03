@@ -59,17 +59,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:13
 .login-btn:hover{opacity:.9;transform:translateY(-1px)}
 .login-err{color:var(--red);font-size:12px;margin-top:8px;min-height:16px;text-align:center}
 
-/* ── Header ── */
-.header{position:sticky;top:0;z-index:200;background:rgba(8,9,13,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(29,34,48,.9);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+/* ── Header dois níveis ── */
+.header-top{position:sticky;top:0;z-index:201;background:rgba(8,9,13,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(29,34,48,.9);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.header-tabs{position:sticky;top:56px;z-index:200;background:rgba(10,11,16,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,34,48,.8);padding:0 24px;height:44px;display:flex;align-items:center;gap:2px}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#0ea5e9,#2dd4bf);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 0 16px rgba(56,189,248,.35)}
-.logo-text{font-size:16px;font-weight:700;letter-spacing:-.3px}
+.logo-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#0ea5e9,#2dd4bf);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:0 0 16px rgba(56,189,248,.35)}
+.logo-text{font-size:15px;font-weight:700;letter-spacing:-.3px}
 .logo-text span{color:var(--blue2)}
-.header-center{display:flex;align-items:center;gap:4px}
-.tab-btn{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:6px 14px;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer;transition:color var(--dur-fast),border-color var(--dur-fast),background var(--dur-fast);height:60px;display:flex;align-items:center;gap:6px;border-radius:0}
+/* ── Section switcher (nível 1) ── */
+.sec-switcher{display:flex;align-items:center;gap:4px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:3px}
+.sec-btn{background:transparent;border:none;color:var(--muted2);padding:5px 14px;font-family:var(--font);font-size:12.5px;font-weight:600;cursor:pointer;border-radius:7px;transition:background var(--dur-fast),color var(--dur-fast);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.sec-btn:hover{color:var(--text)}
+.sec-btn.active-fin{background:linear-gradient(135deg,rgba(56,189,248,.2),rgba(45,212,191,.15));color:var(--blue2);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.sec-btn.active-pes{background:linear-gradient(135deg,rgba(167,139,250,.2),rgba(244,114,182,.12));color:var(--purple);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+/* ── Sub-tabs (nível 2) ── */
+.tab-btn{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:0 13px;font-family:var(--font);font-size:12.5px;font-weight:500;cursor:pointer;transition:color var(--dur-fast),border-color var(--dur-fast),background var(--dur-fast);height:44px;display:flex;align-items:center;gap:5px;border-radius:0;white-space:nowrap}
 .tab-btn:hover{color:var(--text);background:rgba(255,255,255,.03)}
 .tab-btn.active{color:var(--blue2);border-bottom-color:var(--blue);font-weight:600}
-.header-right{display:flex;align-items:center;gap:8px}
+.tab-group{display:flex;align-items:center;gap:0}
+.header-right{display:flex;align-items:center;gap:6px}
 .date-chip{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;color:var(--muted)}
 .btn{border:none;cursor:pointer;border-radius:8px;padding:7px 14px;font-family:var(--font);font-size:12px;font-weight:600;transition:background var(--dur-fast),transform var(--dur-fast),box-shadow var(--dur-fast),border-color var(--dur-fast);letter-spacing:.2px;display:flex;align-items:center;gap:5px}
 .btn:active{transform:translateY(1px)}
@@ -93,12 +101,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:13
 @media(max-width:1200px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){
   .g3{grid-template-columns:1fr 1fr}
-  .header{padding:0 14px;gap:8px}
-  .header-center{gap:0}
-  .tab-btn{padding:6px 10px;font-size:12px}
-  .header-right{gap:5px}
+  .header-top{padding:0 12px;gap:8px}
+  .header-tabs{padding:0 8px;overflow-x:auto;scrollbar-width:none}
+  .header-tabs::-webkit-scrollbar{display:none}
+  .tab-btn{padding:0 10px;font-size:12px}
+  .header-right{gap:4px}
   .btn{padding:6px 10px;font-size:11px}
   .logo-text{display:none}
+  .sec-btn{padding:4px 10px;font-size:11.5px}
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 }
 @media(max-width:700px){.g4,.g2,.g3{grid-template-columns:1fr}}
@@ -592,32 +602,50 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 <!-- ══ APP ══ -->
 <div id="appWrap" style="display:none">
 
-<header class="header">
+<!-- ── Barra superior: Logo + Seções + Ações ── -->
+<header class="header-top">
   <div class="logo">
     <div class="logo-icon">⚡</div>
     <div class="logo-text">Brian <span>Central</span></div>
   </div>
-  <div class="header-center">
+
+  <div class="sec-switcher">
+    <button class="sec-btn active-fin" id="secBtnFin" onclick="switchSection('financeiro')">💰 Financeiro</button>
+    <button class="sec-btn" id="secBtnPes" onclick="switchSection('pessoal')">🧠 Pessoal</button>
+  </div>
+
+  <div class="header-right">
+    <div class="date-chip" id="headerDate"></div>
+    <!-- Botões exclusivos do Financeiro -->
+    <div id="finActions" style="display:flex;align-items:center;gap:6px">
+      <button class="btn btn-ghost" id="refreshBtn" onclick="refreshDashboard()" title="Atualizar"><span id="refreshIcon">↻</span><span id="refreshAge" style="font-size:10px;opacity:.55;margin-left:2px"></span></button>
+      <button class="btn btn-green" onclick="openModal()">＋ Lançamento</button>
+      <button class="btn btn-ghost" onclick="openImportModal()" style="border-color:rgba(99,102,241,.4);color:var(--blue2)">📥 Extrato</button>
+      <button class="btn btn-primary" onclick="exportExcel()">⬇ Excel</button>
+      <button class="btn btn-ghost" onclick="window.print()" title="Imprimir">🖨️</button>
+    </div>
+    <button class="btn btn-ghost" onclick="openSettings()" title="Configurações">⚙️</button>
+    <button class="btn btn-ghost" onclick="doLogout()">⏻</button>
+  </div>
+</header>
+
+<!-- ── Barra de sub-abas ── -->
+<nav class="header-tabs">
+  <!-- Sub-abas: Financeiro -->
+  <div class="tab-group" id="tabsFinanceiro">
     <button class="tab-btn active" id="tabBtnGeral" onclick="switchTab('geral')">📊 Visão Geral</button>
     <button class="tab-btn" id="tabBtnInv" onclick="switchTab('inv')">📈 Investimentos</button>
     <button class="tab-btn" id="tabBtnSaude" onclick="switchTab('saude')">🩺 Saúde</button>
     <button class="tab-btn" id="tabBtnMetas" onclick="switchTab('metas')">🎯 Metas</button>
+  </div>
+  <!-- Sub-abas: Pessoal -->
+  <div class="tab-group" id="tabsPessoal" style="display:none">
     <button class="tab-btn" id="tabBtnIdeiasP" onclick="switchTab('ideiasP')">💡 Ideias Pessoais</button>
     <button class="tab-btn" id="tabBtnIdeiasE" onclick="switchTab('ideiasE')">🏢 Ideias Empresa</button>
     <button class="tab-btn" id="tabBtnLivros" onclick="switchTab('livros')">📚 Livros</button>
     <button class="tab-btn" id="tabBtnCursos" onclick="switchTab('cursos')">🎓 Cursos & Vídeos</button>
   </div>
-  <div class="header-right">
-    <div class="date-chip" id="headerDate"></div>
-    <button class="btn btn-ghost" id="refreshBtn" onclick="refreshDashboard()" title="Atualizar tudo"><span id="refreshIcon">↻</span><span id="refreshAge" style="font-size:10px;opacity:.55;margin-left:3px"></span></button>
-    <button class="btn btn-green" onclick="openModal()">＋ Lançamento</button>
-    <button class="btn btn-ghost" onclick="openImportModal()" style="border-color:rgba(99,102,241,.4);color:var(--blue2)">📥 Extrato</button>
-    <button class="btn btn-primary" onclick="exportExcel()">⬇ Excel</button>
-    <button class="btn btn-ghost" onclick="window.print()" title="Imprimir / PDF">🖨️</button>
-    <button class="btn btn-ghost" onclick="openSettings()" title="Configurações">⚙️</button>
-    <button class="btn btn-ghost" onclick="doLogout()">⏻</button>
-  </div>
-</header>
+</nav>
 
 
 <!-- Modal Todas as Transações -->
@@ -4558,6 +4586,28 @@ function _fillProjetado(fluxoData, accounts){
 }
 
 // ══ TAB SWITCHING ═════════════════════════════════════════════════════════════
+let _activeSection = 'financeiro';
+
+function switchSection(sec){
+  _activeSection = sec;
+  const isFin = sec === 'financeiro';
+
+  // Seção switcher visual
+  document.getElementById('secBtnFin').className = 'sec-btn' + (isFin ? ' active-fin' : '');
+  document.getElementById('secBtnPes').className = 'sec-btn' + (!isFin ? ' active-pes' : '');
+
+  // Mostrar grupo de abas correto
+  document.getElementById('tabsFinanceiro').style.display = isFin ? '' : 'none';
+  document.getElementById('tabsPessoal').style.display   = !isFin ? '' : 'none';
+
+  // Botões de ação do financeiro
+  document.getElementById('finActions').style.display = isFin ? 'flex' : 'none';
+
+  // Ativar primeira aba da seção
+  if(isFin) switchTab('geral');
+  else      switchTab('ideiasP');
+}
+
 function switchTab(tab){
   _activeTab = tab;
   const allTabs = ['geral','inv','saude','metas','ideiasP','ideiasE','livros','cursos'];
@@ -4565,14 +4615,20 @@ function switchTab(tab){
     const el = document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1));
     if(el) el.style.display = t===tab ? '' : 'none';
   });
-  document.getElementById('tabBtnGeral').classList.toggle('active',tab==='geral');
-  document.getElementById('tabBtnInv').classList.toggle('active',tab==='inv');
-  document.getElementById('tabBtnSaude').classList.toggle('active',tab==='saude');
-  document.getElementById('tabBtnMetas').classList.toggle('active',tab==='metas');
-  document.getElementById('tabBtnIdeiasP').classList.toggle('active',tab==='ideiasP');
-  document.getElementById('tabBtnIdeiasE').classList.toggle('active',tab==='ideiasE');
-  document.getElementById('tabBtnLivros').classList.toggle('active',tab==='livros');
-  document.getElementById('tabBtnCursos').classList.toggle('active',tab==='cursos');
+  // Atualizar active nos botões de cada grupo
+  ['Geral','Inv','Saude','Metas'].forEach(b=>{
+    const btn = document.getElementById('tabBtn'+b);
+    if(btn) btn.classList.toggle('active', tab===b.charAt(0).toLowerCase()+b.slice(1));
+  });
+  document.getElementById('tabBtnGeral').classList.toggle('active', tab==='geral');
+  document.getElementById('tabBtnInv').classList.toggle('active', tab==='inv');
+  document.getElementById('tabBtnSaude').classList.toggle('active', tab==='saude');
+  document.getElementById('tabBtnMetas').classList.toggle('active', tab==='metas');
+  document.getElementById('tabBtnIdeiasP').classList.toggle('active', tab==='ideiasP');
+  document.getElementById('tabBtnIdeiasE').classList.toggle('active', tab==='ideiasE');
+  document.getElementById('tabBtnLivros').classList.toggle('active', tab==='livros');
+  document.getElementById('tabBtnCursos').classList.toggle('active', tab==='cursos');
+
   if(tab==='inv')    { buildInvCharts(_invFiiRows, _invQuotes); _fillInvCashflow(); }
   if(tab==='geral')  { fillCatBreakdown(_catsObj); buildCharts(_monthly, _catsObj); }
   if(tab==='saude')  { buildSaudeCharts(_monthly, _catsObj); fillSaudeMetricas(_cmRow, _monthly, _invFiiRows, _invAccounts, _fcRows); fillSaudeRecomendacoes(); }
