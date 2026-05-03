@@ -511,6 +511,74 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 .meta-timeline-row:last-child{border-bottom:none}
 .meta-prazo-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:rgba(56,189,248,.15);color:#38bdf8;white-space:nowrap}
 
+/* ══ NOTEBOOK (Ideias) ══════════════════════════════════════ */
+.nb-wrap{display:grid;grid-template-columns:300px 1fr;gap:14px;height:calc(100vh - 180px);min-height:560px}
+.nb-sidebar{background:var(--surface);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;overflow:hidden}
+.nb-side-head{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 10px;border-bottom:1px solid var(--border)}
+.nb-side-title{font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.2px}
+.nb-newbtn{background:linear-gradient(135deg,#16a34a,#22c55e);border:none;color:#fff;width:30px;height:30px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(34,197,94,.3);transition:transform var(--dur-fast)}
+.nb-newbtn:hover{transform:scale(1.06)}
+.nb-search{margin:10px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12.5px;padding:8px 12px;outline:none;transition:border-color var(--dur-fast)}
+.nb-search:focus{border-color:var(--blue)}
+.nb-list{flex:1;overflow-y:auto;padding:6px 8px 12px;display:flex;flex-direction:column;gap:5px}
+.nb-list-empty{padding:20px;text-align:center;color:var(--muted);font-size:12px}
+.nb-item{padding:10px 12px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:background var(--dur-fast),border-color var(--dur-fast);position:relative}
+.nb-item:hover{background:rgba(255,255,255,.03)}
+.nb-item.active{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.25)}
+.nb-item-color{position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0}
+.nb-item-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:4px;padding-left:8px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.nb-item-preview{font-size:11px;color:var(--muted2);line-height:1.4;padding-left:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px}
+.nb-item-meta{padding-left:8px;display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted)}
+.nb-item-check{display:inline-flex;align-items:center;gap:3px;font-weight:600}
+
+.nb-editor{background:var(--surface);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;overflow:hidden}
+.nb-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center}
+.nb-edit-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nb-color-row{display:flex;gap:5px}
+.nb-color{width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform var(--dur-fast),border-color var(--dur-fast)}
+.nb-color:hover{transform:scale(1.15)}
+.nb-color.active{border-color:#fff}
+.nb-color-amarelo{background:#fbbf24}
+.nb-color-azul{background:#38bdf8}
+.nb-color-verde{background:#22c55e}
+.nb-color-roxo{background:#a78bfa}
+.nb-color-rosa{background:#f472b6}
+.nb-color-laranja{background:#fb923c}
+.nb-edit-status{font-size:10.5px;color:var(--muted);margin-left:auto;display:flex;align-items:center;gap:4px;font-weight:500;letter-spacing:.3px}
+.nb-edit-del{background:transparent;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background var(--dur-fast),color var(--dur-fast)}
+.nb-edit-del:hover{background:rgba(244,63,94,.12);color:var(--red)}
+
+.nb-edit-body{flex:1;overflow-y:auto;padding:24px 28px}
+.nb-title-input{width:100%;background:transparent;border:none;color:var(--text);font-family:var(--font);font-size:24px;font-weight:800;letter-spacing:-.5px;outline:none;margin-bottom:16px;line-height:1.2}
+.nb-title-input::placeholder{color:var(--muted)}
+.nb-content-area{width:100%;background:transparent;border:none;color:var(--text);font-family:var(--font);font-size:14px;line-height:1.6;outline:none;resize:none;min-height:140px;margin-bottom:20px}
+.nb-content-area::placeholder{color:var(--muted)}
+
+.nb-section-label{font-size:10px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin:18px 0 10px;display:flex;align-items:center;gap:6px}
+.nb-checklist{display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+.nb-check-row{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:6px;transition:background var(--dur-fast)}
+.nb-check-row:hover{background:rgba(255,255,255,.03)}
+.nb-check-row:hover .nb-check-del{opacity:1}
+.nb-check-box{margin-top:4px;width:16px;height:16px;border:2px solid var(--border2);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--dur-fast),border-color var(--dur-fast)}
+.nb-check-box.checked{background:var(--green);border-color:var(--green)}
+.nb-check-box.checked::after{content:'✓';color:#fff;font-size:11px;font-weight:900;line-height:1}
+.nb-check-text{flex:1;background:transparent;border:none;color:var(--text);font-family:var(--font);font-size:13.5px;outline:none;padding:2px 0;line-height:1.5}
+.nb-check-text.done{text-decoration:line-through;color:var(--muted)}
+.nb-check-del{background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:2px 6px;border-radius:4px;opacity:0;transition:opacity var(--dur-fast),color var(--dur-fast)}
+.nb-check-del:hover{color:var(--red)}
+.nb-check-add{background:transparent;border:1px dashed var(--border2);color:var(--muted2);padding:8px 12px;border-radius:8px;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;width:100%;text-align:left;transition:border-color var(--dur-fast),color var(--dur-fast)}
+.nb-check-add:hover{border-color:var(--blue);color:var(--blue2)}
+
+.nb-tags-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12.5px;padding:8px 12px;outline:none}
+.nb-tags-input:focus{border-color:var(--blue)}
+.nb-tags-display{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.nb-tag-chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:rgba(99,102,241,.12);color:var(--blue2)}
+
+@media(max-width:900px){
+  .nb-wrap{grid-template-columns:1fr;height:auto}
+  .nb-sidebar{max-height:280px}
+}
+
 /* ── Print ────────────────────────────────────────────────── */
 @media print{
   body{background:#fff!important;color:#000!important}
@@ -1600,27 +1668,43 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 
 <!-- ══ ABA: IDEIAS PESSOAIS ══ -->
 <div id="tabIdeiasP" style="display:none">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">💡 Ideias Pessoais</div>
-      <button class="btn btn-green" onclick="openIdeiaModal('pessoal')">＋ Nova Ideia</button>
-    </div>
-    <div id="ideiasP-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:4px">
-      <div class="empty">Nenhuma ideia ainda. Clique em + Nova Ideia!</div>
-    </div>
+  <div class="nb-wrap">
+    <aside class="nb-sidebar">
+      <div class="nb-side-head">
+        <div class="nb-side-title">💡 Ideias Pessoais</div>
+        <button class="nb-newbtn" onclick="nbCreate('pessoal')" title="Nova ideia">＋</button>
+      </div>
+      <input class="nb-search" id="nbSearchP" placeholder="🔍 Buscar..." oninput="nbRenderList('pessoal')"/>
+      <div class="nb-list" id="nbListP"></div>
+    </aside>
+    <main class="nb-editor" id="nbEditorP">
+      <div class="nb-empty">
+        <div style="font-size:48px;opacity:.3;margin-bottom:12px">💡</div>
+        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione uma ideia ou crie uma nova</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
+      </div>
+    </main>
   </div>
 </div><!-- /tabIdeiasP -->
 
 <!-- ══ ABA: IDEIAS EMPRESA ══ -->
 <div id="tabIdeiasE" style="display:none">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">🏢 Ideias da Empresa</div>
-      <button class="btn btn-green" onclick="openIdeiaModal('empresa')">＋ Nova Ideia</button>
-    </div>
-    <div id="ideiasE-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:4px">
-      <div class="empty">Nenhuma ideia ainda. Clique em + Nova Ideia!</div>
-    </div>
+  <div class="nb-wrap">
+    <aside class="nb-sidebar">
+      <div class="nb-side-head">
+        <div class="nb-side-title">🏢 Ideias Empresa</div>
+        <button class="nb-newbtn" onclick="nbCreate('empresa')" title="Nova ideia">＋</button>
+      </div>
+      <input class="nb-search" id="nbSearchE" placeholder="🔍 Buscar..." oninput="nbRenderList('empresa')"/>
+      <div class="nb-list" id="nbListE"></div>
+    </aside>
+    <main class="nb-editor" id="nbEditorE">
+      <div class="nb-empty">
+        <div style="font-size:48px;opacity:.3;margin-bottom:12px">🏢</div>
+        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione uma ideia ou crie uma nova</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
+      </div>
+    </main>
   </div>
 </div><!-- /tabIdeiasE -->
 
@@ -6728,53 +6812,249 @@ function _updateTitleAlerts(fixedCosts, installments){
 function fmtDate(str){ if(!str) return '—'; const d=new Date(str); return d.toLocaleDateString('pt-BR'); }
 function stars(n){ return '★'.repeat(n||0)+'☆'.repeat(5-(n||0)); }
 
-// ── IDEIAS ────────────────────────────────────────────────────────────────────
+// ══ NOTEBOOK DE IDEIAS ═══════════════════════════════════════════════════════
+const _nbState = { pessoal:{items:[], selectedId:null}, empresa:{items:[], selectedId:null} };
+const NB_COLORS = ['amarelo','azul','verde','roxo','rosa','laranja'];
+
 async function loadIdeias(tipo){
-  const gridId = tipo==='pessoal' ? 'ideiasP-grid' : 'ideiasE-grid';
-  const grid = document.getElementById(gridId);
-  grid.innerHTML = '<div class="empty">Carregando...</div>';
   try {
-    const r = await fetch(`${REST}/ideas?type=eq.${tipo}&order=created_at.desc`, {headers: HDR});
+    const r = await fetch(`${REST}/ideas?type=eq.${tipo}&order=updated_at.desc.nullslast,created_at.desc`, {headers: HDR});
     const rows = await r.json();
-    if(!rows.length){ grid.innerHTML='<div class="empty">Nenhuma ideia ainda. Clique em + Nova Ideia!</div>'; return; }
-    grid.innerHTML = rows.map(idea=>`
-      <div class="card" style="border-left:3px solid ${tipo==='pessoal'?'var(--blue)':'var(--purple)'}">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px">
-          <div style="font-size:14px;font-weight:700;line-height:1.3">${escHtml(idea.title)}</div>
-          <button onclick="deleteIdeia(${idea.id},'${tipo}')" style="background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;flex-shrink:0;padding:0" title="Excluir">🗑</button>
+    _nbState[tipo].items = Array.isArray(rows) ? rows : [];
+    nbRenderList(tipo);
+    // Mantém seleção atual ou seleciona a primeira
+    const sel = _nbState[tipo].selectedId;
+    if(sel && _nbState[tipo].items.find(i=>i.id===sel)) nbSelect(tipo, sel);
+    else if(_nbState[tipo].items.length) nbSelect(tipo, _nbState[tipo].items[0].id);
+    else nbShowEmpty(tipo);
+  } catch(e){ console.error(e); }
+}
+
+function nbRenderList(tipo){
+  const listId = tipo==='pessoal' ? 'nbListP' : 'nbListE';
+  const searchId = tipo==='pessoal' ? 'nbSearchP' : 'nbSearchE';
+  const list = document.getElementById(listId);
+  const q = (document.getElementById(searchId)?.value || '').toLowerCase().trim();
+  let items = _nbState[tipo].items;
+  if(q){
+    items = items.filter(i=>{
+      const hay = (i.title||'') + ' ' + (i.content||'') + ' ' + (i.tags||[]).join(' ');
+      return hay.toLowerCase().includes(q);
+    });
+  }
+  if(!items.length){
+    list.innerHTML = `<div class="nb-list-empty">${q?'Nada encontrado':'Nenhuma ideia ainda.<br>Clique em ＋ acima.'}</div>`;
+    return;
+  }
+  const sel = _nbState[tipo].selectedId;
+  list.innerHTML = items.map(i=>{
+    const cl = Array.isArray(i.checklist) ? i.checklist : [];
+    const done = cl.filter(c=>c.done).length;
+    const total = cl.length;
+    const color = i.color || 'amarelo';
+    return `
+      <div class="nb-item ${i.id===sel?'active':''}" onclick="nbSelect('${tipo}',${i.id})">
+        <div class="nb-item-color nb-color-${color}"></div>
+        <div class="nb-item-title">${escHtml(i.title || 'Sem título')}</div>
+        ${i.content ? `<div class="nb-item-preview">${escHtml(i.content)}</div>` : ''}
+        <div class="nb-item-meta">
+          <span>${fmtDate(i.updated_at || i.created_at)}</span>
+          ${total>0 ? `<span class="nb-item-check" style="color:${done===total?'var(--green)':'var(--muted2)'}">✓ ${done}/${total}</span>` : ''}
         </div>
-        ${idea.content ? `<div style="font-size:12.5px;color:var(--muted2);line-height:1.6;white-space:pre-wrap">${escHtml(idea.content)}</div>` : ''}
-        ${idea.tags && idea.tags.length ? `<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:5px">${idea.tags.map(t=>`<span class="cat" style="background:rgba(99,102,241,.12);color:var(--blue2)">#${escHtml(t)}</span>`).join('')}</div>` : ''}
-        <div style="margin-top:10px;font-size:10px;color:var(--muted)">${fmtDate(idea.created_at)}</div>
-      </div>`).join('');
-  } catch(e){ grid.innerHTML='<div class="empty">Erro ao carregar.</div>'; }
+      </div>`;
+  }).join('');
 }
 
-function openIdeiaModal(tipo){
-  const label = tipo==='pessoal' ? 'Pessoal' : 'Empresa';
-  const color = tipo==='pessoal' ? 'var(--blue)' : 'var(--purple)';
-  showKnowledgeModal(`💡 Nova Ideia ${label}`, `
-    <div class="field"><label>Título *</label><input id="km-title" placeholder="Sua ideia em poucas palavras..." autofocus/></div>
-    <div class="field"><label>Descrição</label><textarea id="km-content" rows="5" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;outline:none;resize:vertical" placeholder="Detalhes, contexto, próximos passos..."></textarea></div>
-    <div class="field"><label>Tags (separadas por vírgula)</label><input id="km-tags" placeholder="ex: marketing, produto, rápido"/></div>
-  `, async ()=>{
-    const title = document.getElementById('km-title').value.trim();
-    if(!title){ toast('Preencha o título','err'); return false; }
-    const tags = document.getElementById('km-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
-    const body = {title, content: document.getElementById('km-content').value.trim()||null, type: tipo, tags: tags.length?tags:null};
-    const r = await fetch(`${REST}/ideas`, {method:'POST', headers:{...HDR,'Prefer':'return=minimal'}, body:JSON.stringify(body)});
-    if(!r.ok){ toast('Erro ao salvar','err'); return false; }
-    toast('Ideia salva!','ok');
-    loadIdeias(tipo);
-    return true;
-  }, color);
+function nbShowEmpty(tipo){
+  const ed = document.getElementById(tipo==='pessoal'?'nbEditorP':'nbEditorE');
+  const icon = tipo==='pessoal' ? '💡' : '🏢';
+  ed.innerHTML = `<div class="nb-empty">
+    <div style="font-size:48px;opacity:.3;margin-bottom:12px">${icon}</div>
+    <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione uma ideia ou crie uma nova</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
+  </div>`;
 }
 
-async function deleteIdeia(id, tipo){
+function nbSelect(tipo, id){
+  _nbState[tipo].selectedId = id;
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea){ nbShowEmpty(tipo); return; }
+  nbRenderList(tipo);
+  nbRenderEditor(tipo, idea);
+}
+
+function nbRenderEditor(tipo, idea){
+  const ed = document.getElementById(tipo==='pessoal'?'nbEditorP':'nbEditorE');
+  const color = idea.color || 'amarelo';
+  const checklist = Array.isArray(idea.checklist) ? idea.checklist : [];
+  const tags = Array.isArray(idea.tags) ? idea.tags : [];
+
+  ed.innerHTML = `
+    <div class="nb-edit-head">
+      <div class="nb-color-row">
+        ${NB_COLORS.map(c=>`<div class="nb-color nb-color-${c} ${c===color?'active':''}" onclick="nbSetColor('${tipo}',${idea.id},'${c}')" title="${c}"></div>`).join('')}
+      </div>
+      <span class="nb-edit-status" id="nbStatus-${tipo}">Salvo</span>
+      <button class="nb-edit-del" onclick="nbDelete('${tipo}',${idea.id})" title="Excluir ideia">🗑 Excluir</button>
+    </div>
+    <div class="nb-edit-body">
+      <input class="nb-title-input" id="nbTitle-${tipo}" placeholder="Título da ideia..." value="${escHtml(idea.title||'')}" oninput="nbField('${tipo}',${idea.id},'title',this.value)"/>
+
+      <textarea class="nb-content-area" id="nbContent-${tipo}" placeholder="Escreva sua ideia... contexto, detalhes, próximos passos..." oninput="nbField('${tipo}',${idea.id},'content',this.value);nbAutoGrow(this)">${escHtml(idea.content||'')}</textarea>
+
+      <div class="nb-section-label">☑ CHECKLIST</div>
+      <div class="nb-checklist" id="nbChecklist-${tipo}">
+        ${checklist.map((c,idx)=>nbChecklistRowHtml(tipo, idea.id, c, idx)).join('')}
+      </div>
+      <button class="nb-check-add" onclick="nbAddCheck('${tipo}',${idea.id})">＋ Adicionar item ao checklist</button>
+
+      <div class="nb-section-label" style="margin-top:24px">🏷 TAGS</div>
+      <input class="nb-tags-input" id="nbTags-${tipo}" placeholder="ex: marketing, produto, urgente (separadas por vírgula)" value="${escHtml(tags.join(', '))}" oninput="nbField('${tipo}',${idea.id},'tags',this.value)"/>
+    </div>
+  `;
+  // Auto-grow do textarea
+  setTimeout(()=>{ const t = document.getElementById('nbContent-'+tipo); if(t) nbAutoGrow(t); }, 30);
+}
+
+function nbAutoGrow(el){
+  el.style.height = 'auto';
+  el.style.height = Math.max(140, el.scrollHeight) + 'px';
+}
+
+function nbChecklistRowHtml(tipo, ideaId, item, idx){
+  const done = !!item.done;
+  return `
+    <div class="nb-check-row">
+      <div class="nb-check-box ${done?'checked':''}" onclick="nbToggleCheck('${tipo}',${ideaId},${idx})"></div>
+      <input class="nb-check-text ${done?'done':''}" value="${escHtml(item.text||'')}" placeholder="Item..." oninput="nbCheckText('${tipo}',${ideaId},${idx},this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();nbAddCheck('${tipo}',${ideaId})}"/>
+      <button class="nb-check-del" onclick="nbRemoveCheck('${tipo}',${ideaId},${idx})">✕</button>
+    </div>`;
+}
+
+// ── Auto-save com debounce ───────────────────────────────────────────────────
+const _nbSaveTimers = {};
+function nbField(tipo, id, field, value){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(field === 'tags') idea.tags = value.split(',').map(t=>t.trim()).filter(Boolean);
+  else idea[field] = value;
+  nbScheduleSave(tipo, id);
+}
+
+function nbScheduleSave(tipo, id){
+  const key = tipo+'-'+id;
+  const status = document.getElementById('nbStatus-'+tipo);
+  if(status){ status.textContent='Editando...'; status.style.color='var(--yellow)'; }
+  if(_nbSaveTimers[key]) clearTimeout(_nbSaveTimers[key]);
+  _nbSaveTimers[key] = setTimeout(()=>nbSave(tipo, id), 700);
+}
+
+async function nbSave(tipo, id){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea) return;
+  const status = document.getElementById('nbStatus-'+tipo);
+  try {
+    const body = {
+      title: idea.title || '',
+      content: idea.content || null,
+      tags: (idea.tags && idea.tags.length) ? idea.tags : null,
+      checklist: idea.checklist || [],
+      color: idea.color || 'amarelo',
+      updated_at: new Date().toISOString()
+    };
+    const r = await fetch(`${REST}/ideas?id=eq.${id}`, {method:'PATCH', headers:{...HDR,'Prefer':'return=minimal'}, body:JSON.stringify(body)});
+    if(!r.ok) throw 0;
+    if(status){ status.textContent='✓ Salvo'; status.style.color='var(--green)'; }
+    // Atualiza preview na lista (sem re-renderizar editor)
+    nbRenderList(tipo);
+  } catch(e){
+    if(status){ status.textContent='⚠ Erro'; status.style.color='var(--red)'; }
+  }
+}
+
+// ── Cor ──────────────────────────────────────────────────────────────────────
+function nbSetColor(tipo, id, color){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea) return;
+  idea.color = color;
+  document.querySelectorAll('#'+(tipo==='pessoal'?'nbEditorP':'nbEditorE')+' .nb-color').forEach(el=>{
+    el.classList.toggle('active', el.classList.contains('nb-color-'+color));
+  });
+  nbScheduleSave(tipo, id);
+}
+
+// ── Checklist ────────────────────────────────────────────────────────────────
+function nbToggleCheck(tipo, id, idx){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea || !idea.checklist || !idea.checklist[idx]) return;
+  idea.checklist[idx].done = !idea.checklist[idx].done;
+  nbRenderEditor(tipo, idea);
+  nbScheduleSave(tipo, id);
+}
+
+function nbCheckText(tipo, id, idx, value){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea || !idea.checklist || !idea.checklist[idx]) return;
+  idea.checklist[idx].text = value;
+  nbScheduleSave(tipo, id);
+}
+
+function nbAddCheck(tipo, id){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(!Array.isArray(idea.checklist)) idea.checklist = [];
+  idea.checklist.push({text:'', done:false});
+  nbRenderEditor(tipo, idea);
+  // Foca no novo item
+  setTimeout(()=>{
+    const inputs = document.querySelectorAll('#nbChecklist-'+tipo+' .nb-check-text');
+    if(inputs.length) inputs[inputs.length-1].focus();
+  }, 30);
+  nbScheduleSave(tipo, id);
+}
+
+function nbRemoveCheck(tipo, id, idx){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea || !idea.checklist) return;
+  idea.checklist.splice(idx, 1);
+  nbRenderEditor(tipo, idea);
+  nbScheduleSave(tipo, id);
+}
+
+// ── Criar / Excluir ──────────────────────────────────────────────────────────
+async function nbCreate(tipo){
+  const body = {
+    title: '',
+    content: null,
+    type: tipo,
+    tags: null,
+    checklist: [],
+    color: 'amarelo',
+    updated_at: new Date().toISOString()
+  };
+  try {
+    const r = await fetch(`${REST}/ideas`, {method:'POST', headers:{...HDR,'Prefer':'return=representation'}, body:JSON.stringify(body)});
+    const created = await r.json();
+    const newIdea = Array.isArray(created) ? created[0] : created;
+    _nbState[tipo].items.unshift(newIdea);
+    _nbState[tipo].selectedId = newIdea.id;
+    nbRenderList(tipo);
+    nbRenderEditor(tipo, newIdea);
+    setTimeout(()=>{ const t = document.getElementById('nbTitle-'+tipo); if(t) t.focus(); }, 50);
+  } catch(e){ toast('Erro ao criar ideia','err'); }
+}
+
+async function nbDelete(tipo, id){
   if(!await _confirm('Excluir esta ideia?')) return;
-  await fetch(`${REST}/ideas?id=eq.${id}`, {method:'DELETE', headers:HDR});
-  toast('Ideia excluída','ok');
-  loadIdeias(tipo);
+  try {
+    await fetch(`${REST}/ideas?id=eq.${id}`, {method:'DELETE', headers:HDR});
+    _nbState[tipo].items = _nbState[tipo].items.filter(i=>i.id!==id);
+    if(_nbState[tipo].selectedId === id) _nbState[tipo].selectedId = null;
+    nbRenderList(tipo);
+    if(_nbState[tipo].items.length) nbSelect(tipo, _nbState[tipo].items[0].id);
+    else nbShowEmpty(tipo);
+    toast('Ideia excluída','ok');
+  } catch(e){ toast('Erro ao excluir','err'); }
 }
 
 // ── LIVROS ────────────────────────────────────────────────────────────────────
