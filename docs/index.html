@@ -2862,17 +2862,9 @@ async function sha256(msg){
 }
 
 async function doLogin(){
-  const pwd = document.getElementById('loginPwd').value;
-  const hash = await sha256(pwd);
-  if(hash === PWD_HASH){
-    localStorage.setItem('auth','1');
-    showApp();
-  } else {
-    // Debug temporário — mostra os 12 primeiros chars do hash gerado
-    const dbg = `Hash: ${hash.substring(0,12)}... · Esperado: ${PWD_HASH.substring(0,12)}... · Tamanho senha: ${pwd.length}`;
-    document.getElementById('loginErr').innerHTML = `✗ Senha incorreta.<br><span style="font-size:10px;font-family:monospace;color:var(--muted2)">${dbg}</span>`;
-    setTimeout(()=>document.getElementById('loginErr').textContent='', 8000);
-  }
+  // Login desativado temporariamente — entra direto
+  localStorage.setItem('auth','1');
+  showApp();
 }
 
 function doLogout(){
@@ -7117,7 +7109,8 @@ async function _executarImport(rows, skipDup){
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 // ══ INIT ══════════════════════════════════════════════════════════════════════
-if(localStorage.getItem('auth')==='1'){showApp()}
+// Auto-login: entra direto sempre
+showApp();
 else{document.getElementById('loginPwd').focus()}
 
 // ── PWA Service Worker ────────────────────────────────────────────────────
