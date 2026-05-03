@@ -1830,27 +1830,43 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 
 <!-- ══ ABA: LIVROS ══ -->
 <div id="tabLivros" style="display:none">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">📚 Resumos de Livros</div>
-      <button class="btn btn-green" onclick="openLivroModal()">＋ Novo Livro</button>
-    </div>
-    <div id="livros-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-top:4px">
-      <div class="empty">Nenhum livro ainda. Clique em + Novo Livro!</div>
-    </div>
+  <div class="nb-wrap">
+    <aside class="nb-sidebar">
+      <div class="nb-side-head">
+        <div class="nb-side-title">📚 Livros</div>
+        <button class="nb-newbtn" onclick="nbCreate('livro')" title="Novo livro">＋</button>
+      </div>
+      <input class="nb-search" id="nbSearchL" placeholder="🔍 Buscar..." oninput="nbRenderList('livro')"/>
+      <div class="nb-list" id="nbListL"></div>
+    </aside>
+    <main class="nb-editor" id="nbEditorL">
+      <div class="nb-empty">
+        <div style="font-size:48px;opacity:.3;margin-bottom:12px">📚</div>
+        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione ou crie um resumo</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
+      </div>
+    </main>
   </div>
 </div><!-- /tabLivros -->
 
 <!-- ══ ABA: CURSOS & VÍDEOS ══ -->
 <div id="tabCursos" style="display:none">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">🎓 Cursos & Vídeos</div>
-      <button class="btn btn-green" onclick="openCursoModal()">＋ Novo Conteúdo</button>
-    </div>
-    <div id="cursos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-top:4px">
-      <div class="empty">Nenhum conteúdo ainda. Clique em + Novo Conteúdo!</div>
-    </div>
+  <div class="nb-wrap">
+    <aside class="nb-sidebar">
+      <div class="nb-side-head">
+        <div class="nb-side-title">🎓 Cursos & Vídeos</div>
+        <button class="nb-newbtn" onclick="nbCreate('curso')" title="Novo conteúdo">＋</button>
+      </div>
+      <input class="nb-search" id="nbSearchC" placeholder="🔍 Buscar..." oninput="nbRenderList('curso')"/>
+      <div class="nb-list" id="nbListC"></div>
+    </aside>
+    <main class="nb-editor" id="nbEditorC">
+      <div class="nb-empty">
+        <div style="font-size:48px;opacity:.3;margin-bottom:12px">🎓</div>
+        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione ou crie um resumo</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
+      </div>
+    </main>
   </div>
 </div><!-- /tabCursos -->
 
@@ -4871,8 +4887,8 @@ function switchTab(tab){
   if(tab==='metas')  { fillMetas(); }
   if(tab==='ideiasP'){ loadIdeias('pessoal'); }
   if(tab==='ideiasE'){ loadIdeias('empresa'); }
-  if(tab==='livros') { loadLivros(); }
-  if(tab==='cursos') { loadCursos(); }
+  if(tab==='livros') { loadIdeias('livro');   }
+  if(tab==='cursos') { loadIdeias('curso');   }
   if(Date.now()-_lastRefreshTs > 90000 && ['geral','inv','saude','metas'].includes(tab)) refreshDashboard();
 }
 
@@ -6948,9 +6964,17 @@ function _updateTitleAlerts(fixedCosts, installments){
 function fmtDate(str){ if(!str) return '—'; const d=new Date(str); return d.toLocaleDateString('pt-BR'); }
 function stars(n){ return '★'.repeat(n||0)+'☆'.repeat(5-(n||0)); }
 
-// ══ NOTEBOOK DE IDEIAS ═══════════════════════════════════════════════════════
-const _nbState = { pessoal:{items:[], selectedId:null}, empresa:{items:[], selectedId:null} };
+// ══ NOTEBOOK GENÉRICO (Ideias / Livros / Cursos) ═════════════════════════════
+const _nbState = {
+  pessoal: { items:[], selectedId:null },
+  empresa: { items:[], selectedId:null },
+  livro:   { items:[], selectedId:null },
+  curso:   { items:[], selectedId:null },
+};
 const NB_COLORS = ['amarelo','azul','verde','roxo','rosa','laranja'];
+const NB_SUFFIX = { pessoal:'P', empresa:'E', livro:'L', curso:'C' };
+const NB_ICON   = { pessoal:'💡', empresa:'🏢', livro:'📚', curso:'🎓' };
+const nbId = (prefix, tipo) => prefix + NB_SUFFIX[tipo];
 
 async function loadIdeias(tipo){
   try {
@@ -6967,9 +6991,8 @@ async function loadIdeias(tipo){
 }
 
 function nbRenderList(tipo){
-  const listId = tipo==='pessoal' ? 'nbListP' : 'nbListE';
-  const searchId = tipo==='pessoal' ? 'nbSearchP' : 'nbSearchE';
-  const list = document.getElementById(listId);
+  const list = document.getElementById(nbId('nbList', tipo));
+  const searchId = nbId('nbSearch', tipo);
   const q = (document.getElementById(searchId)?.value || '').toLowerCase().trim();
   let items = _nbState[tipo].items;
   if(q){
@@ -7002,11 +7025,12 @@ function nbRenderList(tipo){
 }
 
 function nbShowEmpty(tipo){
-  const ed = document.getElementById(tipo==='pessoal'?'nbEditorP':'nbEditorE');
-  const icon = tipo==='pessoal' ? '💡' : '🏢';
+  const ed = document.getElementById(nbId('nbEditor', tipo));
+  const icon = NB_ICON[tipo];
+  const lbl = (tipo==='livro'||tipo==='curso') ? 'um resumo' : 'uma ideia';
   ed.innerHTML = `<div class="nb-empty">
     <div style="font-size:48px;opacity:.3;margin-bottom:12px">${icon}</div>
-    <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione uma ideia ou crie uma nova</div>
+    <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione ou crie ${lbl}</div>
     <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
   </div>`;
 }
@@ -7020,8 +7044,15 @@ function nbSelect(tipo, id){
 }
 
 function nbRenderEditor(tipo, idea){
-  const ed = document.getElementById(tipo==='pessoal'?'nbEditorP':'nbEditorE');
+  const ed = document.getElementById(nbId('nbEditor', tipo));
   const color = idea.color || 'amarelo';
+  const titlePh = (tipo==='livro') ? 'Título do livro... ex: Hábitos Atômicos — James Clear'
+                : (tipo==='curso') ? 'Título do curso/vídeo... ex: Curso de SQL — Udemy'
+                : 'Título da ideia...';
+  const contentPh = (tipo==='livro'||tipo==='curso')
+    ? 'Resumo, principais ideias, citações marcantes...'
+    : 'Escreva sua ideia... contexto, detalhes, próximos passos...';
+  const checkLbl = (tipo==='livro'||tipo==='curso') ? '☑ APRENDIZADOS / TÓPICOS' : '☑ CHECKLIST';
   const checklist = Array.isArray(idea.checklist) ? idea.checklist : [];
   const tags = Array.isArray(idea.tags) ? idea.tags : [];
 
@@ -7034,15 +7065,15 @@ function nbRenderEditor(tipo, idea){
       <button class="nb-edit-del" onclick="nbDelete('${tipo}',${idea.id})" title="Excluir ideia">🗑 Excluir</button>
     </div>
     <div class="nb-edit-body">
-      <input class="nb-title-input" id="nbTitle-${tipo}" placeholder="Título da ideia..." value="${escHtml(idea.title||'')}" oninput="nbField('${tipo}',${idea.id},'title',this.value)"/>
+      <input class="nb-title-input" id="nbTitle-${tipo}" placeholder="${titlePh}" value="${escHtml(idea.title||'')}" oninput="nbField('${tipo}',${idea.id},'title',this.value)"/>
 
-      <textarea class="nb-content-area" id="nbContent-${tipo}" placeholder="Escreva sua ideia... contexto, detalhes, próximos passos..." oninput="nbField('${tipo}',${idea.id},'content',this.value);nbAutoGrow(this)">${escHtml(idea.content||'')}</textarea>
+      <textarea class="nb-content-area" id="nbContent-${tipo}" placeholder="${contentPh}" oninput="nbField('${tipo}',${idea.id},'content',this.value);nbAutoGrow(this)">${escHtml(idea.content||'')}</textarea>
 
-      <div class="nb-section-label">☑ CHECKLIST</div>
+      <div class="nb-section-label">${checkLbl}</div>
       <div class="nb-checklist" id="nbChecklist-${tipo}">
         ${checklist.map((c,idx)=>nbChecklistRowHtml(tipo, idea.id, c, idx)).join('')}
       </div>
-      <button class="nb-check-add" onclick="nbAddCheck('${tipo}',${idea.id})">＋ Adicionar item ao checklist</button>
+      <button class="nb-check-add" onclick="nbAddCheck('${tipo}',${idea.id})">＋ Adicionar item</button>
 
       <div class="nb-section-label" style="margin-top:24px">🏷 TAGS</div>
       <input class="nb-tags-input" id="nbTags-${tipo}" placeholder="ex: marketing, produto, urgente (separadas por vírgula)" value="${escHtml(tags.join(', '))}" oninput="nbField('${tipo}',${idea.id},'tags',this.value)"/>
@@ -7113,7 +7144,7 @@ function nbSetColor(tipo, id, color){
   const idea = _nbState[tipo].items.find(i=>i.id===id);
   if(!idea) return;
   idea.color = color;
-  document.querySelectorAll('#'+(tipo==='pessoal'?'nbEditorP':'nbEditorE')+' .nb-color').forEach(el=>{
+  document.querySelectorAll('#'+nbId('nbEditor', tipo)+' .nb-color').forEach(el=>{
     el.classList.toggle('active', el.classList.contains('nb-color-'+color));
   });
   nbScheduleSave(tipo, id);
@@ -7191,167 +7222,6 @@ async function nbDelete(tipo, id){
     else nbShowEmpty(tipo);
     toast('Ideia excluída','ok');
   } catch(e){ toast('Erro ao excluir','err'); }
-}
-
-// ── LIVROS ────────────────────────────────────────────────────────────────────
-async function loadLivros(){
-  const grid = document.getElementById('livros-grid');
-  grid.innerHTML = '<div class="empty">Carregando...</div>';
-  try {
-    const r = await fetch(`${REST}/books?order=created_at.desc`, {headers: HDR});
-    const rows = await r.json();
-    if(!rows.length){ grid.innerHTML='<div class="empty">Nenhum livro ainda. Clique em + Novo Livro!</div>'; return; }
-    grid.innerHTML = rows.map(b=>`
-      <div class="card" style="border-left:3px solid var(--yellow)">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-          <div>
-            <div style="font-size:14px;font-weight:700;line-height:1.3">${escHtml(b.title)}</div>
-            ${b.author ? `<div style="font-size:11px;color:var(--muted2);margin-top:2px">por ${escHtml(b.author)}</div>` : ''}
-          </div>
-          <button onclick="deleteLivro(${b.id})" style="background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;flex-shrink:0;padding:0">🗑</button>
-        </div>
-        ${b.rating ? `<div style="margin:8px 0;font-size:14px;color:var(--yellow);letter-spacing:2px">${stars(b.rating)}</div>` : ''}
-        ${b.summary ? `<div style="font-size:12.5px;color:var(--muted2);line-height:1.6;margin-top:6px;white-space:pre-wrap"><b style="color:var(--text);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Resumo</b><br>${escHtml(b.summary)}</div>` : ''}
-        ${b.key_points ? `<div style="font-size:12.5px;color:var(--muted2);line-height:1.6;margin-top:10px;white-space:pre-wrap"><b style="color:var(--text);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Aprendizados-chave</b><br>${escHtml(b.key_points)}</div>` : ''}
-        ${b.finished_at ? `<div style="margin-top:10px;font-size:10px;color:var(--muted)">Lido em ${fmtDate(b.finished_at)}</div>` : ''}
-      </div>`).join('');
-  } catch(e){ grid.innerHTML='<div class="empty">Erro ao carregar.</div>'; }
-}
-
-function openLivroModal(){
-  showKnowledgeModal('📚 Novo Livro', `
-    <div class="field-row">
-      <div class="field"><label>Título *</label><input id="km-title" placeholder="Nome do livro" autofocus/></div>
-      <div class="field"><label>Autor</label><input id="km-author" placeholder="Nome do autor"/></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Nota (1-5)</label><input id="km-rating" type="number" min="1" max="5" placeholder="5"/></div>
-      <div class="field"><label>Data de leitura</label><input id="km-date" type="date"/></div>
-    </div>
-    <div class="field"><label>Resumo</label><textarea id="km-content" rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;outline:none;resize:vertical" placeholder="O que o livro fala..."></textarea></div>
-    <div class="field"><label>Aprendizados-chave</label><textarea id="km-points" rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;outline:none;resize:vertical" placeholder="Um ponto por linha..."></textarea></div>
-  `, async ()=>{
-    const title = document.getElementById('km-title').value.trim();
-    if(!title){ toast('Preencha o título','err'); return false; }
-    const rating = parseInt(document.getElementById('km-rating').value)||null;
-    const body = {
-      title, author: document.getElementById('km-author').value.trim()||null,
-      rating: rating && rating>=1 && rating<=5 ? rating : null,
-      summary: document.getElementById('km-content').value.trim()||null,
-      key_points: document.getElementById('km-points').value.trim()||null,
-      finished_at: document.getElementById('km-date').value||null
-    };
-    const r = await fetch(`${REST}/books`, {method:'POST', headers:{...HDR,'Prefer':'return=minimal'}, body:JSON.stringify(body)});
-    if(!r.ok){ toast('Erro ao salvar','err'); return false; }
-    toast('Livro salvo!','ok');
-    loadLivros();
-    return true;
-  }, 'var(--yellow)');
-}
-
-async function deleteLivro(id){
-  if(!await _confirm('Excluir este livro?')) return;
-  await fetch(`${REST}/books?id=eq.${id}`, {method:'DELETE', headers:HDR});
-  toast('Livro excluído','ok');
-  loadLivros();
-}
-
-// ── CURSOS & VÍDEOS ───────────────────────────────────────────────────────────
-async function loadCursos(){
-  const grid = document.getElementById('cursos-grid');
-  grid.innerHTML = '<div class="empty">Carregando...</div>';
-  try {
-    const r = await fetch(`${REST}/learning?order=created_at.desc`, {headers: HDR});
-    const rows = await r.json();
-    if(!rows.length){ grid.innerHTML='<div class="empty">Nenhum conteúdo ainda. Clique em + Novo Conteúdo!</div>'; return; }
-    grid.innerHTML = rows.map(c=>`
-      <div class="card" style="border-left:3px solid var(--green)">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-          <div>
-            <div style="font-size:14px;font-weight:700;line-height:1.3">${escHtml(c.title)}</div>
-            <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
-              <span class="type-badge" style="background:${c.type==='curso'?'rgba(34,197,94,.15)':'rgba(56,189,248,.15)'};color:${c.type==='curso'?'var(--green)':'var(--blue2)'}">${c.type==='curso'?'🎓 Curso':'▶ Vídeo'}</span>
-              ${c.source ? `<span style="font-size:11px;color:var(--muted2)">${escHtml(c.source)}</span>` : ''}
-            </div>
-          </div>
-          <button onclick="deleteCurso(${c.id})" style="background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;flex-shrink:0;padding:0">🗑</button>
-        </div>
-        ${c.url ? `<a href="${escHtml(c.url)}" target="_blank" style="display:inline-block;margin-top:8px;font-size:11px;color:var(--blue2)">🔗 Acessar conteúdo</a>` : ''}
-        ${c.summary ? `<div style="font-size:12.5px;color:var(--muted2);line-height:1.6;margin-top:8px;white-space:pre-wrap"><b style="color:var(--text);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Resumo</b><br>${escHtml(c.summary)}</div>` : ''}
-        ${c.key_points ? `<div style="font-size:12.5px;color:var(--muted2);line-height:1.6;margin-top:10px;white-space:pre-wrap"><b style="color:var(--text);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Aprendizados-chave</b><br>${escHtml(c.key_points)}</div>` : ''}
-        ${c.watched_at ? `<div style="margin-top:10px;font-size:10px;color:var(--muted)">Visto em ${fmtDate(c.watched_at)}</div>` : ''}
-      </div>`).join('');
-  } catch(e){ grid.innerHTML='<div class="empty">Erro ao carregar.</div>'; }
-}
-
-function openCursoModal(){
-  showKnowledgeModal('🎓 Novo Conteúdo', `
-    <div class="field"><label>Título *</label><input id="km-title" placeholder="Nome do curso ou vídeo" autofocus/></div>
-    <div class="field-row">
-      <div class="field"><label>Tipo</label><select id="km-type"><option value="curso">🎓 Curso</option><option value="video">▶ Vídeo</option></select></div>
-      <div class="field"><label>Fonte</label><input id="km-source" placeholder="YouTube, Udemy, Hotmart..."/></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>URL</label><input id="km-url" type="url" placeholder="https://..."/></div>
-      <div class="field"><label>Data</label><input id="km-date" type="date"/></div>
-    </div>
-    <div class="field"><label>Resumo</label><textarea id="km-content" rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;outline:none;resize:vertical" placeholder="Do que se trata..."></textarea></div>
-    <div class="field"><label>Aprendizados-chave</label><textarea id="km-points" rows="4" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;outline:none;resize:vertical" placeholder="Um ponto por linha..."></textarea></div>
-  `, async ()=>{
-    const title = document.getElementById('km-title').value.trim();
-    if(!title){ toast('Preencha o título','err'); return false; }
-    const body = {
-      title, type: document.getElementById('km-type').value,
-      source: document.getElementById('km-source').value.trim()||null,
-      url: document.getElementById('km-url').value.trim()||null,
-      summary: document.getElementById('km-content').value.trim()||null,
-      key_points: document.getElementById('km-points').value.trim()||null,
-      watched_at: document.getElementById('km-date').value||null
-    };
-    const r = await fetch(`${REST}/learning`, {method:'POST', headers:{...HDR,'Prefer':'return=minimal'}, body:JSON.stringify(body)});
-    if(!r.ok){ toast('Erro ao salvar','err'); return false; }
-    toast('Conteúdo salvo!','ok');
-    loadCursos();
-    return true;
-  }, 'var(--green)');
-}
-
-async function deleteCurso(id){
-  if(!await _confirm('Excluir este conteúdo?')) return;
-  await fetch(`${REST}/learning?id=eq.${id}`, {method:'DELETE', headers:HDR});
-  toast('Excluído','ok');
-  loadCursos();
-}
-
-// ── Modal genérico de conhecimento ────────────────────────────────────────────
-function showKnowledgeModal(title, fieldsHtml, onSave, accentColor){
-  const ov = document.createElement('div');
-  ov.className='modal-overlay open';
-  ov.style.zIndex='600';
-  ov.innerHTML=`
-    <div class="modal" style="max-width:560px">
-      <div class="modal-title" style="border-left:3px solid ${accentColor||'var(--blue)'};padding-left:10px">
-        ${title}
-        <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button>
-      </div>
-      ${fieldsHtml}
-      <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="this.closest('.modal-overlay').remove()">Cancelar</button>
-        <button class="btn btn-green" id="km-save-btn" onclick="kmSave(this)">Salvar</button>
-      </div>
-    </div>`;
-  ov.onclick=e=>{ if(e.target===ov) ov.remove(); };
-  ov._onSave = onSave;
-  document.body.appendChild(ov);
-  setTimeout(()=>{ const f=ov.querySelector('#km-title'); if(f) f.focus(); }, 80);
-}
-
-async function kmSave(btn){
-  const ov = btn.closest('.modal-overlay');
-  btn.textContent='Salvando...'; btn.disabled=true;
-  const ok = await ov._onSave();
-  if(ok) ov.remove();
-  else { btn.textContent='Salvar'; btn.disabled=false; }
 }
 
 function escHtml(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
