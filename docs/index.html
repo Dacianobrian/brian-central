@@ -8,7 +8,7 @@
 <meta http-equiv="Expires" content="0"/>
 <title>Brian Central</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236366f1'/><text y='.9em' font-size='72' x='12'>⚡</text></svg>"/>
-<link rel="manifest" href="manifest.json"/>
+<!-- manifest removido propositalmente -->
 <meta name="theme-color" content="#6366f1"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
@@ -909,6 +909,7 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
         <div class="home-title">Cérebro</div>
         <div class="home-sub">Tudo que importa em um só lugar</div>
       </div>
+      <div style="margin-left:auto;font-size:10px;color:var(--muted);font-family:monospace;opacity:.5">v3-nopwd</div>
     </div>
 
     <div class="home-grid">
@@ -7113,9 +7114,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 showApp();
 else{document.getElementById('loginPwd').focus()}
 
-// ── PWA Service Worker ────────────────────────────────────────────────────
+// ── Limpa Service Worker e cache antigos ─────────────────────────────────
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
+  navigator.serviceWorker.getRegistrations().then(regs=>{
+    regs.forEach(r=>r.unregister());
+  }).catch(()=>{});
+}
+if('caches' in window){
+  caches.keys().then(keys=>keys.forEach(k=>caches.delete(k))).catch(()=>{});
 }
 
 // ── Alerta de vencimentos próximos no título ──────────────────────────────
