@@ -692,6 +692,70 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 .ag-event:hover .ag-event-del{opacity:1}
 .ag-event-del:hover{color:var(--red)}
 
+/* ══ LIVROS — Galeria + Detalhe ══════════════════════════════ */
+.liv-search{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12.5px;padding:7px 12px;outline:none;width:200px;transition:border-color var(--dur-fast)}
+.liv-search:focus{border-color:var(--blue)}
+
+.liv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.liv-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform var(--dur-normal),border-color var(--dur-normal),box-shadow var(--dur-normal);display:flex;flex-direction:column;position:relative}
+.liv-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 12px 32px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.05)}
+.liv-cover{aspect-ratio:3/2;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;font-size:46px;color:rgba(255,255,255,.2);overflow:hidden;position:relative}
+.liv-cover img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.liv-card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;gap:5px}
+.liv-card-icon{font-size:14px;color:var(--yellow);margin-bottom:1px}
+.liv-card-title{font-size:14.5px;font-weight:700;line-height:1.3;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.liv-card-author{font-size:12px;color:var(--muted2);font-weight:500;line-height:1.3;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.liv-card-month{display:inline-flex;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(202,138,4,.18);color:#fbbf24;width:fit-content;margin-top:4px;letter-spacing:.3px}
+.liv-progress-row{margin-top:auto;padding-top:10px;display:flex;align-items:center;gap:8px}
+.liv-progress-pct{font-size:11px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;min-width:34px}
+.liv-progress-bar{flex:1;height:5px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.liv-progress-fill{height:100%;background:linear-gradient(90deg,#0284c7,#06b6d4);border-radius:99px;transition:width .4s ease}
+.liv-progress-fill.complete{background:linear-gradient(90deg,#16a34a,#22c55e)}
+
+/* Detalhe (página do livro) */
+.liv-detail{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px}
+.liv-detail-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.liv-detail-grid{display:grid;grid-template-columns:240px 1fr;gap:30px;margin-bottom:24px}
+@media(max-width:780px){.liv-detail-grid{grid-template-columns:1fr;gap:18px}}
+
+.liv-detail-cover-wrap{position:relative}
+.liv-detail-cover{aspect-ratio:3/4;border-radius:10px;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:56px;color:rgba(255,255,255,.25);overflow:hidden;border:2px dashed var(--border2);transition:border-color var(--dur-fast),background var(--dur-fast)}
+.liv-detail-cover.has-img{border:1px solid var(--border)}
+.liv-detail-cover img{width:100%;height:100%;object-fit:cover}
+.liv-detail-cover-hint{font-size:11px;color:var(--muted);margin-top:8px;font-weight:500}
+.liv-detail-cover-edit{margin-top:8px;display:flex;gap:6px;align-items:center}
+.liv-detail-cover-edit input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--font);font-size:11px;padding:6px 8px;outline:none}
+.liv-detail-cover-edit input:focus{border-color:var(--blue)}
+
+.liv-meta-col{display:flex;flex-direction:column;gap:14px}
+.liv-title-input{width:100%;background:transparent;border:none;color:var(--text);font-family:var(--font);font-size:28px;font-weight:800;letter-spacing:-.5px;outline:none;line-height:1.15}
+.liv-title-input::placeholder{color:var(--muted)}
+.liv-meta-row-fields{display:grid;grid-template-columns:1fr 160px;gap:12px}
+.liv-meta-field{display:flex;flex-direction:column;gap:5px}
+.liv-meta-label{font-size:10px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px}
+.liv-meta-input{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13.5px;padding:9px 12px;outline:none;transition:border-color var(--dur-fast);width:100%}
+.liv-meta-input:focus{border-color:var(--blue)}
+
+.liv-progress-block{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.liv-progress-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.liv-progress-head-label{font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.6px}
+.liv-progress-head-val{font-size:18px;font-weight:800;color:var(--blue2);font-variant-numeric:tabular-nums}
+.liv-progress-head-val.complete{color:var(--green)}
+.liv-progress-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;background:var(--border2);outline:none;cursor:pointer}
+.liv-progress-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#06b6d4);cursor:pointer;border:2px solid var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.liv-progress-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#06b6d4);cursor:pointer;border:2px solid var(--surface)}
+
+.liv-resumo-section{margin-top:8px}
+.liv-resumo-label{font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.liv-resumo-area{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);font-size:14px;line-height:1.7;padding:16px 18px;outline:none;resize:vertical;min-height:240px;transition:border-color var(--dur-fast)}
+.liv-resumo-area:focus{border-color:var(--blue)}
+.liv-resumo-area::placeholder{color:var(--muted)}
+
+.liv-status-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.3px}
+.liv-status-lendo{background:rgba(56,189,248,.15);color:var(--blue2)}
+.liv-status-lido{background:rgba(34,197,94,.15);color:var(--green)}
+.liv-status-quero{background:rgba(168,162,158,.15);color:var(--muted2)}
+
 /* ── Print ────────────────────────────────────────────────── */
 @media print{
   body{background:#fff!important;color:#000!important}
@@ -1913,25 +1977,26 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
   </div>
 </div><!-- /tabIdeiasE -->
 
-<!-- ══ ABA: LIVROS ══ -->
+<!-- ══ ABA: LIVROS (Galeria + Detalhe) ══ -->
 <div id="tabLivros" style="display:none">
-  <div class="nb-wrap">
-    <aside class="nb-sidebar">
-      <div class="nb-side-head">
-        <div class="nb-side-title">📚 Livros</div>
-        <button class="nb-newbtn" onclick="nbCreate('livro')" title="Novo livro">＋</button>
+  <!-- Vista Galeria -->
+  <div id="livGallery">
+    <div class="ha-head">
+      <div>
+        <div class="ha-head-title">📚 Minhas Leituras</div>
+        <div class="ha-head-stat" id="livStat">—</div>
       </div>
-      <input class="nb-search" id="nbSearchL" placeholder="🔍 Buscar..." oninput="nbRenderList('livro')"/>
-      <div class="nb-list" id="nbListL"></div>
-    </aside>
-    <main class="nb-editor" id="nbEditorL">
-      <div class="nb-empty">
-        <div style="font-size:48px;opacity:.3;margin-bottom:12px">📚</div>
-        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione ou crie um resumo</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
+      <div style="display:flex;gap:8px">
+        <input class="liv-search" id="livSearch" placeholder="🔍 Buscar..." oninput="livRenderGallery()"/>
+        <button class="btn btn-green" onclick="livCreateNew()">＋ Novo livro</button>
       </div>
-    </main>
+    </div>
+    <div class="liv-grid" id="livGrid">
+      <div class="empty" style="padding:50px">Carregando...</div>
+    </div>
   </div>
+  <!-- Vista Detalhe -->
+  <div id="livDetail" style="display:none"></div>
 </div><!-- /tabLivros -->
 
 <!-- ══ ABA: CURSOS & VÍDEOS ══ -->
@@ -5005,7 +5070,7 @@ function switchTab(tab){
   if(tab==='metas')  { fillMetas(); }
   if(tab==='ideiasP'){ loadIdeias('pessoal'); }
   if(tab==='ideiasE'){ loadIdeias('empresa'); }
-  if(tab==='livros') { loadIdeias('livro');   }
+  if(tab==='livros') { loadLivrosGallery();   }
   if(tab==='cursos') { loadIdeias('curso');   }
   if(tab==='habitos'){ loadHabitos();         }
   if(Date.now()-_lastRefreshTs > 90000 && ['geral','inv','saude','metas'].includes(tab)) refreshDashboard();
@@ -7344,6 +7409,232 @@ async function nbDelete(tipo, id){
 }
 
 function escHtml(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── LIVROS — Galeria + Detalhe ───────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+let _livBooks = [];
+let _livCurrentId = null;
+const _livSaveTimers = {};
+
+async function loadLivrosGallery(){
+  const grid = document.getElementById('livGrid');
+  grid.innerHTML = '<div class="empty" style="padding:50px">Carregando...</div>';
+  // volta pra vista galeria caso esteja no detalhe
+  document.getElementById('livGallery').style.display = '';
+  document.getElementById('livDetail').style.display = 'none';
+  _livCurrentId = null;
+  try {
+    const r = await fetch(`${REST}/ideas?type=eq.livro&order=updated_at.desc.nullslast,created_at.desc`, {headers: HDR});
+    _livBooks = await r.json() || [];
+    livRenderGallery();
+  } catch(e){
+    grid.innerHTML = '<div class="empty" style="padding:50px;color:var(--red)">Erro ao carregar.</div>';
+  }
+}
+
+function livRenderGallery(){
+  const grid = document.getElementById('livGrid');
+  const q = (document.getElementById('livSearch')?.value || '').toLowerCase().trim();
+  let books = _livBooks;
+  if(q) books = books.filter(b => ((b.title||'')+' '+(b.author||'')+' '+(b.content||'')).toLowerCase().includes(q));
+
+  if(!books.length){
+    grid.innerHTML = `<div class="empty" style="padding:60px;grid-column:1/-1">
+      <div style="font-size:38px;opacity:.3;margin-bottom:10px">📚</div>
+      <div style="font-size:13px;font-weight:600;color:var(--muted2)">${q?'Nenhum livro encontrado':'Nenhum livro ainda'}</div>
+      ${!q?'<div style="font-size:11px;margin-top:6px">Clique em ＋ Novo livro acima</div>':''}
+    </div>`;
+    document.getElementById('livStat').textContent = q ? '0 resultados' : '0 livros';
+    return;
+  }
+
+  // Stats
+  const lendo = _livBooks.filter(b => (b.progress||0) > 0 && (b.progress||0) < 100).length;
+  const lidos = _livBooks.filter(b => (b.progress||0) === 100).length;
+  document.getElementById('livStat').textContent =
+    `${_livBooks.length} livros · ${lidos} lidos · ${lendo} em andamento`;
+
+  grid.innerHTML = books.map(b=>{
+    const prog = b.progress || 0;
+    const cover = b.cover_url
+      ? `<img src="${escHtml(b.cover_url)}" alt="" onerror="this.style.display='none';this.parentElement.innerHTML='📖'"/>`
+      : '📖';
+    return `
+      <div class="liv-card" onclick="livOpenDetail(${b.id})">
+        <div class="liv-cover">${cover}</div>
+        <div class="liv-card-body">
+          <div class="liv-card-icon">📖</div>
+          <div class="liv-card-title">${escHtml(b.title || 'Sem título')}</div>
+          ${b.author ? `<div class="liv-card-author">${escHtml(b.author)}</div>` : '<div class="liv-card-author" style="opacity:.4">—</div>'}
+          ${b.month_label ? `<span class="liv-card-month">${escHtml(b.month_label)}</span>` : ''}
+          <div class="liv-progress-row">
+            <div class="liv-progress-pct">${prog}%</div>
+            <div class="liv-progress-bar"><div class="liv-progress-fill ${prog===100?'complete':''}" style="width:${prog}%"></div></div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function livOpenDetail(id){
+  const book = _livBooks.find(b=>b.id===id);
+  if(!book) return;
+  _livCurrentId = id;
+  document.getElementById('livGallery').style.display = 'none';
+  document.getElementById('livDetail').style.display = '';
+  livRenderDetail(book);
+  window.scrollTo(0,0);
+}
+
+function livBackToGallery(){
+  document.getElementById('livGallery').style.display = '';
+  document.getElementById('livDetail').style.display = 'none';
+  _livCurrentId = null;
+  livRenderGallery();
+}
+
+function livStatusFromProgress(p){
+  if(p === 0)   return {cls:'liv-status-quero', label:'📌 Quero ler'};
+  if(p === 100) return {cls:'liv-status-lido',  label:'✓ Lido'};
+  return {cls:'liv-status-lendo', label:'📖 Lendo'};
+}
+
+function livRenderDetail(b){
+  const detail = document.getElementById('livDetail');
+  const prog = b.progress || 0;
+  const status = livStatusFromProgress(prog);
+  const coverHtml = b.cover_url
+    ? `<img src="${escHtml(b.cover_url)}" alt="" onerror="this.parentElement.classList.remove('has-img');this.outerHTML='📖'"/>`
+    : '📖';
+  const coverClass = b.cover_url ? 'liv-detail-cover has-img' : 'liv-detail-cover';
+
+  detail.innerHTML = `
+    <div class="liv-detail">
+      <div class="liv-detail-top">
+        <button class="back-home" onclick="livBackToGallery()">← Galeria</button>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="liv-status-tag ${status.cls}">${status.label}</span>
+          <span class="nb-edit-status" id="livStatus" style="font-size:10.5px;color:var(--green)">✓ Salvo</span>
+          <button class="nb-edit-del" onclick="livDelete(${b.id})">🗑 Excluir</button>
+        </div>
+      </div>
+
+      <div class="liv-detail-grid">
+        <div>
+          <div class="liv-detail-cover-wrap">
+            <div class="${coverClass}">${coverHtml}</div>
+            <div class="liv-detail-cover-edit">
+              <input id="livCover" type="url" placeholder="URL da capa (https://...)" value="${escHtml(b.cover_url||'')}" oninput="livField(${b.id},'cover_url',this.value);livUpdateCoverPreview()"/>
+            </div>
+            <div class="liv-detail-cover-hint">Cole a URL de uma imagem da capa</div>
+          </div>
+        </div>
+
+        <div class="liv-meta-col">
+          <input class="liv-title-input" id="livTitle" placeholder="Título do livro..." value="${escHtml(b.title||'')}" oninput="livField(${b.id},'title',this.value)"/>
+
+          <div class="liv-meta-row-fields">
+            <div class="liv-meta-field">
+              <div class="liv-meta-label">Autor</div>
+              <input class="liv-meta-input" id="livAuthor" placeholder="Nome do autor" value="${escHtml(b.author||'')}" oninput="livField(${b.id},'author',this.value)"/>
+            </div>
+            <div class="liv-meta-field">
+              <div class="liv-meta-label">Mês de leitura</div>
+              <select class="liv-meta-input" id="livMonth" onchange="livField(${b.id},'month_label',this.value)">
+                <option value="">—</option>
+                ${['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'].map(m=>`<option value="${m}" ${b.month_label===m?'selected':''}>${m}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+
+          <div class="liv-progress-block">
+            <div class="liv-progress-head">
+              <div class="liv-progress-head-label">Progresso de leitura</div>
+              <div class="liv-progress-head-val ${prog===100?'complete':''}" id="livProgVal">${prog}%</div>
+            </div>
+            <input type="range" class="liv-progress-slider" id="livProg" min="0" max="100" step="5" value="${prog}" oninput="livField(${b.id},'progress',parseInt(this.value));document.getElementById('livProgVal').textContent=this.value+'%';document.getElementById('livProgVal').classList.toggle('complete',this.value==100)"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="liv-resumo-section">
+        <div class="liv-resumo-label">📝 RESUMO E ANOTAÇÕES</div>
+        <textarea class="liv-resumo-area" id="livResumo" placeholder="Vá escrevendo seu resumo conforme avança na leitura...&#10;&#10;Capítulo 1 — ...&#10;Capítulo 2 — ...&#10;Frases marcantes, aprendizados, reflexões..." oninput="livField(${b.id},'content',this.value)">${escHtml(b.content||'')}</textarea>
+      </div>
+    </div>
+  `;
+}
+
+function livUpdateCoverPreview(){
+  const input = document.getElementById('livCover');
+  const wrap = input.closest('.liv-detail-cover-wrap');
+  const cover = wrap.querySelector('.liv-detail-cover');
+  const url = input.value.trim();
+  if(url){
+    cover.innerHTML = `<img src="${escHtml(url)}" alt="" onerror="this.parentElement.classList.remove('has-img');this.outerHTML='📖'"/>`;
+    cover.classList.add('has-img');
+  } else {
+    cover.innerHTML = '📖';
+    cover.classList.remove('has-img');
+  }
+}
+
+// ── Auto-save ────────────────────────────────────────────────────────────────
+function livField(id, field, value){
+  const book = _livBooks.find(b=>b.id===id);
+  if(!book) return;
+  book[field] = value;
+  const status = document.getElementById('livStatus');
+  if(status){ status.textContent='Editando...'; status.style.color='var(--yellow)'; }
+  if(_livSaveTimers[id]) clearTimeout(_livSaveTimers[id]);
+  _livSaveTimers[id] = setTimeout(()=>livSave(id), 700);
+}
+
+async function livSave(id){
+  const book = _livBooks.find(b=>b.id===id);
+  if(!book) return;
+  const status = document.getElementById('livStatus');
+  try {
+    const body = {
+      title: book.title || '',
+      content: book.content || null,
+      author: book.author || null,
+      cover_url: book.cover_url || null,
+      progress: book.progress || 0,
+      month_label: book.month_label || null,
+      updated_at: new Date().toISOString()
+    };
+    const r = await fetch(`${REST}/ideas?id=eq.${id}`, {method:'PATCH', headers:{...HDR,'Prefer':'return=minimal'}, body:JSON.stringify(body)});
+    if(!r.ok) throw 0;
+    if(status){ status.textContent='✓ Salvo'; status.style.color='var(--green)'; }
+  } catch(e){
+    if(status){ status.textContent='⚠ Erro'; status.style.color='var(--red)'; }
+  }
+}
+
+// ── Criar / Excluir ──────────────────────────────────────────────────────────
+async function livCreateNew(){
+  const body = {title:'', type:'livro', progress:0, updated_at:new Date().toISOString()};
+  try {
+    const r = await fetch(`${REST}/ideas`, {method:'POST', headers:{...HDR,'Prefer':'return=representation'}, body:JSON.stringify(body)});
+    const created = await r.json();
+    const newBook = Array.isArray(created) ? created[0] : created;
+    _livBooks.unshift(newBook);
+    livOpenDetail(newBook.id);
+    setTimeout(()=>{ const t = document.getElementById('livTitle'); if(t) t.focus(); }, 80);
+  } catch(e){ toast('Erro ao criar livro','err'); }
+}
+
+async function livDelete(id){
+  if(!await _confirm('Excluir este livro?','Resumo e anotações serão perdidos.')) return;
+  try {
+    await fetch(`${REST}/ideas?id=eq.${id}`, {method:'DELETE', headers:HDR});
+    _livBooks = _livBooks.filter(b=>b.id!==id);
+    livBackToGallery();
+    toast('Livro excluído','ok');
+  } catch(e){ toast('Erro ao excluir','err'); }
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // ── HÁBITOS & AGENDA ─────────────────────────────────────────────────────────
