@@ -45,13 +45,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:13
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
 
 /* ── Login ── */
-.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh}
-.login-box{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 24px 80px rgba(0,0,0,.6)}
-.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:28px}
-.login-logo-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0ea5e9,#2dd4bf);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 24px rgba(56,189,248,.4)}
-.login-title{font-size:20px;font-weight:800;letter-spacing:-.4px}
-.login-title span{color:var(--blue2)}
-.login-sub{font-size:12px;color:var(--muted);margin-bottom:24px}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(56,189,248,.07) 0%,transparent 70%)}
+.login-box{background:var(--surface);border:1px solid var(--border2);border-radius:24px;padding:44px 40px;width:100%;max-width:400px;box-shadow:0 32px 96px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04);position:relative;overflow:hidden}
+.login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.6),var(--purple),rgba(56,189,248,.6),transparent)}
+.login-brand{text-align:center;margin-bottom:32px}
+.login-icon-wrap{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#0ea5e9,#6366f1);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 16px;box-shadow:0 0 40px rgba(99,102,241,.4),0 8px 24px rgba(0,0,0,.4)}
+.login-title{font-size:26px;font-weight:900;letter-spacing:-.6px;margin-bottom:4px}
+.login-title span{background:linear-gradient(135deg,var(--blue2),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.login-sub{font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:10px}
+.login-sub-dot{width:3px;height:3px;border-radius:50%;background:var(--border2)}
+.login-pills{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.login-pill{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--muted2)}
+.login-pill.fin{border-color:rgba(56,189,248,.3);color:var(--blue2);background:rgba(56,189,248,.07)}
+.login-pill.pes{border-color:rgba(167,139,250,.3);color:var(--purple);background:rgba(167,139,250,.07)}
+.login-divider{height:1px;background:var(--border);margin:24px 0}
 .login-field label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px}
 .login-field input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:14px;padding:11px 14px;outline:none;transition:.15s;margin-bottom:16px}
 .login-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
@@ -523,19 +530,28 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 <!-- ══ LOGIN ══ -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo">
-      <div class="login-logo-icon">💰</div>
-      <div>
-        <div class="login-title">Brian <span>Finanças</span></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">Controle Financeiro Pessoal</div>
+
+    <div class="login-brand">
+      <div class="login-icon-wrap">⚡</div>
+      <div class="login-title">Brian <span>Central</span></div>
+      <div class="login-sub">
+        <span>Seu espaço pessoal</span>
+      </div>
+      <div class="login-pills">
+        <span class="login-pill fin">💰 Financeiro</span>
+        <span class="login-pill pes">🧠 Pessoal</span>
       </div>
     </div>
+
+    <div class="login-divider"></div>
+
     <div class="login-field">
-      <label>Senha</label>
-      <input type="password" id="loginPwd" placeholder="Digite a senha..." onkeydown="if(event.key==='Enter')doLogin()"/>
+      <label>Senha de acesso</label>
+      <input type="password" id="loginPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" autofocus/>
     </div>
-    <button class="login-btn" onclick="doLogin()">Entrar →</button>
+    <button class="login-btn" onclick="doLogin()">Entrar no Brian Central →</button>
     <div class="login-err" id="loginErr"></div>
+
   </div>
 </div>
 
