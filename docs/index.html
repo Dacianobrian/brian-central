@@ -7754,7 +7754,8 @@ function renderHabitsGrid(){
         const done = set.has(d.ymd);
         const future = d.date > new Date();
         if(!future){ weekTotal++; if(done) weekDone++; }
-        return `<div class="hb-cell"><div class="hb-check ${done?'done':''} ${future?'future':''}" onclick="${future?'':'hbToggle('+h.id+',\\''+d.ymd+'\\')'}"></div></div>`;
+        const click = future ? '' : `onclick="hbToggle(${h.id},'${d.ymd}')"`;
+        return `<div class="hb-cell"><div class="hb-check ${done?'done':''} ${future?'future':''}" ${click}></div></div>`;
       }).join('')}
       <div class="hb-cell">
         ${(()=>{const s=calcStreak(h.id); return `<div class="hb-streak ${s===0?'zero':''}">${s>0?'🔥 '+s:'—'}</div>`;})()}
