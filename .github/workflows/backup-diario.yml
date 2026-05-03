@@ -1,0 +1,52 @@
+name: Backup Diário Supabase
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Todo dia à meia-noite horário de Brasília (3h UTC)
+  workflow_dispatch:       # Permite rodar manualmente também
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Exportar tabelas do Supabase
+        env:
+          SUPA_URL: https://cathhujdhocioybdpnvc.supabase.co
+          SUPA_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhdGhodWpkaG9jaW95YmRwbnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MTUxODgsImV4cCI6MjA5MTI5MTE4OH0.5zO8sxWV1R_fVt9FPN4bDGXaCophee4gCh0jjEVp9DQ
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          mkdir -p backups
+
+          fetch_table() {
+            curl -s "$SUPA_URL/rest/v1/$1?select=*&limit=10000" \
+              -H "apikey: $SUPA_KEY" \
+              -H "Authorization: Bearer $SUPA_KEY"
+          }
+
+          echo "{" > backups/$DATE.json
+          echo "  \"exported_at\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"," >> backups/$DATE.json
+
+          for table in transactions accounts fii_portfolio planned_entries fixed_costs goals income_categories expense_categories ideas books learning; do
+            echo "  \"$table\": $(fetch_table $table)," >> backups/$DATE.json
+          done
+
+          # Remove trailing comma da última linha e fecha o JSON
+          sed -i '$ s/,$//' backups/$DATE.json
+          echo "}" >> backups/$DATE.json
+
+          # Manter apenas os últimos 30 backups
+          ls -t backups/*.json | tail -n +31 | xargs -r rm
+
+      - name: Commit e push do backup
+        run: |
+          git config user.name "Brian Central Bot"
+          git config user.email "backup@brian-central"
+          git add backups/
+          git diff --staged --quiet || git commit -m "Backup automático $(date +%Y-%m-%d)"
+          git push
