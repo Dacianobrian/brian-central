@@ -32,7 +32,7 @@ jobs:
           echo "{" > backups/$DATE.json
           echo "  \"exported_at\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"," >> backups/$DATE.json
 
-          for table in transactions accounts fii_portfolio planned_entries fixed_costs goals income_categories expense_categories ideas books learning; do
+          for table in transactions accounts fii_portfolio planned_entries fixed_costs goals income_categories expense_categories ideas habits habit_checks agenda_events; do
             echo "  \"$table\": $(fetch_table $table)," >> backups/$DATE.json
           done
 
