@@ -2868,8 +2868,10 @@ async function doLogin(){
     localStorage.setItem('auth','1');
     showApp();
   } else {
-    document.getElementById('loginErr').textContent = '✗ Senha incorreta.';
-    setTimeout(()=>document.getElementById('loginErr').textContent='', 2000);
+    // Debug temporário — mostra os 12 primeiros chars do hash gerado
+    const dbg = `Hash: ${hash.substring(0,12)}... · Esperado: ${PWD_HASH.substring(0,12)}... · Tamanho senha: ${pwd.length}`;
+    document.getElementById('loginErr').innerHTML = `✗ Senha incorreta.<br><span style="font-size:10px;font-family:monospace;color:var(--muted2)">${dbg}</span>`;
+    setTimeout(()=>document.getElementById('loginErr').textContent='', 8000);
   }
 }
 
