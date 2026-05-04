@@ -530,6 +530,8 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 .home-cover-cur{background:linear-gradient(135deg,#14532d 0%,#16a34a 50%,#22c55e 100%)}
 .home-cover-met{background:linear-gradient(135deg,#831843 0%,#be185d 50%,#f472b6 100%)}
 .home-cover-hab{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 50%,#06b6d4 100%)}
+.home-cover-fer{background:linear-gradient(135deg,#3f3f46 0%,#71717a 50%,#a1a1aa 100%)}
+.home-tag-fer{background:rgba(161,161,170,.18);color:#d4d4d8}
 .home-tag-rot{background:rgba(56,189,248,.15);color:var(--blue2)}
 .home-card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
 .home-card-head{display:flex;align-items:center;gap:8px;margin-bottom:2px}
@@ -755,6 +757,50 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 .liv-status-lendo{background:rgba(56,189,248,.15);color:var(--blue2)}
 .liv-status-lido{background:rgba(34,197,94,.15);color:var(--green)}
 .liv-status-quero{background:rgba(168,162,158,.15);color:var(--muted2)}
+
+/* ══ FERRAMENTAS — Tarefas e Lista de Compras ════════════════ */
+.task-quickadd-wrap{display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:10px;margin-bottom:14px;flex-wrap:wrap}
+.task-quickadd{flex:1;min-width:240px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13.5px;padding:9px 12px;outline:none;transition:border-color var(--dur-fast)}
+.task-quickadd:focus{border-color:var(--blue)}
+.task-quickadd-prio,.task-quickadd-date{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--font);font-size:12.5px;padding:9px 10px;outline:none}
+
+.task-list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.task-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:border-color var(--dur-fast),background var(--dur-fast)}
+.task-row:hover{border-color:var(--border2);background:var(--surface2)}
+.task-row.done{opacity:.55}
+.task-check{width:20px;height:20px;border:2px solid var(--border2);border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--dur-fast),border-color var(--dur-fast)}
+.task-check:hover{border-color:var(--green)}
+.task-check.checked{background:var(--green);border-color:var(--green)}
+.task-check.checked::after{content:'✓';color:#fff;font-size:13px;font-weight:900;line-height:1}
+.task-content{flex:1;min-width:0}
+.task-title{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3}
+.task-row.done .task-title{text-decoration:line-through;color:var(--muted)}
+.task-meta{display:flex;align-items:center;gap:10px;margin-top:3px;font-size:11px;color:var(--muted2)}
+.task-prio{display:inline-flex;align-items:center;gap:3px;font-weight:700;padding:1px 7px;border-radius:4px;font-size:10px;letter-spacing:.3px}
+.task-prio-baixa{background:rgba(148,163,184,.15);color:#94a3b8}
+.task-prio-normal{background:rgba(56,189,248,.15);color:var(--blue2)}
+.task-prio-alta{background:rgba(244,63,94,.15);color:var(--red)}
+.task-due{display:inline-flex;align-items:center;gap:3px;font-weight:600}
+.task-due-late{color:var(--red);font-weight:700}
+.task-due-today{color:var(--yellow);font-weight:700}
+.task-del{background:transparent;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:4px 8px;border-radius:6px;opacity:0;transition:opacity var(--dur-fast),color var(--dur-fast)}
+.task-row:hover .task-del{opacity:1}
+.task-del:hover{color:var(--red);background:rgba(244,63,94,.1)}
+
+/* Lista de Compras */
+.shop-tabs{display:flex;gap:4px;margin-bottom:14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:3px;width:fit-content}
+.shop-tab{background:transparent;border:none;color:var(--muted2);padding:6px 16px;font-family:var(--font);font-size:12.5px;font-weight:600;cursor:pointer;border-radius:7px;transition:background var(--dur-fast),color var(--dur-fast)}
+.shop-tab:hover{color:var(--text)}
+.shop-tab.active{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.shop-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:border-color var(--dur-fast)}
+.shop-row:hover{border-color:var(--border2)}
+.shop-row:hover .task-del{opacity:1}
+.shop-row.bought{opacity:.5}
+.shop-row.bought .shop-name{text-decoration:line-through;color:var(--muted)}
+.shop-name{flex:1;font-size:13.5px;font-weight:600;color:var(--text)}
+.shop-qty{font-size:11px;font-weight:700;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:2px 8px;color:var(--muted2)}
+.shop-price{font-size:13px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums;min-width:80px;text-align:right}
+.shop-stat{font-weight:700;color:var(--text)}
 
 /* ── Print ────────────────────────────────────────────────── */
 @media print{
@@ -989,6 +1035,19 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
           <div class="home-card-desc">Tracker diário e compromissos</div>
         </div>
       </div>
+
+      <!-- Ferramentas -->
+      <div class="home-card" onclick="openModule('ferramentas')">
+        <div class="home-cover home-cover-fer">🛠</div>
+        <div class="home-card-body">
+          <div class="home-card-head">
+            <span class="home-card-emoji">🛠</span>
+            <div class="home-card-title">Ferramentas</div>
+          </div>
+          <span class="home-card-tag home-tag-fer">Produtividade</span>
+          <div class="home-card-desc">Tarefas, lista de compras, senhas, docs</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -999,6 +1058,7 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 <div id="tabBtnLivros" style="display:none"></div>
 <div id="tabBtnCursos" style="display:none"></div>
 <div id="tabBtnHabitos" style="display:none"></div>
+<div id="tabBtnFerramentas" style="display:none"></div>
 
 
 <!-- Modal Todas as Transações -->
@@ -2055,6 +2115,93 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
     </div>
   </div>
 </div><!-- /tabHabitos -->
+
+<!-- ══ ABA: FERRAMENTAS ══ -->
+<div id="tabFerramentas" style="display:none">
+  <div class="ha-tabs">
+    <button class="ha-tab active" id="ferSubTasks" onclick="ferSwitchSub('tasks')">✅ Tarefas</button>
+    <button class="ha-tab" id="ferSubShop" onclick="ferSwitchSub('shop')">🛒 Lista de Compras</button>
+    <button class="ha-tab" id="ferSubPwd" onclick="ferSwitchSub('pwd')">🔑 Senhas</button>
+    <button class="ha-tab" id="ferSubDoc" onclick="ferSwitchSub('doc')">📎 Documentos</button>
+  </div>
+
+  <!-- Sub-aba: Tarefas -->
+  <div id="ferTasks">
+    <div class="ha-head">
+      <div>
+        <div class="ha-head-title">✅ Tarefas do Dia</div>
+        <div class="ha-head-stat" id="taskStat">—</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <select id="taskFilter" class="liv-search" style="width:auto" onchange="taskRender()">
+          <option value="abertas">Em aberto</option>
+          <option value="hoje">Para hoje</option>
+          <option value="atrasadas">Atrasadas</option>
+          <option value="concluidas">Concluídas</option>
+          <option value="todas">Todas</option>
+        </select>
+        <button class="btn btn-green" onclick="taskQuickAdd()">＋ Nova tarefa</button>
+      </div>
+    </div>
+    <div class="task-quickadd-wrap" id="taskQuickWrap" style="display:none">
+      <input id="taskQuickInput" class="task-quickadd" placeholder="Digite e pressione Enter..." onkeydown="if(event.key==='Enter')taskCreate();if(event.key==='Escape')taskCancelQuick()"/>
+      <select id="taskQuickPrio" class="task-quickadd-prio">
+        <option value="baixa">⬇ Baixa</option>
+        <option value="normal" selected>● Normal</option>
+        <option value="alta">⬆ Alta</option>
+      </select>
+      <input id="taskQuickDate" type="date" class="task-quickadd-date"/>
+      <button class="btn btn-green" onclick="taskCreate()">Salvar</button>
+      <button class="btn btn-ghost" onclick="taskCancelQuick()">✕</button>
+    </div>
+    <div id="taskList" class="task-list">
+      <div class="empty" style="padding:50px">Carregando...</div>
+    </div>
+  </div>
+
+  <!-- Sub-aba: Lista de Compras -->
+  <div id="ferShop" style="display:none">
+    <div class="shop-tabs">
+      <button class="shop-tab active" id="shopTabM" onclick="shopSwitch('mercado')">🛒 Mercado</button>
+      <button class="shop-tab" id="shopTabD" onclick="shopSwitch('desejos')">⭐ Desejos</button>
+    </div>
+    <div class="ha-head">
+      <div>
+        <div class="ha-head-title" id="shopTitle">🛒 Lista de Mercado</div>
+        <div class="ha-head-stat" id="shopStat">—</div>
+      </div>
+      <button class="btn btn-green" onclick="shopQuickAdd()">＋ Adicionar item</button>
+    </div>
+    <div class="task-quickadd-wrap" id="shopQuickWrap" style="display:none">
+      <input id="shopQuickName" class="task-quickadd" placeholder="Nome do item..." onkeydown="if(event.key==='Enter')shopCreate();if(event.key==='Escape')shopCancelQuick()"/>
+      <input id="shopQuickQty" type="number" min="1" value="1" class="task-quickadd-prio" style="width:70px" placeholder="Qtd"/>
+      <input id="shopQuickPrice" type="number" step="0.01" min="0" class="task-quickadd-date" style="width:110px" placeholder="Preço (R$)"/>
+      <button class="btn btn-green" onclick="shopCreate()">Salvar</button>
+      <button class="btn btn-ghost" onclick="shopCancelQuick()">✕</button>
+    </div>
+    <div id="shopList" class="task-list">
+      <div class="empty" style="padding:50px">Carregando...</div>
+    </div>
+  </div>
+
+  <!-- Sub-aba: Senhas (em breve) -->
+  <div id="ferPwd" style="display:none">
+    <div class="ha-empty" style="padding:80px 20px">
+      <div style="font-size:56px;opacity:.3;margin-bottom:14px">🔑</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Cofre de Senhas</div>
+      <div style="font-size:13px;color:var(--muted2);max-width:420px;margin:0 auto;line-height:1.6">Em breve! Vai ter criptografia ponta-a-ponta — só você consegue ver. Precisa de uma senha mestre separada para abrir o cofre.</div>
+    </div>
+  </div>
+
+  <!-- Sub-aba: Documentos (em breve) -->
+  <div id="ferDoc" style="display:none">
+    <div class="ha-empty" style="padding:80px 20px">
+      <div style="font-size:56px;opacity:.3;margin-bottom:14px">📎</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Documentos</div>
+      <div style="font-size:13px;color:var(--muted2);max-width:420px;margin:0 auto;line-height:1.6">Em breve! Upload de PDFs e fotos importantes (RG, comprovantes, contratos). Vai usar Supabase Storage (5GB grátis).</div>
+    </div>
+  </div>
+</div><!-- /tabFerramentas -->
 
 </div><!-- /page -->
 
@@ -5016,6 +5163,7 @@ const MODULE_INFO = {
   livros:     { name:'📚 Livros',             firstTab:'livros'   },
   cursos:     { name:'🎓 Cursos & Vídeos',    firstTab:'cursos'   },
   habitos:    { name:'📅 Hábitos & Agenda',   firstTab:'habitos'  },
+  ferramentas:{ name:'🛠 Ferramentas',         firstTab:'ferramentas' },
 };
 
 function showHome(){
@@ -5049,7 +5197,7 @@ function openModule(mod){
 
 function switchTab(tab){
   _activeTab = tab;
-  const allTabs = ['geral','inv','saude','metas','ideiasP','ideiasE','livros','cursos','habitos'];
+  const allTabs = ['geral','inv','saude','metas','ideiasP','ideiasE','livros','cursos','habitos','ferramentas'];
   allTabs.forEach(t=>{
     const el = document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1));
     if(el) el.style.display = t===tab ? '' : 'none';
@@ -5063,6 +5211,7 @@ function switchTab(tab){
   document.getElementById('tabBtnLivros').classList.toggle('active', tab==='livros');
   document.getElementById('tabBtnCursos').classList.toggle('active', tab==='cursos');
   document.getElementById('tabBtnHabitos').classList.toggle('active', tab==='habitos');
+  document.getElementById('tabBtnFerramentas').classList.toggle('active', tab==='ferramentas');
 
   if(tab==='inv')    { buildInvCharts(_invFiiRows, _invQuotes); _fillInvCashflow(); }
   if(tab==='geral')  { fillCatBreakdown(_catsObj); buildCharts(_monthly, _catsObj); }
@@ -5073,6 +5222,7 @@ function switchTab(tab){
   if(tab==='livros') { loadLivrosGallery();   }
   if(tab==='cursos') { loadIdeias('curso');   }
   if(tab==='habitos'){ loadHabitos();         }
+  if(tab==='ferramentas'){ ferSwitchSub('tasks'); }
   if(Date.now()-_lastRefreshTs > 90000 && ['geral','inv','saude','metas'].includes(tab)) refreshDashboard();
 }
 
@@ -8005,6 +8155,256 @@ async function smSave(btn){
   } catch(e){
     btn.textContent='Salvar'; btn.disabled=false;
   }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── FERRAMENTAS — Tarefas e Lista de Compras ─────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+
+let _tasks = [];
+let _shopItems = [];
+let _shopCurrent = 'mercado';
+
+// ── Sub-aba switching ────────────────────────────────────────────────────────
+function ferSwitchSub(sub){
+  ['tasks','shop','pwd','doc'].forEach(s=>{
+    const sec = document.getElementById('fer'+s.charAt(0).toUpperCase()+s.slice(1));
+    if(sec) sec.style.display = s===sub ? '' : 'none';
+  });
+  document.getElementById('ferSubTasks').classList.toggle('active', sub==='tasks');
+  document.getElementById('ferSubShop').classList.toggle('active', sub==='shop');
+  document.getElementById('ferSubPwd').classList.toggle('active', sub==='pwd');
+  document.getElementById('ferSubDoc').classList.toggle('active', sub==='doc');
+  if(sub==='tasks') loadTasks();
+  if(sub==='shop')  loadShopping();
+}
+
+// ══ TAREFAS ══════════════════════════════════════════════════════════════════
+async function loadTasks(){
+  try {
+    const r = await fetch(`${REST}/tasks?order=done.asc,due_date.asc.nullslast,created_at.desc`, {headers: HDR});
+    _tasks = await r.json() || [];
+    taskRender();
+  } catch(e){
+    document.getElementById('taskList').innerHTML = '<div class="empty" style="padding:40px;color:var(--red)">Erro ao carregar tarefas.</div>';
+  }
+}
+
+function taskRender(){
+  const list = document.getElementById('taskList');
+  const filter = document.getElementById('taskFilter').value;
+  const today = new Date().toISOString().slice(0,10);
+
+  let tasks = _tasks;
+  if(filter==='abertas')    tasks = _tasks.filter(t=>!t.done);
+  if(filter==='hoje')       tasks = _tasks.filter(t=>!t.done && t.due_date===today);
+  if(filter==='atrasadas')  tasks = _tasks.filter(t=>!t.done && t.due_date && t.due_date<today);
+  if(filter==='concluidas') tasks = _tasks.filter(t=>t.done);
+
+  // Stats
+  const abertas = _tasks.filter(t=>!t.done).length;
+  const concluidas = _tasks.filter(t=>t.done).length;
+  const atrasadas = _tasks.filter(t=>!t.done && t.due_date && t.due_date<today).length;
+  document.getElementById('taskStat').textContent =
+    `${abertas} abertas · ${concluidas} concluídas${atrasadas?' · ⚠ '+atrasadas+' atrasada(s)':''}`;
+
+  if(!tasks.length){
+    list.innerHTML = `<div class="empty" style="padding:50px">
+      <div style="font-size:36px;opacity:.3;margin-bottom:8px">✅</div>
+      <div style="font-size:13px;color:var(--muted2);font-weight:600">Nada por aqui!</div>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = tasks.map(t=>{
+    const prio = t.priority || 'normal';
+    let dueHtml = '';
+    if(t.due_date){
+      const d = t.due_date;
+      let cls = 'task-due';
+      let lbl = fmtDate(d);
+      if(!t.done && d < today){ cls += ' task-due-late';  lbl = '⚠ ' + lbl; }
+      else if(!t.done && d === today){ cls += ' task-due-today'; lbl = '📌 Hoje'; }
+      dueHtml = `<span class="${cls}">${lbl}</span>`;
+    }
+    const prioIcon = prio==='alta'?'⬆':(prio==='baixa'?'⬇':'●');
+    return `
+      <div class="task-row ${t.done?'done':''}">
+        <div class="task-check ${t.done?'checked':''}" onclick="taskToggle(${t.id})"></div>
+        <div class="task-content">
+          <div class="task-title">${escHtml(t.title)}</div>
+          <div class="task-meta">
+            <span class="task-prio task-prio-${prio}">${prioIcon} ${prio}</span>
+            ${dueHtml}
+          </div>
+        </div>
+        <button class="task-del" onclick="taskDelete(${t.id})">🗑</button>
+      </div>`;
+  }).join('');
+}
+
+function taskQuickAdd(){
+  document.getElementById('taskQuickWrap').style.display = 'flex';
+  document.getElementById('taskQuickInput').value = '';
+  document.getElementById('taskQuickPrio').value = 'normal';
+  document.getElementById('taskQuickDate').value = '';
+  setTimeout(()=>document.getElementById('taskQuickInput').focus(), 50);
+}
+
+function taskCancelQuick(){
+  document.getElementById('taskQuickWrap').style.display = 'none';
+}
+
+async function taskCreate(){
+  const title = document.getElementById('taskQuickInput').value.trim();
+  if(!title){ toast('Digite o nome da tarefa','err'); return; }
+  const body = {
+    title,
+    priority: document.getElementById('taskQuickPrio').value,
+    due_date: document.getElementById('taskQuickDate').value || null
+  };
+  try {
+    const r = await fetch(`${REST}/tasks`, {method:'POST', headers:{...HDR,'Prefer':'return=representation'}, body:JSON.stringify(body)});
+    const created = await r.json();
+    const newTask = Array.isArray(created) ? created[0] : created;
+    _tasks.unshift(newTask);
+    taskCancelQuick();
+    taskRender();
+    toast('Tarefa criada','ok');
+  } catch(e){ toast('Erro ao criar','err'); }
+}
+
+async function taskToggle(id){
+  const t = _tasks.find(x=>x.id===id);
+  if(!t) return;
+  const newDone = !t.done;
+  t.done = newDone;
+  t.done_at = newDone ? new Date().toISOString() : null;
+  taskRender();
+  try {
+    await fetch(`${REST}/tasks?id=eq.${id}`, {
+      method:'PATCH', headers:{...HDR,'Prefer':'return=minimal'},
+      body: JSON.stringify({done:newDone, done_at:t.done_at})
+    });
+  } catch(e){ toast('Erro ao salvar','err'); }
+}
+
+async function taskDelete(id){
+  if(!await _confirm('Excluir esta tarefa?')) return;
+  try {
+    await fetch(`${REST}/tasks?id=eq.${id}`, {method:'DELETE', headers:HDR});
+    _tasks = _tasks.filter(t=>t.id!==id);
+    taskRender();
+    toast('Tarefa excluída','ok');
+  } catch(e){ toast('Erro ao excluir','err'); }
+}
+
+// ══ LISTA DE COMPRAS ═════════════════════════════════════════════════════════
+async function loadShopping(){
+  try {
+    const r = await fetch(`${REST}/shopping_items?order=bought.asc,created_at.desc`, {headers: HDR});
+    _shopItems = await r.json() || [];
+    shopRender();
+  } catch(e){
+    document.getElementById('shopList').innerHTML = '<div class="empty" style="padding:40px;color:var(--red)">Erro ao carregar.</div>';
+  }
+}
+
+function shopSwitch(type){
+  _shopCurrent = type;
+  document.getElementById('shopTabM').classList.toggle('active', type==='mercado');
+  document.getElementById('shopTabD').classList.toggle('active', type==='desejos');
+  document.getElementById('shopTitle').textContent = type==='mercado' ? '🛒 Lista de Mercado' : '⭐ Lista de Desejos';
+  shopRender();
+}
+
+function shopRender(){
+  const list = document.getElementById('shopList');
+  const items = _shopItems.filter(i=>i.list_type===_shopCurrent);
+  const total = items.reduce((s,i)=>s + ((+i.price||0) * (i.qty||1)), 0);
+  const totalComprados = items.filter(i=>i.bought).reduce((s,i)=>s + ((+i.price||0) * (i.qty||1)), 0);
+  const stat = document.getElementById('shopStat');
+  if(items.length){
+    stat.innerHTML = `${items.length} itens · ${items.filter(i=>i.bought).length} comprados · Total <span class="shop-stat amt-green">${brl(total)}</span>${totalComprados>0?` · Comprado <span class="shop-stat" style="color:var(--muted2)">${brl(totalComprados)}</span>`:''}`;
+  } else {
+    stat.textContent = '0 itens';
+  }
+
+  if(!items.length){
+    const icon = _shopCurrent==='mercado' ? '🛒' : '⭐';
+    const lbl = _shopCurrent==='mercado' ? 'Lista vazia' : 'Sem desejos ainda';
+    list.innerHTML = `<div class="empty" style="padding:50px">
+      <div style="font-size:36px;opacity:.3;margin-bottom:8px">${icon}</div>
+      <div style="font-size:13px;color:var(--muted2);font-weight:600">${lbl}</div>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = items.map(i=>`
+    <div class="shop-row ${i.bought?'bought':''}">
+      <div class="task-check ${i.bought?'checked':''}" onclick="shopToggle(${i.id})"></div>
+      <div class="shop-name">${escHtml(i.name)}</div>
+      ${i.qty>1 ? `<span class="shop-qty">×${i.qty}</span>` : ''}
+      <div class="shop-price">${i.price ? brl((+i.price) * (i.qty||1)) : '—'}</div>
+      <button class="task-del" onclick="shopDelete(${i.id})">🗑</button>
+    </div>`).join('');
+}
+
+function shopQuickAdd(){
+  document.getElementById('shopQuickWrap').style.display = 'flex';
+  document.getElementById('shopQuickName').value = '';
+  document.getElementById('shopQuickQty').value = '1';
+  document.getElementById('shopQuickPrice').value = '';
+  setTimeout(()=>document.getElementById('shopQuickName').focus(), 50);
+}
+
+function shopCancelQuick(){
+  document.getElementById('shopQuickWrap').style.display = 'none';
+}
+
+async function shopCreate(){
+  const name = document.getElementById('shopQuickName').value.trim();
+  if(!name){ toast('Digite o nome do item','err'); return; }
+  const body = {
+    name,
+    list_type: _shopCurrent,
+    qty: parseInt(document.getElementById('shopQuickQty').value) || 1,
+    price: parseFloat(document.getElementById('shopQuickPrice').value) || null
+  };
+  try {
+    const r = await fetch(`${REST}/shopping_items`, {method:'POST', headers:{...HDR,'Prefer':'return=representation'}, body:JSON.stringify(body)});
+    const created = await r.json();
+    const newItem = Array.isArray(created) ? created[0] : created;
+    _shopItems.unshift(newItem);
+    shopCancelQuick();
+    shopRender();
+    toast('Item adicionado','ok');
+    // Volta o foco pro input pra adicionar próximo rapidinho
+    setTimeout(()=>shopQuickAdd(), 100);
+  } catch(e){ toast('Erro ao adicionar','err'); }
+}
+
+async function shopToggle(id){
+  const i = _shopItems.find(x=>x.id===id);
+  if(!i) return;
+  i.bought = !i.bought;
+  shopRender();
+  try {
+    await fetch(`${REST}/shopping_items?id=eq.${id}`, {
+      method:'PATCH', headers:{...HDR,'Prefer':'return=minimal'},
+      body: JSON.stringify({bought: i.bought})
+    });
+  } catch(e){ toast('Erro ao salvar','err'); }
+}
+
+async function shopDelete(id){
+  if(!await _confirm('Excluir este item?')) return;
+  try {
+    await fetch(`${REST}/shopping_items?id=eq.${id}`, {method:'DELETE', headers:HDR});
+    _shopItems = _shopItems.filter(x=>x.id!==id);
+    shopRender();
+    toast('Item excluído','ok');
+  } catch(e){ toast('Erro ao excluir','err'); }
 }
 </script>
 </body>
