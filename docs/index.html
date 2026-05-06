@@ -108,27 +108,101 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:13
 @media(max-width:1200px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){
   .g3{grid-template-columns:1fr 1fr}
-  .header-top{padding:0 12px;gap:8px}
-  .header-tabs{padding:0 8px;overflow-x:auto;scrollbar-width:none}
+  .header-top{padding:0 12px;gap:8px;height:52px}
+  .header-tabs{padding:0 8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;top:52px}
   .header-tabs::-webkit-scrollbar{display:none}
   .tab-btn{padding:0 10px;font-size:12px}
   .header-right{gap:4px}
   .btn{padding:6px 10px;font-size:11px}
   .logo-text{display:none}
-  .sec-btn{padding:4px 10px;font-size:11.5px}
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 }
 @media(max-width:700px){.g4,.g2,.g3{grid-template-columns:1fr}}
-@media(max-width:480px){
-  .header{padding:0 10px}
-  .tab-btn span:not(:first-child){display:none}
-  .tab-btn{padding:6px 8px}
-  .page{padding:12px 12px}
+@media(max-width:600px){
+  /* HEADER */
+  .header-top{padding:0 10px;height:50px}
+  .header-tabs{top:50px;height:42px}
+  .tab-btn{height:42px;padding:0 9px;font-size:12px}
+  .date-chip{display:none}
+  .logo-icon{width:30px;height:30px;font-size:15px}
+  /* Esconde botões de extrato/excel/print no Financeiro - acessa por outras vias */
+  #finActions .btn:nth-child(n+3){display:none}
+  /* PAGE */
+  .page{padding:14px 12px}
   .card{padding:14px}
   .kpi-value{font-size:22px}
-  .btn span:not(.btn-icon){display:none}
-  .header-right .btn:nth-child(n+4){display:none}
-  .header-right .btn:nth-last-child(-n+3){display:flex}
+  /* HOME (Cérebro) */
+  .home-wrap{padding:24px 14px 60px}
+  .home-head{gap:14px;margin-bottom:24px}
+  .home-icon{width:56px;height:56px;font-size:28px;border-radius:14px}
+  .home-title{font-size:30px}
+  .home-sub{font-size:12px}
+  .home-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .home-cover{height:88px;font-size:38px}
+  .home-card-body{padding:10px 12px 12px;gap:4px}
+  .home-card-emoji{width:20px;height:20px;font-size:12px}
+  .home-card-title{font-size:13px}
+  .home-card-tag{font-size:9.5px;padding:1px 6px}
+  .home-card-desc{font-size:11px;line-height:1.4}
+  /* MODAIS - fullscreen em mobile */
+  .modal{max-width:100% !important;width:100%;border-radius:14px 14px 0 0;margin-top:auto;max-height:90vh;overflow-y:auto}
+  .modal-overlay.open{align-items:flex-end}
+  /* TAREFAS / COMPRAS - quickadd vira coluna */
+  .task-quickadd-wrap{flex-direction:column;align-items:stretch;gap:8px;padding:12px}
+  .task-quickadd,.task-quickadd-prio,.task-quickadd-date{width:100% !important}
+  .task-quickadd-wrap .btn{justify-content:center}
+  .task-row{padding:10px 12px;gap:10px}
+  .task-title{font-size:13px}
+  .task-meta{font-size:10.5px;flex-wrap:wrap;gap:6px}
+  .task-del{opacity:1}
+  /* COMPRAS */
+  .shop-row{padding:10px 12px;gap:10px}
+  .shop-name{font-size:13px}
+  .shop-price{min-width:64px;font-size:12px}
+  .task-del{opacity:1}
+  /* LIVROS - galeria em 2 colunas */
+  .liv-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .liv-cover{aspect-ratio:3/2;font-size:34px}
+  .liv-card-body{padding:11px 12px 13px}
+  .liv-card-title{font-size:13px}
+  .liv-card-author{font-size:11px}
+  .liv-card-month{font-size:9.5px}
+  .liv-search{width:100%;max-width:none}
+  /* LIVROS - detalhe compacto */
+  .liv-detail{padding:16px 14px}
+  .liv-detail-grid{grid-template-columns:1fr;gap:16px}
+  .liv-detail-cover{aspect-ratio:3/4;max-width:200px;margin:0 auto}
+  .liv-title-input{font-size:22px}
+  .liv-meta-row-fields{grid-template-columns:1fr;gap:10px}
+  .liv-resumo-area{font-size:13.5px;padding:14px;min-height:200px}
+  /* HEAD GENÉRICO (ha-head) */
+  .ha-head{flex-direction:column;align-items:stretch;gap:10px}
+  .ha-head>div:last-child{display:flex;flex-direction:column;gap:6px}
+  .ha-head-title{font-size:16px}
+  /* SUB-ABAS HÁBITOS/FERRAMENTAS - scrollable horizontal */
+  .ha-tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ha-tabs::-webkit-scrollbar{display:none}
+  .ha-tab{white-space:nowrap;flex-shrink:0;font-size:12px}
+  /* Form fields touch-friendly - 16px evita zoom no iOS */
+  .field input,.field select,.liv-meta-input,.task-quickadd,.nb-search,.liv-search,#loginPwd,.term-input{font-size:16px;padding:10px 12px}
+  /* Grid de hábitos com scroll horizontal */
+  .hb-grid{overflow-x:auto;-webkit-overflow-scrolling:touch;display:block}
+  .hb-grid table,.hb-grid>div{min-width:520px}
+  /* Botões touch-friendly */
+  .nb-newbtn,.task-check,.nb-check-box{min-width:30px;min-height:30px}
+  /* Voltar - pra Cérebro - mais visível */
+  .back-home{padding:7px 12px;font-size:12.5px}
+}
+@media(max-width:380px){
+  .home-grid{grid-template-columns:1fr;gap:10px}
+  .home-cover{height:120px;font-size:48px}
+  .home-card-title{font-size:14px}
+  .liv-grid{grid-template-columns:1fr}
+  .liv-cover{height:160px;font-size:48px;aspect-ratio:auto}
+  .home-title{font-size:26px}
+  .kpi-value{font-size:20px}
+  .header-top{padding:0 8px}
+  .tab-btn{padding:0 8px;font-size:11.5px}
 }
 .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:border-color var(--dur-normal),box-shadow var(--dur-normal)}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.45),transparent);opacity:0;transition:opacity var(--dur-normal)}
