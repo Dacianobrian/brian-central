@@ -1045,16 +1045,16 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
         </div>
       </div>
 
-      <!-- Ideias Pessoais -->
+      <!-- Vida de Brian -->
       <div class="home-card" onclick="openModule('ideiasP')">
         <div class="home-cover home-cover-ip">💡</div>
         <div class="home-card-body">
           <div class="home-card-head">
             <span class="home-card-emoji">💡</span>
-            <div class="home-card-title">Ideias Pessoais</div>
+            <div class="home-card-title">VIDA DE BRIAN</div>
           </div>
           <span class="home-card-tag home-tag-pes">Pessoal</span>
-          <div class="home-card-desc">Bloco de notas com checklist e tags</div>
+          <div class="home-card-desc">Notas, livros, cursos e aprendizados</div>
         </div>
       </div>
 
@@ -1071,52 +1071,13 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
         </div>
       </div>
 
-      <!-- Livros -->
-      <div class="home-card" onclick="openModule('livros')">
-        <div class="home-cover home-cover-liv">📚</div>
-        <div class="home-card-body">
-          <div class="home-card-head">
-            <span class="home-card-emoji">📚</span>
-            <div class="home-card-title">Livros</div>
-          </div>
-          <span class="home-card-tag home-tag-prod">Conhecimento</span>
-          <div class="home-card-desc">Resumos, autores, aprendizados</div>
-        </div>
-      </div>
-
-      <!-- Cursos & Vídeos -->
-      <div class="home-card" onclick="openModule('cursos')">
-        <div class="home-cover home-cover-cur">🎓</div>
-        <div class="home-card-body">
-          <div class="home-card-head">
-            <span class="home-card-emoji">🎓</span>
-            <div class="home-card-title">Cursos & Vídeos</div>
-          </div>
-          <span class="home-card-tag home-tag-prod">Conhecimento</span>
-          <div class="home-card-desc">YouTube, Udemy, podcasts e mais</div>
-        </div>
-      </div>
-
-      <!-- Hábitos & Agenda -->
-      <div class="home-card" onclick="openModule('habitos')">
-        <div class="home-cover home-cover-hab">📅</div>
-        <div class="home-card-body">
-          <div class="home-card-head">
-            <span class="home-card-emoji">📅</span>
-            <div class="home-card-title">Hábitos & Agenda</div>
-          </div>
-          <span class="home-card-tag home-tag-rot">Rotina</span>
-          <div class="home-card-desc">Tracker diário e compromissos</div>
-        </div>
-      </div>
-
-      <!-- Ferramentas -->
+      <!-- Dia a Dia -->
       <div class="home-card" onclick="openModule('ferramentas')">
         <div class="home-cover home-cover-fer">🛠</div>
         <div class="home-card-body">
           <div class="home-card-head">
             <span class="home-card-emoji">🛠</span>
-            <div class="home-card-title">Ferramentas</div>
+            <div class="home-card-title">DIA A DIA</div>
           </div>
           <span class="home-card-tag home-tag-fer">Produtividade</span>
           <div class="home-card-desc">Tarefas, lista de compras, senhas, docs</div>
@@ -2074,7 +2035,7 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
   <div class="nb-wrap">
     <aside class="nb-sidebar">
       <div class="nb-side-head">
-        <div class="nb-side-title">💡 Ideias Pessoais</div>
+        <div class="nb-side-title">💡 VIDA DE BRIAN</div>
         <button class="nb-newbtn" onclick="nbCreate('pessoal')" title="Nova ideia">＋</button>
       </div>
       <input class="nb-search" id="nbSearchP" placeholder="🔍 Buscar..." oninput="nbRenderList('pessoal')"/>
@@ -5232,12 +5193,9 @@ function _fillProjetado(fluxoData, accounts){
 // ── HOME (Cérebro) e Módulos ──────────────────────────────────────────────
 const MODULE_INFO = {
   financeiro: { name:'💰 Financeiro',         firstTab:'geral'    },
-  ideiasP:    { name:'💡 Ideias Pessoais',    firstTab:'ideiasP'  },
+  ideiasP:    { name:'💡 VIDA DE BRIAN',       firstTab:'ideiasP'  },
   ideiasE:    { name:'🏢 Ideias Empresa',     firstTab:'ideiasE'  },
-  livros:     { name:'📚 Livros',             firstTab:'livros'   },
-  cursos:     { name:'🎓 Cursos & Vídeos',    firstTab:'cursos'   },
-  habitos:    { name:'📅 Hábitos & Agenda',   firstTab:'habitos'  },
-  ferramentas:{ name:'🛠 Ferramentas',         firstTab:'ferramentas' },
+  ferramentas:{ name:'🛠 DIA A DIA',           firstTab:'ferramentas' },
 };
 
 function showHome(){
