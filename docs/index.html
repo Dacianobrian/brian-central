@@ -131,19 +131,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:13
   .page{padding:14px 12px}
   .card{padding:14px}
   .kpi-value{font-size:22px}
-  /* HOME (Cérebro) */
-  .home-wrap{padding:24px 14px 60px}
-  .home-head{gap:14px;margin-bottom:24px}
-  .home-icon{width:56px;height:56px;font-size:28px;border-radius:14px}
-  .home-title{font-size:30px}
-  .home-sub{font-size:12px}
-  .home-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .home-cover{height:88px;font-size:38px}
-  .home-card-body{padding:10px 12px 12px;gap:4px}
-  .home-card-emoji{width:20px;height:20px;font-size:12px}
-  .home-card-title{font-size:13px}
-  .home-card-tag{font-size:9.5px;padding:1px 6px}
-  .home-card-desc{font-size:11px;line-height:1.4}
+  /* HOME sidebar mobile */
+  .hm-sidebar{width:180px}
+  .hm-body,.hm-topbar{padding-left:16px;padding-right:16px}
+  .hm-kpi-grid{grid-template-columns:1fr 1fr}
   /* MODAIS - fullscreen em mobile */
   .modal{max-width:100% !important;width:100%;border-radius:14px 14px 0 0;margin-top:auto;max-height:90vh;overflow-y:auto}
   .modal-overlay.open{align-items:flex-end}
@@ -194,15 +185,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:13
   .back-home{padding:7px 12px;font-size:12.5px}
 }
 @media(max-width:380px){
-  .home-grid{grid-template-columns:1fr;gap:10px}
-  .home-cover{height:120px;font-size:48px}
-  .home-card-title{font-size:14px}
   .liv-grid{grid-template-columns:1fr}
   .liv-cover{height:160px;font-size:48px;aspect-ratio:auto}
-  .home-title{font-size:26px}
   .kpi-value{font-size:20px}
   .header-top{padding:0 8px}
   .tab-btn{padding:0 8px;font-size:11.5px}
+  .hm-kpi-grid{grid-template-columns:1fr}
 }
 .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:border-color var(--dur-normal),box-shadow var(--dur-normal)}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.45),transparent);opacity:0;transition:opacity var(--dur-normal)}
@@ -585,51 +573,59 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 .meta-timeline-row:last-child{border-bottom:none}
 .meta-prazo-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:rgba(56,189,248,.15);color:#38bdf8;white-space:nowrap}
 
-/* ══ HOME (Cérebro) ══════════════════════════════════════════ */
-.home-wrap{max-width:1280px;margin:0 auto;padding:48px 32px 80px}
-.home-head{display:flex;align-items:center;gap:18px;margin-bottom:36px}
-.home-icon{width:84px;height:84px;border-radius:18px;background:linear-gradient(135deg,#6366f1,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:44px;box-shadow:0 12px 40px rgba(99,102,241,.4),0 0 0 1px rgba(255,255,255,.06)}
-.home-title{font-size:48px;font-weight:900;letter-spacing:-1.5px;line-height:1}
-.home-sub{font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:.2px}
-
-.home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
-.home-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform var(--dur-normal),border-color var(--dur-normal),box-shadow var(--dur-normal);position:relative;display:flex;flex-direction:column}
-.home-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05)}
-.home-cover{height:148px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:64px;letter-spacing:-2px}
-.home-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.4) 100%)}
-.home-cover-fin{background:linear-gradient(135deg,#0c4a6e 0%,#0284c7 50%,#06b6d4 100%)}
-.home-cover-ip{background:linear-gradient(135deg,#713f12 0%,#ca8a04 50%,#fbbf24 100%)}
-.home-cover-ie{background:linear-gradient(135deg,#581c87 0%,#7c3aed 50%,#a78bfa 100%)}
-.home-cover-liv{background:linear-gradient(135deg,#7c2d12 0%,#c2410c 50%,#fb923c 100%)}
-.home-cover-cur{background:linear-gradient(135deg,#14532d 0%,#16a34a 50%,#22c55e 100%)}
-.home-cover-met{background:linear-gradient(135deg,#831843 0%,#be185d 50%,#f472b6 100%)}
-.home-cover-hab{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 50%,#06b6d4 100%)}
-.home-cover-fer{background:linear-gradient(135deg,#3f3f46 0%,#71717a 50%,#a1a1aa 100%)}
-.home-tag-fer{background:rgba(161,161,170,.18);color:#d4d4d8}
-.home-tag-rot{background:rgba(56,189,248,.15);color:var(--blue2)}
-.home-card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.home-card-head{display:flex;align-items:center;gap:8px;margin-bottom:2px}
-.home-card-emoji{width:24px;height:24px;border-radius:6px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.home-card-title{font-size:15px;font-weight:700;letter-spacing:-.2px;color:var(--text)}
-.home-card-tag{display:inline-flex;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:4px;width:fit-content;letter-spacing:.3px}
-.home-tag-pes{background:rgba(56,189,248,.15);color:var(--blue2)}
-.home-tag-fin{background:rgba(34,197,94,.15);color:var(--green)}
-.home-tag-emp{background:rgba(167,139,250,.15);color:var(--purple)}
-.home-tag-prod{background:rgba(251,146,60,.15);color:var(--orange)}
-.home-card-desc{font-size:12.5px;color:var(--muted2);line-height:1.5;margin-top:2px}
-
-/* Botão voltar e header simplificado dentro dos módulos */
+/* ══ HOME — Sidebar + Dashboard ══════════════════════════════ */
+#homeWrap{display:flex;height:100vh;overflow:hidden}
+.hm-sidebar{width:220px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.hm-brand{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
+.hm-brand-logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px}
+.hm-brand-name{font-size:14px;font-weight:700;color:var(--text)}
+.hm-brand-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.hm-nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.hm-nav-section{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;padding:0 10px;margin:10px 0 4px}
+.hm-nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted2);transition:background var(--dur-fast),color var(--dur-fast)}
+.hm-nav-item:hover{background:var(--surface2);color:var(--text)}
+.hm-nav-item.active{background:rgba(56,189,248,.1);color:var(--blue2);font-weight:600}
+.hm-nav-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.hm-footer{padding:12px 10px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
+.hm-footer-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:12px;color:var(--muted);transition:background var(--dur-fast),color var(--dur-fast)}
+.hm-footer-item:hover{background:var(--surface2);color:var(--text)}
+.hm-main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.hm-topbar{padding:28px 32px 20px;border-bottom:1px solid var(--border)}
+.hm-greeting{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.5px;margin-bottom:3px}
+.hm-date{font-size:12px;color:var(--muted)}
+.hm-body{padding:24px 32px;display:flex;flex-direction:column;gap:24px}
+.hm-sec-label{font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.hm-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.hm-kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.hm-kpi-val{font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.5px;margin-bottom:3px}
+.hm-kpi-label{font-size:11px;color:var(--muted)}
+.hm-kpi-delta{font-size:11px;margin-top:4px}
+.hm-mod-list{display:flex;flex-direction:column;gap:8px}
+.hm-mod-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color var(--dur-fast),background var(--dur-fast)}
+.hm-mod-item:hover{border-color:var(--border2);background:var(--surface2)}
+.hm-mod-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.hm-mod-info{flex:1;min-width:0}
+.hm-mod-name{font-size:13px;font-weight:700;color:var(--text)}
+.hm-mod-desc{font-size:12px;color:var(--muted2);margin-top:2px}
+.hm-mod-meta{font-size:11px;color:var(--muted);flex-shrink:0}
+/* Botão voltar */
 .back-home{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border2);color:var(--muted2);padding:6px 12px;border-radius:8px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:background var(--dur-fast),color var(--dur-fast),border-color var(--dur-fast)}
 .back-home:hover{background:rgba(255,255,255,.06);color:var(--text);border-color:var(--muted)}
-
 @media(max-width:700px){
-  .home-wrap{padding:32px 18px 60px}
-  .home-title{font-size:34px}
-  .home-icon{width:64px;height:64px;font-size:32px}
-  .home-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .home-cover{height:110px;font-size:48px}
+  .hm-sidebar{width:180px}
+  .hm-body{padding:16px 18px}
+  .hm-topbar{padding:20px 18px 14px}
+  .hm-kpi-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:480px){.home-grid{grid-template-columns:1fr}}
+@media(max-width:500px){
+  #homeWrap{flex-direction:column}
+  .hm-sidebar{width:100%;height:auto;flex-direction:row;border-right:none;border-bottom:1px solid var(--border)}
+  .hm-brand{display:none}
+  .hm-nav{flex-direction:row;padding:8px;overflow-x:auto;gap:4px}
+  .hm-nav-section{display:none}
+  .hm-footer{flex-direction:row;border-top:none;border-left:1px solid var(--border);padding:8px}
+  .hm-kpi-grid{grid-template-columns:1fr 1fr}
+}
 
 /* ══ NOTEBOOK (Ideias) ══════════════════════════════════════ */
 .nb-wrap{display:grid;grid-template-columns:300px 1fr;gap:14px;height:calc(100vh - 180px);min-height:560px}
@@ -1020,71 +1016,109 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
   </div>
 </nav>
 
-<!-- ══════════ HOME (Cérebro) ══════════ -->
+<!-- ══════════ HOME — Sidebar + Dashboard ══════════ -->
 <div id="homeWrap">
-  <div class="home-wrap">
-    <div class="home-head">
-      <div class="home-icon">🧠</div>
-      <div>
-        <div class="home-title">Cérebro</div>
-        <div class="home-sub">Tudo que importa em um só lugar</div>
+
+  <!-- Sidebar -->
+  <div class="hm-sidebar">
+    <div class="hm-brand">
+      <div class="hm-brand-logo">⚡</div>
+      <div class="hm-brand-name">Brian Central</div>
+      <div class="hm-brand-sub">Cérebro pessoal</div>
+    </div>
+    <div class="hm-nav">
+      <div class="hm-nav-item active" id="hmNavDash">
+        <div class="hm-nav-icon" style="background:linear-gradient(135deg,#6366f1,#a78bfa);font-size:14px">🏠</div>
+        Dashboard
+      </div>
+      <div class="hm-nav-section">Módulos</div>
+      <div class="hm-nav-item" onclick="openModule('financeiro')">
+        <div class="hm-nav-icon" style="background:rgba(2,132,199,.15);color:#38bdf8">💰</div>
+        Financeiro
+      </div>
+      <div class="hm-nav-item" onclick="openModule('ideiasP')">
+        <div class="hm-nav-icon" style="background:rgba(202,138,4,.15);color:#fbbf24">💡</div>
+        Vida de Brian
+      </div>
+      <div class="hm-nav-item" onclick="openModule('ideiasE')">
+        <div class="hm-nav-icon" style="background:rgba(124,58,237,.15);color:#a78bfa">🏢</div>
+        Ideias Empresa
+      </div>
+      <div class="hm-nav-item" onclick="openModule('ferramentas')">
+        <div class="hm-nav-icon" style="background:rgba(113,113,122,.15);color:#a1a1aa">🛠</div>
+        Dia a Dia
       </div>
     </div>
-
-    <div class="home-grid">
-      <!-- Financeiro -->
-      <div class="home-card" onclick="openModule('financeiro')">
-        <div class="home-cover home-cover-fin">💰</div>
-        <div class="home-card-body">
-          <div class="home-card-head">
-            <span class="home-card-emoji">💰</span>
-            <div class="home-card-title">Financeiro</div>
-          </div>
-          <span class="home-card-tag home-tag-fin">Pessoal</span>
-          <div class="home-card-desc">Controle de gastos, investimentos e metas</div>
-        </div>
-      </div>
-
-      <!-- Vida de Brian -->
-      <div class="home-card" onclick="openModule('ideiasP')">
-        <div class="home-cover home-cover-ip">💡</div>
-        <div class="home-card-body">
-          <div class="home-card-head">
-            <span class="home-card-emoji">💡</span>
-            <div class="home-card-title">VIDA DE BRIAN</div>
-          </div>
-          <span class="home-card-tag home-tag-pes">Pessoal</span>
-          <div class="home-card-desc">Notas, livros, cursos e aprendizados</div>
-        </div>
-      </div>
-
-      <!-- Ideias Empresa -->
-      <div class="home-card" onclick="openModule('ideiasE')">
-        <div class="home-cover home-cover-ie">🏢</div>
-        <div class="home-card-body">
-          <div class="home-card-head">
-            <span class="home-card-emoji">🏢</span>
-            <div class="home-card-title">Ideias Empresa</div>
-          </div>
-          <span class="home-card-tag home-tag-emp">Empresa</span>
-          <div class="home-card-desc">Estratégias, processos e novos negócios</div>
-        </div>
-      </div>
-
-      <!-- Dia a Dia -->
-      <div class="home-card" onclick="openModule('ferramentas')">
-        <div class="home-cover home-cover-fer">🛠</div>
-        <div class="home-card-body">
-          <div class="home-card-head">
-            <span class="home-card-emoji">🛠</span>
-            <div class="home-card-title">DIA A DIA</div>
-          </div>
-          <span class="home-card-tag home-tag-fer">Produtividade</span>
-          <div class="home-card-desc">Tarefas, lista de compras, senhas, docs</div>
-        </div>
-      </div>
+    <div class="hm-footer">
+      <div class="hm-footer-item" onclick="openSettings()">⚙️ Configurações</div>
+      <div class="hm-footer-item" onclick="doLogout()">⏻ Sair</div>
     </div>
   </div>
+
+  <!-- Main -->
+  <div class="hm-main">
+    <div class="hm-topbar">
+      <div class="hm-greeting" id="hmGreeting">Olá, Brian 👋</div>
+      <div class="hm-date" id="hmDate"></div>
+    </div>
+    <div class="hm-body">
+
+      <!-- KPIs Financeiro -->
+      <div>
+        <div class="hm-sec-label">Financeiro — visão geral</div>
+        <div class="hm-kpi-grid">
+          <div class="hm-kpi">
+            <div class="hm-kpi-val" id="hmKpiReserva">—</div>
+            <div class="hm-kpi-label">Reserva de emergência</div>
+            <div class="hm-kpi-delta" id="hmKpiReservaDelta" style="color:var(--muted)">carregando…</div>
+          </div>
+          <div class="hm-kpi">
+            <div class="hm-kpi-val" id="hmKpiFii">—</div>
+            <div class="hm-kpi-label">Renda FII / mês</div>
+            <div class="hm-kpi-delta" id="hmKpiFiiDelta" style="color:var(--muted)">carregando…</div>
+          </div>
+          <div class="hm-kpi">
+            <div class="hm-kpi-val" id="hmKpiSaude">—</div>
+            <div class="hm-kpi-label">Saúde financeira</div>
+            <div class="hm-kpi-delta" id="hmKpiSaudeDelta" style="color:var(--muted)">carregando…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acesso rápido -->
+      <div>
+        <div class="hm-sec-label">Acesso rápido</div>
+        <div class="hm-mod-list">
+          <div class="hm-mod-item" onclick="openModule('ideiasP')">
+            <div class="hm-mod-icon" style="background:rgba(202,138,4,.12)">💡</div>
+            <div class="hm-mod-info">
+              <div class="hm-mod-name">Vida de Brian</div>
+              <div class="hm-mod-desc">Notas pessoais, livros e cursos</div>
+            </div>
+            <span class="hm-mod-meta">→</span>
+          </div>
+          <div class="hm-mod-item" onclick="openModule('ideiasE')">
+            <div class="hm-mod-icon" style="background:rgba(124,58,237,.12)">🏢</div>
+            <div class="hm-mod-info">
+              <div class="hm-mod-name">Ideias Empresa</div>
+              <div class="hm-mod-desc">Estratégias, processos e negócios</div>
+            </div>
+            <span class="hm-mod-meta">→</span>
+          </div>
+          <div class="hm-mod-item" onclick="openModule('ferramentas')">
+            <div class="hm-mod-icon" style="background:rgba(113,113,122,.12)">🛠</div>
+            <div class="hm-mod-info">
+              <div class="hm-mod-name">Dia a Dia</div>
+              <div class="hm-mod-desc">Tarefas, lista de compras e docs</div>
+            </div>
+            <span class="hm-mod-meta">→</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <!-- Dummies para os tabBtn dos módulos não-financeiros (evita erros de JS) -->
@@ -5205,6 +5239,9 @@ function showHome(){
   document.getElementById('moduleBreadcrumb').style.display = 'none';
   document.getElementById('finActions').style.display = 'none';
   document.querySelector('.terminal').style.display = 'none';
+  document.querySelector('.header-top').style.display = 'none';
+  document.body.style.paddingBottom = '0';
+  fillHomeDashboard();
   window.scrollTo(0, 0);
 }
 
@@ -5214,6 +5251,8 @@ function openModule(mod){
 
   document.getElementById('homeWrap').style.display = 'none';
   document.querySelector('.page').style.display = '';
+  document.querySelector('.header-top').style.display = '';
+  document.body.style.paddingBottom = '';
   document.getElementById('moduleBreadcrumb').style.display = 'flex';
   document.getElementById('moduleName').textContent = info.name;
 
@@ -5225,6 +5264,43 @@ function openModule(mod){
   switchTab(info.firstTab);
   if(isFin) refreshDashboard();
   window.scrollTo(0, 0);
+}
+
+function fillHomeDashboard(){
+  const now = new Date();
+  const h = now.getHours();
+  const saudacao = h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
+  document.getElementById('hmGreeting').textContent = saudacao + ', Brian 👋';
+  const dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  document.getElementById('hmDate').textContent = dias[now.getDay()] + ', ' + now.getDate() + ' de ' + meses[now.getMonth()] + ' de ' + now.getFullYear();
+
+  const fmt = v => 'R$' + v.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
+
+  if(_invAccounts && _invAccounts.length){
+    const reserva = _invAccounts.filter(a=>a.type==='caixinha'||a.type==='reserva').reduce((s,a)=>s+(+(a.balance||0)),0);
+    const meta = (_cmRow && +_cmRow.meta_reserva) || 72269;
+    const pct = Math.round(reserva/meta*100);
+    document.getElementById('hmKpiReserva').textContent = fmt(reserva);
+    document.getElementById('hmKpiReservaDelta').textContent = pct + '% da meta ('+fmt(meta)+')';
+    document.getElementById('hmKpiReservaDelta').style.color = pct >= 100 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--muted2)';
+  }
+
+  if(_invFiiRows && _invFiiRows.length){
+    const rendaFii = _invFiiRows.reduce((s,r)=>s+(+(r.monthly_income||0)),0);
+    const metaRenda = 1000;
+    const pct = Math.round(rendaFii/metaRenda*100);
+    document.getElementById('hmKpiFii').textContent = fmt(rendaFii);
+    document.getElementById('hmKpiFiiDelta').textContent = pct + '% da meta ('+fmt(metaRenda)+'/mês)';
+    document.getElementById('hmKpiFiiDelta').style.color = pct >= 100 ? 'var(--green)' : 'var(--muted2)';
+  }
+
+  if(_saudeScores && _saudeScores.total != null){
+    const pts = Math.round(_saudeScores.total);
+    document.getElementById('hmKpiSaude').textContent = pts + ' pts';
+    document.getElementById('hmKpiSaudeDelta').textContent = pts >= 80 ? '✓ Excelente' : pts >= 60 ? '~ Bom' : '↓ Atenção';
+    document.getElementById('hmKpiSaudeDelta').style.color = pts >= 80 ? 'var(--green)' : pts >= 60 ? 'var(--yellow)' : 'var(--red)';
+  }
 }
 
 function switchTab(tab){
