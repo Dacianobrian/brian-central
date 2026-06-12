@@ -2093,20 +2093,23 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 
 <!-- ══ ABA: IDEIAS PESSOAIS ══ -->
 <div id="tabIdeiasP" style="display:none">
-  <div class="nb-wrap">
-    <aside class="nb-sidebar">
-      <div class="nb-side-head">
-        <div class="nb-side-title">💡 VIDA DE BRIAN</div>
-        <button class="nb-newbtn" onclick="nbCreate('pessoal')" title="Nova ideia">＋</button>
+  <div style="display:grid;grid-template-columns:280px 1fr;gap:1.5rem;padding:0 24px;margin:20px 0">
+    <!-- Sidebar -->
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div style="display:flex;align-items:center;gap:8px">
+        <i class="ti ti-search" style="font-size:18px;color:var(--muted)" aria-hidden="true"></i>
+        <input class="nb-search" id="nbSearchP" placeholder="Buscar notas..." style="flex:1;font-size:13px;border:0.5px solid var(--border);padding:8px 10px;border-radius:var(--r)" oninput="nbRenderList('pessoal')"/>
       </div>
-      <input class="nb-search" id="nbSearchP" placeholder="🔍 Buscar..." oninput="nbRenderList('pessoal')"/>
-      <div class="nb-list" id="nbListP"></div>
-    </aside>
-    <main class="nb-editor" id="nbEditorP">
-      <div class="nb-empty">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px" id="nbListP"></div>
+    </div>
+
+    <!-- Editor -->
+    <main id="nbEditorP" style="display:flex;flex-direction:column;gap:1rem">
+      <div class="nb-empty" style="text-align:center;padding:50px;background:rgba(255,255,255,.02);border-radius:var(--r)">
         <div style="font-size:48px;opacity:.3;margin-bottom:12px">💡</div>
         <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione uma ideia ou crie uma nova</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique em ＋ ao lado para começar</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique no card ao lado para começar</div>
+        <button class="btn btn-green" style="margin-top:16px;justify-content:center;width:100%;max-width:200px;margin-left:auto;margin-right:auto" onclick="nbCreate('pessoal')">＋ Nova ideia</button>
       </div>
     </main>
   </div>
@@ -7533,24 +7536,17 @@ function nbRenderList(tipo){
     });
   }
   if(!items.length){
-    list.innerHTML = `<div class="nb-list-empty">${q?'Nada encontrado':'Nenhuma ideia ainda.<br>Clique em ＋ acima.'}</div>`;
+    list.innerHTML = `<div style="grid-column:1/-1;color:var(--muted);text-align:center;padding:30px;font-size:13px">${q?'Nada encontrado':'Nenhuma ideia ainda'}</div>`;
     return;
   }
   const sel = _nbState[tipo].selectedId;
   list.innerHTML = items.map(i=>{
-    const cl = Array.isArray(i.checklist) ? i.checklist : [];
-    const done = cl.filter(c=>c.done).length;
-    const total = cl.length;
-    const color = i.color || 'amarelo';
+    const colorEmoji = {'vermelho':'🔴','amarelo':'🟡','verde':'🟢','azul':'🔵','roxo':'🟣'}[i.color||'amarelo'] || '🟡';
     return `
-      <div class="nb-item ${i.id===sel?'active':''}" onclick="nbSelect('${tipo}',${i.id})">
-        <div class="nb-item-color nb-color-${color}"></div>
-        <div class="nb-item-title">${escHtml(i.title || 'Sem título')}</div>
-        ${i.content ? `<div class="nb-item-preview">${escHtml(i.content)}</div>` : ''}
-        <div class="nb-item-meta">
-          <span>${fmtDate(i.updated_at || i.created_at)}</span>
-          ${total>0 ? `<span class="nb-item-check" style="color:${done===total?'var(--green)':'var(--muted2)'}">✓ ${done}/${total}</span>` : ''}
-        </div>
+      <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:10px;cursor:pointer;transition:.15s;${i.id===sel?'border-color:var(--blue)':''}" onclick="nbSelect('${tipo}',${i.id})">
+        <div style="font-size:16px;margin-bottom:6px">${colorEmoji}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(i.title || 'Sem título')}</div>
+        <div style="font-size:11px;color:var(--muted)">${fmtDate(i.updated_at || i.created_at)}</div>
       </div>`;
   }).join('');
 }
@@ -7588,26 +7584,45 @@ function nbRenderEditor(tipo, idea){
   const tags = Array.isArray(idea.tags) ? idea.tags : [];
 
   ed.innerHTML = `
-    <div class="nb-edit-head">
-      <div class="nb-color-row">
-        ${NB_COLORS.map(c=>`<div class="nb-color nb-color-${c} ${c===color?'active':''}" onclick="nbSetColor('${tipo}',${idea.id},'${c}')" title="${c}"></div>`).join('')}
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:0.5px solid var(--border)">
+      <div>
+        <h3 style="font-size:18px;font-weight:500;margin:0;color:var(--text)">${escHtml(idea.title||'Sem título')}</h3>
+        <div style="font-size:13px;color:var(--muted);margin-top:2px">${idea.created_at?'Criado em '+fmtDate(idea.created_at):''}</div>
       </div>
-      <span class="nb-edit-status" id="nbStatus-${tipo}">Salvo</span>
-      <button class="nb-edit-del" onclick="nbDelete('${tipo}',${idea.id})" title="Excluir ideia">🗑 Excluir</button>
+      <div style="display:flex;gap:8px">
+        <button style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:0.5px solid var(--border);border-radius:var(--r);background:transparent;cursor:pointer;font-size:12px;color:var(--text)" onclick="nbExportIdea('${tipo}',${idea.id})">
+          <i class="ti ti-download" style="font-size:14px" aria-hidden="true"></i> Exportar
+        </button>
+        <button style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:0.5px solid var(--border);border-radius:var(--r);background:transparent;cursor:pointer;font-size:12px;color:var(--text)" onclick="nbDelete('${tipo}',${idea.id})">
+          <i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i> Deletar
+        </button>
+      </div>
     </div>
-    <div class="nb-edit-body">
-      <input class="nb-title-input" id="nbTitle-${tipo}" placeholder="${titlePh}" value="${escHtml(idea.title||'')}" oninput="nbField('${tipo}',${idea.id},'title',this.value)"/>
 
-      <textarea class="nb-content-area" id="nbContent-${tipo}" placeholder="${contentPh}" oninput="nbField('${tipo}',${idea.id},'content',this.value);nbAutoGrow(this)">${escHtml(idea.content||'')}</textarea>
+    <div style="background:var(--surface);border-radius:var(--r);padding:12px;display:flex;gap:8px;flex-wrap:wrap">
+      ${NB_COLORS.map(c=>{const emoji={'vermelho':'🔴','amarelo':'🟡','verde':'🟢','azul':'🔵','roxo':'🟣'}[c]||'🟡';return `<div style="width:24px;height:24px;border-radius:50%;background:var(--${c==='vermelho'?'red':c==='verde'?'green':c==='azul'?'blue':c==='roxo'?'purple':'yellow'});cursor:pointer;border:${c===color?'2px':'1px'} solid var(--${c===color?'text':'border'});transition:.15s" onclick="nbSetColor('${tipo}',${idea.id},'${c}')" title="${c}"></div>`}).join('')}
+      <div style="font-size:12px;color:var(--muted);margin-left:8px;align-self:center">Categorias</div>
+    </div>
 
-      <div class="nb-section-label">${checkLbl}</div>
-      <div class="nb-checklist" id="nbChecklist-${tipo}">
+    <div style="background:var(--surface);border-radius:var(--r);padding:14px">
+      <input class="nb-title-input" id="nbTitle-${tipo}" placeholder="${titlePh}" value="${escHtml(idea.title||'')}" style="width:100%;border:none;background:transparent;font-size:16px;font-weight:500;outline:none;padding:0;margin-bottom:12px" oninput="nbField('${tipo}',${idea.id},'title',this.value)"/>
+      <textarea class="nb-content-area" id="nbContent-${tipo}" placeholder="Escreva suas anotações aqui..." style="width:100%;border:0.5px solid var(--border);border-radius:var(--r);padding:10px;font-family:var(--font);font-size:13px;resize:vertical;background:var(--bg)" oninput="nbField('${tipo}',${idea.id},'content',this.value);nbAutoGrow(this)">${escHtml(idea.content||'')}</textarea>
+    </div>
+
+    <div style="background:var(--surface);border-radius:var(--r);padding:14px">
+      <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px">${checkLbl}</div>
+      <div style="display:flex;flex-direction:column;gap:8px" id="nbChecklist-${tipo}">
         ${checklist.map((c,idx)=>nbChecklistRowHtml(tipo, idea.id, c, idx)).join('')}
       </div>
-      <button class="nb-check-add" onclick="nbAddCheck('${tipo}',${idea.id})">＋ Adicionar item</button>
+      <button style="margin-top:8px;padding:6px 10px;border:0.5px solid var(--border);border-radius:var(--r);background:transparent;cursor:pointer;font-size:12px;color:var(--text);display:flex;align-items:center;gap:6px" onclick="nbAddCheck('${tipo}',${idea.id})">
+        <i class="ti ti-plus" style="font-size:14px" aria-hidden="true"></i> Adicionar item
+      </button>
+    </div>
 
-      <div class="nb-section-label" style="margin-top:24px">🏷 TAGS</div>
-      <input class="nb-tags-input" id="nbTags-${tipo}" placeholder="ex: marketing, produto, urgente (separadas por vírgula)" value="${escHtml(tags.join(', '))}" oninput="nbField('${tipo}',${idea.id},'tags',this.value)"/>
+    <div style="background:var(--surface);border-radius:var(--r);padding:14px">
+      <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px">Tags</div>
+      <input class="nb-tags-input" id="nbTags-${tipo}" placeholder="marketing, produto, urgente..." style="width:100%;border:0.5px solid var(--border);border-radius:var(--r);padding:8px 10px;font-size:13px;background:var(--bg)" value="${escHtml(tags.join(', '))}" oninput="nbField('${tipo}',${idea.id},'tags',this.value)"/>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">Separe por vírgula</div>
     </div>
   `;
   // Auto-grow do textarea
@@ -7622,11 +7637,11 @@ function nbAutoGrow(el){
 function nbChecklistRowHtml(tipo, ideaId, item, idx){
   const done = !!item.done;
   return `
-    <div class="nb-check-row">
-      <div class="nb-check-box ${done?'checked':''}" onclick="nbToggleCheck('${tipo}',${ideaId},${idx})"></div>
-      <input class="nb-check-text ${done?'done':''}" value="${escHtml(item.text||'')}" placeholder="Item..." oninput="nbCheckText('${tipo}',${ideaId},${idx},this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();nbAddCheck('${tipo}',${ideaId})}"/>
-      <button class="nb-check-del" onclick="nbRemoveCheck('${tipo}',${ideaId},${idx})">✕</button>
-    </div>`;
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px">
+      <input type="checkbox" ${done?'checked':''} onchange="nbToggleCheck('${tipo}',${ideaId},${idx})" style="cursor:pointer" />
+      <input style="flex:1;border:none;background:transparent;font-size:13px;outline:none;${done?'text-decoration:line-through;color:var(--muted)':''}" value="${escHtml(item.text||'')}" placeholder="Item..." oninput="nbCheckText('${tipo}',${ideaId},${idx},this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();nbAddCheck('${tipo}',${ideaId})}"/>
+      <button style="background:none;border:none;color:var(--muted);cursor:pointer;padding:0;font-size:12px" onclick="nbRemoveCheck('${tipo}',${ideaId},${idx})" title="Remover">✕</button>
+    </label>`;
 }
 
 // ── Auto-save com debounce ───────────────────────────────────────────────────
@@ -7675,10 +7690,17 @@ function nbSetColor(tipo, id, color){
   const idea = _nbState[tipo].items.find(i=>i.id===id);
   if(!idea) return;
   idea.color = color;
-  document.querySelectorAll('#'+nbId('nbEditor', tipo)+' .nb-color').forEach(el=>{
-    el.classList.toggle('active', el.classList.contains('nb-color-'+color));
-  });
   nbScheduleSave(tipo, id);
+}
+
+function nbExportIdea(tipo, id){
+  const idea = _nbState[tipo].items.find(i=>i.id===id);
+  if(!idea) return;
+  const text = `${idea.title}\n\n${idea.content||''}\n\nTags: ${(idea.tags||[]).join(', ')}`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const status = document.getElementById('nbStatus-'+tipo);
+    if(status){ status.textContent='✓ Copiado'; setTimeout(()=>{ if(status) status.textContent='Salvo'; }, 1500); }
+  });
 }
 
 // ── Checklist ────────────────────────────────────────────────────────────────
