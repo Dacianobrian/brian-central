@@ -887,6 +887,13 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
 </style>
 </head>
 <body>
+<!-- Quick Add Flutuante -->
+<div id="quickAddBtn" style="position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 4px 16px rgba(59,130,246,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;z-index:99;transition:transform .2s,box-shadow .2s;user-select:none" onclick="toggleQuickAdd()">➕</div>
+<div id="quickAddMenu" style="position:fixed;bottom:100px;right:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;z-index:98;display:none;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,.3)">
+  <div onclick="goToQuickAdd('tarefa')" style="padding:10px 12px;cursor:pointer;border-radius:8px;transition:.15s;font-size:12px" onmouseover="this.style.background='rgba(255,255,255,.05)'" onmouseout="this.style.background=''">➕ Nova Tarefa</div>
+  <div onclick="goToQuickAdd('transacao')" style="padding:10px 12px;cursor:pointer;border-radius:8px;transition:.15s;font-size:12px" onmouseover="this.style.background='rgba(255,255,255,.05)'" onmouseout="this.style.background=''">💵 Nova Transação</div>
+  <div onclick="goToQuickAdd('ideia')" style="padding:10px 12px;cursor:pointer;border-radius:8px;transition:.15s;font-size:12px" onmouseover="this.style.background='rgba(255,255,255,.05)'" onmouseout="this.style.background=''">💡 Nova Ideia</div>
+</div>
 
 <!-- ══ LOGIN ══ -->
 <div class="login-wrap" id="loginWrap">
@@ -1082,6 +1089,14 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
             <div class="hm-kpi-label">Saúde financeira</div>
             <div class="hm-kpi-delta" id="hmKpiSaudeDelta" style="color:var(--muted)">carregando…</div>
           </div>
+        </div>
+      </div>
+
+      <!-- Últimas Atividades -->
+      <div>
+        <div class="hm-sec-label">Últimas atividades</div>
+        <div id="hmActivity" style="display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto">
+          <div style="color:var(--muted);text-align:center;padding:20px;font-size:12px">Carregando...</div>
         </div>
       </div>
 
@@ -5274,6 +5289,40 @@ function openModule(mod){
   window.scrollTo(0, 0);
 }
 
+function toggleQuickAdd(){
+  const menu = document.getElementById('quickAddMenu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+function goToQuickAdd(tipo){
+  toggleQuickAdd();
+  if(tipo === 'tarefa') openModule('ferramentas');
+  else if(tipo === 'transacao') openModule('financeiro');
+  else if(tipo === 'ideia') openModule('ideiasP');
+}
+
+async function loadRecentActivity(){
+  const el = document.getElementById('hmActivity');
+  if(!el) return;
+  try {
+    const res = await fetch(`${REST}/transactions?order=date.desc&limit=5`, {method:'GET', headers:HDR});
+    const txs = await res.json();
+    if(!txs || txs.length === 0) {
+      el.innerHTML = '<div style="color:var(--muted);text-align:center;padding:20px;font-size:12px">Sem atividades recentes</div>';
+      return;
+    }
+    el.innerHTML = txs.map(t => {
+      const emoji = t.type === 'entrada' ? '📥' : t.type === 'investido' ? '📈' : '📤';
+      return `<div style="padding:10px 12px;background:rgba(255,255,255,.02);border-radius:8px;border-left:2px solid var(--border);font-size:12px;display:flex;justify-content:space-between;align-items:center">
+        <div><span style="margin-right:8px">${emoji}</span><strong>${t.description}</strong><div style="color:var(--muted);font-size:11px">${t.date}</div></div>
+        <div style="color:${t.type==='entrada'?'var(--green)':t.type==='investido'?'var(--blue)':'var(--red)'}">R$ ${(t.amount||0).toFixed(2)}</div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = '<div style="color:var(--red);font-size:12px;padding:10px">Erro ao carregar</div>';
+  }
+}
+
 function fillHomeDashboard(){
   const now = new Date();
   const h = now.getHours();
@@ -5282,6 +5331,7 @@ function fillHomeDashboard(){
   const dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
   const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
   document.getElementById('hmDate').textContent = dias[now.getDay()] + ', ' + now.getDate() + ' de ' + meses[now.getMonth()] + ' de ' + now.getFullYear();
+  loadRecentActivity();
 
   const fmt = v => 'R$' + v.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
 
