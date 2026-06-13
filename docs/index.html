@@ -27,18 +27,36 @@
   --cyan:#06b6d4;--pink:#ec4899;--font:'Inter',sans-serif;--nu:#820ad1;--bradesco:#cc092f;--r:12px;
   --shadow:0 1px 3px rgba(0,0,0,.3);
   --glow-blue:rgba(59,130,246,.08);--glow-green:rgba(16,185,129,.08);--glow-red:rgba(239,68,68,.08);
-  /* Ponto 6 — Animation timing system */
   --dur-fast:150ms;--dur-normal:250ms;--dur-slow:400ms;
-  /* Ponto 3 — Alias para substituir hardcoded */
   --surface-input:#141414;--border-input:#262626;
   --accent-blue-bg:rgba(59,130,246,.06);
   --accent-green-bg:rgba(16,185,129,.06);
   --accent-red-bg:rgba(239,68,68,.06);
   --accent-purple-bg:rgba(168,85,247,.06);
 }
+@media (prefers-color-scheme:light){
+:root:not([data-theme="dark"]){
+  --bg:#f9f9f9;--surface:#ffffff;--surface2:#f3f3f3;--border:#e5e5e5;--border2:#d9d9d9;
+  --text:#0d0d0d;--muted:#707070;--muted2:#888888;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+}
+}
+:root[data-theme="light"]{
+  --bg:#f9f9f9;--surface:#ffffff;--surface2:#f3f3f3;--border:#e5e5e5;--border2:#d9d9d9;
+  --text:#0d0d0d;--muted:#707070;--muted2:#888888;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;padding-bottom:100px;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+@media(max-width:768px){
+  body{font-size:13px;padding-bottom:80px}
+  .page{padding:12px 16px}
+  .hm-main{padding:0}
+  .hm-body{padding:12px 16px}
+  .hm-topbar{flex-direction:column;gap:8px;margin-bottom:12px}
+  #hmSearch{width:100%;max-width:none}
+}
 ::selection{background:rgba(56,189,248,.3)}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--surface)}
@@ -1070,6 +1088,7 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
         <div class="hm-date" id="hmDate"></div>
       </div>
       <input id="hmSearch" type="text" placeholder="🔍 Buscar..." style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;width:200px;font-size:12px;font-family:var(--font)" onkeyup="globalSearch(this.value)"/>
+      <button id="themeToggle" style="background:var(--surface2);border:0.5px solid var(--border);color:var(--text);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;transition:.15s" title="Alternar tema" onclick="toggleTheme()">🌙</button>
     </div>
     <div class="hm-body">
 
@@ -5378,6 +5397,23 @@ function globalSearch(query){
     m.style.display = (name.includes(query) || desc.includes(query)) ? '' : 'none';
   });
 }
+
+function toggleTheme(){
+  const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  const btn = document.getElementById('themeToggle');
+  if(btn) btn.textContent = isDark ? '🌙' : '☀️';
+}
+
+(function initTheme(){
+  const saved = localStorage.getItem('theme');
+  const prefer = window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark';
+  const theme = saved || prefer;
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('themeToggle');
+  if(btn) btn.textContent = theme === 'light' ? '☀️' : '🌙';
+})();
 
 async async function loadModuleSummary(){
   try {
