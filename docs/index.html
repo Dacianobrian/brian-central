@@ -1445,243 +1445,83 @@ try{
 
 <!-- TAB: VISÃO GERAL -->
 <div id="tabGeral">
-  <!-- Banner alerta saldo baixo -->
-  <div id="saldoBanner" style="display:none;margin:0 0 10px;padding:10px 16px;border-radius:10px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.35);color:#fbbf24;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px">
-    <span style="font-size:18px">⚠️</span>
-    <span id="saldoBannerMsg"></span>
-  </div>
 
-  <div class="section" style="margin-bottom:14px">
-    <div class="section-header" style="margin-bottom:12px"><div class="section-title">💼 Contas &amp; Patrimônio</div></div>
-    <div class="grid g4" id="accountsGrid"><div class="card" style="opacity:.4">carregando...</div></div>
-  </div>
-
-  <div class="grid g4" style="margin-bottom:14px">
-    <div class="card"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(245,158,11,.15)">🏢</span>Portfolio FII</div><div class="kpi-value amt-yellow" id="kpiFii">—</div><div class="kpi-sub" id="kpiFiiSub">valor de mercado</div></div>
-    <div class="card"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(16,185,129,.15)">💸</span>Dividendos / Mês</div><div class="kpi-value amt-green" id="kpiDiv">—</div><div class="kpi-sub">renda passiva estimada</div></div>
-    <div class="card"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(6,182,212,.15)">💎</span>Total Investido</div><div class="kpi-value" style="color:var(--cyan)" id="kpiInv">—</div><div class="kpi-sub">Caixinha + FIIs</div></div>
-    <div class="card"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(245,158,11,.15)">🎯</span>Meta Reserva · Dez/2027</div><div class="kpi-value amt-yellow" id="kpiMeta">—</div><div class="progress"><div class="progress-fill" id="kpiMetaBar" style="width:0%;background:linear-gradient(90deg,var(--yellow),var(--orange))"></div></div><div class="kpi-sub" id="kpiMetaSub">de R$ 72.269</div></div>
-  </div>
-
-  <div class="section">
-    <div class="grid g4" id="kpiGrid">
-      <div class="card card-blue"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(99,102,241,.15)">🏦</span>Saldo em Conta</div><div class="kpi-value" id="kpiSaldo">—</div><div class="kpi-sub" id="kpiSaldoSub">Nubank + Bradesco</div><div class="kpi-saldo-upcoming" id="kpiUpcoming" style="display:none"><span id="kpiUpcomingTxt"></span></div><div id="kpiProjetado" style="display:none;margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--muted)">Fim do mês: <span id="kpiProjetadoVal" style="font-weight:700"></span></div></div>
-      <div class="card card-green"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(16,185,129,.15)">💵</span>Entradas</div><div class="kpi-value amt-green" id="kpiEntradas">—</div><div class="kpi-sub">mês atual</div></div>
-      <div class="card card-red"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(239,68,68,.15)">📤</span>Saídas</div><div class="kpi-value amt-red" id="kpiSaidas">—</div><div class="progress" id="kpiSaidasProg" style="display:none;margin:6px 0 2px"><div class="progress-fill" id="kpiSaidasBar" style="width:0%"></div></div><div class="kpi-sub" id="kpiSaidasSub">mês atual</div></div>
-      <div class="card card-purple"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(139,92,246,.15)">📈</span>Investido</div><div class="kpi-value amt-purple" id="kpiInvestido">—</div><div class="kpi-sub">mês atual</div></div>
-    </div>
-  </div>
-
-  <!-- Projeção de Caixa -->
-  <div class="section" style="margin-top:14px">
-    <div class="card" style="padding:0;overflow:hidden">
-      <!-- Top bar -->
-      <div style="padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border)">
-        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
-          <span style="font-size:14px;font-weight:700;color:var(--text)">📆 Projeção de Caixa</span>
-          <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);color:var(--blue2);font-weight:600">FUTURO</span>
-        </div>
-        <div id="fluxoGrid" style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;flex-wrap:wrap;flex:1;justify-content:center;color:var(--muted)">Carregando...</div>
-        <div style="display:flex;gap:5px;flex-shrink:0">
-          <button onclick="_fillFluxo(30)" id="fluxoBtn30" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid rgba(56,189,248,.3);background:linear-gradient(135deg,#0284c7,#2dd4bf);color:#fff;cursor:pointer;font-weight:600">30d</button>
-          <button onclick="_fillFluxo(60)" id="fluxoBtn60" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);color:var(--muted2);cursor:pointer">60d</button>
-          <button onclick="_fillFluxo(90)" id="fluxoBtn90" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);color:var(--muted2);cursor:pointer">90d</button>
-        </div>
-      </div>
-      <!-- Abas por semana -->
-      <div id="projWeekTabs" style="display:flex;overflow-x:auto;border-bottom:1px solid var(--border);scrollbar-width:none;-webkit-overflow-scrolling:touch"></div>
-      <!-- Conteúdo da semana ativa -->
-      <div id="projTimeline"></div>
-      <!-- Barra de adição -->
-      <div class="proj-add-bar" style="margin-top:0;border-top:1px solid var(--border);border-radius:0;border-left:none;border-right:none;border-bottom:none">
-        <input id="projAddDesc" type="text"  class="proj-add-input" placeholder="Descrição..." autocomplete="off" style="flex:2;min-width:120px"/>
-        <input id="projAddVal"  type="text"  class="proj-add-input" placeholder="R$ 0,00" inputmode="decimal" style="flex:1;min-width:90px"/>
-        <input id="projAddDate" type="date"  class="proj-add-input" style="flex:1;min-width:130px"/>
-        <button onclick="_projAdd('entrada')" class="proj-add-btn-in">＋ Receita</button>
-        <button onclick="_projAdd('saida')"   class="proj-add-btn-out">＋ Despesa</button>
-      </div>
-      <!-- Saldo projetado -->
-      <div id="projSaldoLine" style="display:none" class="proj-cumul">
-        <span class="proj-cumul-label">Impacto no saldo em <span id="projSaldoData"></span></span>
-        <span id="projSaldoVal" class="proj-cumul-val"></span>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- IDs ocultos para não quebrar o JS -->
-  <div id="catBreakdown" style="display:none"></div>
-  <div id="catBreakdownAno" style="display:none"></div>
-  <span id="catTotalLabel" style="display:none"></span>
-  <span id="catTotalAnoLabel" style="display:none"></span>
+  <!-- IDs ocultos necessários para o JS não quebrar -->
+  <div id="saldoBanner" style="display:none"><span id="saldoBannerMsg"></span></div>
+  <div id="accountsGrid" style="display:none"></div>
+  <span id="kpiFii" style="display:none"></span><span id="kpiFiiSub" style="display:none"></span>
+  <span id="kpiDiv" style="display:none"></span><span id="kpiInv" style="display:none"></span>
+  <span id="kpiMeta" style="display:none"></span><div id="kpiMetaBar" style="display:none"></div><span id="kpiMetaSub" style="display:none"></span>
+  <div id="kpiGrid" style="display:none"></div>
+  <span id="kpiSaldo" style="display:none"></span><span id="kpiSaldoSub" style="display:none"></span>
+  <span id="kpiUpcoming" style="display:none"><span id="kpiUpcomingTxt"></span></span>
+  <div id="kpiProjetado" style="display:none"><span id="kpiProjetadoVal"></span></div>
+  <span id="kpiEntradas" style="display:none"></span><span id="kpiSaidas" style="display:none"></span>
+  <div id="kpiSaidasProg" style="display:none"><div id="kpiSaidasBar"></div></div>
+  <span id="kpiSaidasSub" style="display:none"></span><span id="kpiInvestido" style="display:none"></span>
+  <div id="fluxoGrid" style="display:none"></div>
+  <div id="fluxoBtn30" style="display:none"></div><div id="fluxoBtn60" style="display:none"></div><div id="fluxoBtn90" style="display:none"></div>
+  <div id="projWeekTabs" style="display:none"></div><div id="projTimeline" style="display:none"></div>
+  <input id="projAddDesc" type="hidden"/><input id="projAddVal" type="hidden"/><input id="projAddDate" type="hidden"/>
+  <div id="projSaldoLine" style="display:none"><span id="projSaldoData"></span><span id="projSaldoVal"></span></div>
+  <div id="catBreakdown" style="display:none"></div><div id="catBreakdownAno" style="display:none"></div>
+  <span id="catTotalLabel" style="display:none"></span><span id="catTotalAnoLabel" style="display:none"></span>
   <span id="catPeriodLabel" style="display:none"></span>
-  <canvas id="chartCatMesBar" style="display:none"></canvas>
-  <canvas id="chartCatAnoBar" style="display:none"></canvas>
+  <canvas id="chartCatMesBar" style="display:none"></canvas><canvas id="chartCatAnoBar" style="display:none"></canvas>
+  <span id="totalEntradaPrev" style="display:none"></span><span id="totalSaidaPrev" style="display:none"></span>
+  <div id="listEntrada" style="display:none"></div><div id="listSaida" style="display:none"></div>
+  <span id="relMesLabel" style="display:none"></span><select id="relMesYear" style="display:none"></select>
+  <div id="relMesPills" style="display:none"></div><div id="relMesKpis" style="display:none"></div>
+  <span id="relEnt" style="display:none"></span><span id="relEntVar" style="display:none"></span>
+  <span id="relSai" style="display:none"></span><span id="relSaiVar" style="display:none"></span>
+  <span id="relSaldo" style="display:none"></span><span id="relSaldoVar" style="display:none"></span>
+  <span id="relInv" style="display:none"></span><span id="relInvVar" style="display:none"></span>
+  <span id="relTaxa" style="display:none"></span><span id="relTaxaVar" style="display:none"></span>
+  <canvas id="relMesChart" style="display:none"></canvas>
+  <div id="relTopCats" style="display:none"></div><div id="relContas" style="display:none"></div>
+  <input id="txSearch" type="hidden"/><div id="tblTransactions" style="display:none"></div><div id="txSearchInfo" style="display:none"></div>
+  <div id="totalFixo" style="display:none"></div><div id="tblCustos" style="display:none"></div>
+  <div id="subsTotalLabel" style="display:none"></div><div id="subsGrid" style="display:none"></div>
+  <div id="instTotalLabel" style="display:none"></div><div id="instGrid" style="display:none"></div>
+  <span id="anoYearLabel" style="display:none"></span><div id="anoYearPills" style="display:none"></div>
+  <span id="anoEntradas" style="display:none"></span><span id="anoEntradasSub" style="display:none"></span>
+  <span id="anoSaidas" style="display:none"></span><span id="anoSaidasSub" style="display:none"></span>
+  <span id="anoInvestido" style="display:none"></span><span id="anoInvestidoSub" style="display:none"></span>
+  <span id="anoRate" style="display:none"></span><div id="anoCmpRow" style="display:none"></div>
+  <canvas id="chartFluxoAno" style="display:none"></canvas>
+  <div id="tblMeses" style="display:none"></div><div id="tblMesesFoot" style="display:none"></div>
+  <canvas id="chartCatAno" style="display:none"></canvas>
 
-  <!-- IDs mantidos para não quebrar o JS que ainda atualiza estes elementos -->
-  <span id="totalEntradaPrev" style="display:none"></span>
-  <span id="totalSaidaPrev" style="display:none"></span>
-  <div id="listEntrada" style="display:none"></div>
-  <div id="listSaida" style="display:none"></div>
-
-  <!-- 📊 Relatório Mensal -->
-  <div class="section">
-    <div class="card">
-      <div style="margin-bottom:16px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div class="section-title">📊 Relatório Mensal — <span id="relMesLabel" style="color:var(--blue2);font-weight:700;text-transform:none;letter-spacing:0">...</span></div>
-          <div style="display:flex;gap:5px;align-items:center">
-            <select id="relMesYear" onchange="relMesJumpYear(+this.value)" style="background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:12px;padding:5px 10px;outline:none;cursor:pointer;font-family:var(--font)"></select>
-            <button onclick="relMesNav(-1)" style="background:var(--surface2);border:1px solid var(--border);color:var(--muted2);border-radius:8px;padding:5px 11px;font-size:15px;cursor:pointer;line-height:1;font-weight:300">‹</button>
-            <button onclick="relMesNav(0)" style="background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#818cf8;border-radius:8px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)">Hoje</button>
-            <button onclick="relMesNav(1)" style="background:var(--surface2);border:1px solid var(--border);color:var(--muted2);border-radius:8px;padding:5px 11px;font-size:15px;cursor:pointer;line-height:1;font-weight:300">›</button>
-          </div>
-        </div>
-        <div id="relMesPills" style="display:flex;gap:5px;flex-wrap:wrap"></div>
-      </div>
-      <!-- KPIs linha 1: 5 indicadores -->
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px" id="relMesKpis">
-        <div class="card" style="padding:14px;background:rgba(16,185,129,.07);border-color:rgba(16,185,129,.25)">
-          <div class="kpi-label" style="color:var(--muted)">💚 Entradas</div>
-          <div class="kpi-value amt-green" id="relEnt" style="font-size:20px">R$ 0,00</div>
-          <div id="relEntVar" style="font-size:11px;margin-top:4px;color:var(--muted)"></div>
-        </div>
-        <div class="card" style="padding:14px;background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.25)">
-          <div class="kpi-label" style="color:var(--muted)">🔴 Saídas</div>
-          <div class="kpi-value amt-red" id="relSai" style="font-size:20px">R$ 0,00</div>
-          <div id="relSaiVar" style="font-size:11px;margin-top:4px;color:var(--muted)"></div>
-        </div>
-        <div class="card" style="padding:14px">
-          <div class="kpi-label" style="color:var(--muted)">⚖️ Saldo</div>
-          <div class="kpi-value" id="relSaldo" style="font-size:20px">R$ 0,00</div>
-          <div id="relSaldoVar" style="font-size:11px;margin-top:4px;color:var(--muted)"></div>
-        </div>
-        <div class="card" style="padding:14px;background:rgba(139,92,246,.07);border-color:rgba(139,92,246,.25)">
-          <div class="kpi-label" style="color:var(--muted)">📈 Investido</div>
-          <div class="kpi-value" style="color:#a78bfa;font-size:20px" id="relInv">R$ 0,00</div>
-          <div id="relInvVar" style="font-size:11px;margin-top:4px;color:var(--muted)"></div>
-        </div>
-        <div class="card" style="padding:14px;background:rgba(99,102,241,.07);border-color:rgba(99,102,241,.25)">
-          <div class="kpi-label" style="color:var(--muted)">🎯 Taxa Poupança</div>
-          <div class="kpi-value" style="color:var(--blue2);font-size:20px" id="relTaxa">0%</div>
-          <div id="relTaxaVar" style="font-size:11px;margin-top:4px;color:var(--muted)"></div>
-        </div>
-      </div>
-
-      <!-- Gráfico últimos 4 meses + detalhes -->
-      <div style="margin-top:14px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px;align-items:start">
-        <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">📊 Evolução — Últimos 4 meses</div>
-          <div style="position:relative;height:180px;width:100%"><canvas id="relMesChart"></canvas></div>
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">🔴 Top Categorias de Gasto</div>
-          <div id="relTopCats" style="display:flex;flex-direction:column;gap:5px"></div>
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">🏦 Resumo por Conta</div>
-          <div id="relContas" style="display:flex;flex-direction:column;gap:5px"></div>
-        </div>
-      </div>
-    </div>
+  <!-- Dashboard Brian Central -->
+  <div style="padding:8px 0 24px">
+    <div style="font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px">Olá, Brian 👋</div>
+    <div style="font-size:13px;color:var(--muted)" id="dashDate"></div>
+    <script>document.getElementById('dashDate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});</script>
   </div>
 
-  <!-- Transações + Custos Fixos + Assinaturas -->
-  <div class="section">
-    <div class="grid g3">
-      <div class="card">
-        <div class="section-header" style="margin-bottom:8px">
-          <div class="section-title">Últimas Transações</div>
-          <button onclick="openTxModal()" style="font-size:11px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:#818cf8;border-radius:8px;padding:3px 10px;cursor:pointer">Ver todas →</button>
-        </div>
-        <input class="tx-search" id="txSearch" placeholder="🔍 Buscar transação..." oninput="_debounceTxSearch(this.value)" style="margin-bottom:8px"/>
-        <div class="table-wrap"><table>
-          <thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th style="text-align:right">Valor</th></tr></thead>
-          <tbody id="tblTransactions"><tr><td colspan="4" class="empty">Carregando...</td></tr></tbody>
-        </table></div>
-        <div id="txSearchInfo" style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right"></div>
-      </div>
-      <div class="card">
-        <div class="section-header" style="margin-bottom:10px">
-          <div class="section-title">📋 Custos Fixos Mensais</div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div id="totalFixo" style="font-size:13px;font-weight:700;color:var(--red)"></div>
-            <button onclick="openFixedCostModal()" style="background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#818cf8;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;">✏️ Editar</button>
-          </div>
-        </div>
-        <div class="table-wrap"><table>
-          <thead><tr><th>Dia</th><th>Descrição</th><th style="text-align:right">Valor</th><th>Categoria</th></tr></thead>
-          <tbody id="tblCustos"><tr><td colspan="4" class="empty">Carregando...</td></tr></tbody>
-        </table></div>
-      </div>
-      <div class="card">
-        <div class="section-header" style="margin-bottom:14px">
-          <div class="section-title">📱 Assinaturas</div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div id="subsTotalLabel" style="font-size:13px;font-weight:700;color:var(--red)"></div>
-            <button onclick="openSubModal()" style="background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#818cf8;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;">＋ Adicionar</button>
-          </div>
-        </div>
-        <div id="subsGrid" style="display:flex;flex-direction:column;gap:8px">
-          <div style="color:var(--muted);font-size:13px">Carregando...</div>
-        </div>
-      </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px">
+    <div onclick="switchModule('pessoal')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:.15s;border-top:3px solid var(--purple)" onmouseover="this.style.borderColor='var(--purple)'" onmouseout="this.style.borderTopColor='var(--purple)';this.style.borderColor='var(--border)';this.style.borderTopColor='var(--purple)'">
+      <div style="font-size:28px;margin-bottom:10px">🧠</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">Vida de Brian</div>
+      <div style="font-size:12px;color:var(--muted)">Notas e ideias pessoais</div>
     </div>
+    <div onclick="switchModule('empresa')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:.15s;border-top:3px solid var(--blue)" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderTopColor='var(--blue)';this.style.borderColor='var(--border)';this.style.borderTopColor='var(--blue)'">
+      <div style="font-size:28px;margin-bottom:10px">💼</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">Ideias Empresa</div>
+      <div style="font-size:12px;color:var(--muted)">Projetos e estratégias</div>
+    </div>
+    <div onclick="switchModule('diaadia')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:.15s;border-top:3px solid var(--green)" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderTopColor='var(--green)';this.style.borderColor='var(--border)';this.style.borderTopColor='var(--green)'">
+      <div style="font-size:28px;margin-bottom:10px">📋</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">Dia a Dia</div>
+      <div style="font-size:12px;color:var(--muted)">Tarefas e compras</div>
+    </div>
+    <a href="https://dacianobrian.github.io/financeiro-brian" target="_blank" style="text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:.15s;border-top:3px solid var(--yellow);display:block">
+      <div style="font-size:28px;margin-bottom:10px">💰</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px;color:var(--text)">Financeiro ↗</div>
+      <div style="font-size:12px;color:var(--muted)">Abre o sistema financeiro</div>
+    </a>
   </div>
 
-  <!-- Parcelamentos -->
-  <div class="section">
-    <div class="card">
-      <div class="section-header" style="margin-bottom:16px">
-        <div class="section-title">💳 Parcelamentos</div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <div id="instTotalLabel" style="font-size:13px;font-weight:700;color:var(--red)"></div>
-          <button onclick="openInstModal()" style="background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#818cf8;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;">＋ Adicionar</button>
-        </div>
-      </div>
-      <div id="instGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">
-        <div style="color:var(--muted);font-size:13px">Carregando...</div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ── Análise Anual ── -->
-  <div class="section" style="margin-top:24px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <div class="section-title">📅 Análise Anual — <span id="anoYearLabel" style="color:var(--blue2);font-weight:700;text-transform:none;letter-spacing:0">...</span></div>
-      <div id="anoYearPills" style="display:flex;gap:5px;flex-wrap:wrap"></div>
-    </div>
-    <div class="grid g4">
-      <div class="card card-green"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(16,185,129,.15)">💵</span>Entradas <span class="ano-lbl"></span></div><div class="kpi-value amt-green" id="anoEntradas">—</div><div class="kpi-sub" id="anoEntradasSub">acumulado</div></div>
-      <div class="card card-red"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(239,68,68,.15)">📤</span>Saídas <span class="ano-lbl"></span></div><div class="kpi-value amt-red" id="anoSaidas">—</div><div class="kpi-sub" id="anoSaidasSub">acumulado</div></div>
-      <div class="card" style="border-top:2px solid var(--cyan)!important;background:linear-gradient(180deg,rgba(45,212,191,.04) 0%,var(--surface) 60%)!important"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(6,182,212,.15)">💎</span>Investido <span class="ano-lbl"></span></div><div class="kpi-value" style="color:var(--cyan)" id="anoInvestido">—</div><div class="kpi-sub" id="anoInvestidoSub">acumulado</div></div>
-      <div class="card card-purple"><div class="kpi-label"><span class="kpi-icon" style="background:rgba(139,92,246,.15)">📊</span>Taxa de Poupança</div><div class="kpi-value amt-purple" id="anoRate">—</div><div class="kpi-sub">do total de entradas</div></div>
-      <div id="anoCmpRow" style="display:none;font-size:12px;color:var(--muted);grid-column:1/-1;padding:4px 0;gap:8px;flex-wrap:wrap"></div>
-    </div>
-  </div>
-  <div class="section">
-    <div class="card">
-      <div style="font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:14px">📊 Fluxo Mensal — Entradas vs Saídas vs Investido</div>
-      <div class="chart-wrap" style="height:280px"><canvas id="chartFluxoAno"></canvas></div>
-    </div>
-  </div>
-  <div class="section">
-    <div class="grid g3">
-      <div class="card" style="grid-column:span 2">
-        <div class="section-header" style="margin-bottom:10px"><div class="section-title">📋 Resumo por Mês</div></div>
-        <div class="table-wrap"><table>
-          <thead><tr><th>Mês</th><th style="text-align:right">Entradas</th><th style="text-align:right">Saídas</th><th style="text-align:right">Investido</th><th style="text-align:right">Saldo</th></tr></thead>
-          <tbody id="tblMeses"><tr><td colspan="5" class="empty">—</td></tr></tbody>
-          <tfoot><tr id="tblMesesFoot"></tr></tfoot>
-        </table></div>
-      </div>
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:12px">🍩 Despesas por Categoria <span class="ano-lbl"></span></div>
-        <div class="chart-wrap" style="height:320px"><canvas id="chartCatAno"></canvas></div>
-      </div>
-    </div>
-  </div>
 </div><!-- /tabGeral -->
 
 <!-- Modal Parcelamento -->
