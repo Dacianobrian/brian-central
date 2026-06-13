@@ -1930,23 +1930,44 @@ try{
 
 <!-- ══ ABA: IDEIAS PESSOAIS ══ -->
 <div id="tabIdeiasP" style="display:none">
-  <div style="display:grid;grid-template-columns:280px 1fr;gap:1.5rem;padding:0 24px;margin:20px 0">
+  <div style="display:grid;grid-template-columns:300px 1fr;gap:0;padding:0 24px;margin:20px 0;height:calc(100vh - 130px)">
     <!-- Sidebar -->
-    <div style="display:flex;flex-direction:column;gap:1rem">
-      <div style="display:flex;align-items:center;gap:8px">
-        <i class="ti ti-search" style="font-size:18px;color:var(--muted)" aria-hidden="true"></i>
-        <input class="nb-search" id="nbSearchP" placeholder="Buscar notas..." style="flex:1;font-size:13px;border:0.5px solid var(--border);padding:8px 10px;border-radius:var(--r)" oninput="nbRenderList('pessoal')"/>
+    <div style="display:flex;flex-direction:column;border-right:0.5px solid var(--border);padding-right:16px;padding-bottom:0">
+      <!-- Busca -->
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:7px 10px;margin-bottom:10px">
+        <i class="ti ti-search" style="font-size:14px;color:var(--muted)" aria-hidden="true"></i>
+        <input id="nbSearchP" placeholder="Buscar notas..." style="flex:1;font-size:13px;border:none;background:transparent;outline:none;color:var(--text)" oninput="nbRenderList('pessoal')"/>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px" id="nbListP"></div>
+      <!-- Filtros de cor + ordenar -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <div style="display:flex;gap:5px;flex:1;flex-wrap:wrap">
+          <button id="nbFilterAll-pessoal" onclick="nbSetFilter('pessoal',null)" style="padding:3px 8px;font-size:11px;border-radius:20px;border:0.5px solid var(--border);background:var(--blue);color:#fff;cursor:pointer;font-weight:500">Todos</button>
+          <button onclick="nbSetFilter('pessoal','amarelo')" style="width:20px;height:20px;border-radius:50%;background:var(--yellow);border:1.5px solid transparent;cursor:pointer;padding:0" id="nbFilterDot-pessoal-amarelo" title="Amarelo"></button>
+          <button onclick="nbSetFilter('pessoal','azul')" style="width:20px;height:20px;border-radius:50%;background:var(--blue);border:1.5px solid transparent;cursor:pointer;padding:0" id="nbFilterDot-pessoal-azul" title="Azul"></button>
+          <button onclick="nbSetFilter('pessoal','verde')" style="width:20px;height:20px;border-radius:50%;background:var(--green);border:1.5px solid transparent;cursor:pointer;padding:0" id="nbFilterDot-pessoal-verde" title="Verde"></button>
+          <button onclick="nbSetFilter('pessoal','roxo')" style="width:20px;height:20px;border-radius:50%;background:var(--purple);border:1.5px solid transparent;cursor:pointer;padding:0" id="nbFilterDot-pessoal-roxo" title="Roxo"></button>
+          <button onclick="nbSetFilter('pessoal','rosa')" style="width:20px;height:20px;border-radius:50%;background:var(--pink);border:1.5px solid transparent;cursor:pointer;padding:0" id="nbFilterDot-pessoal-rosa" title="Rosa"></button>
+        </div>
+        <button onclick="nbToggleSort('pessoal')" id="nbSortBtn-pessoal" title="Ordenar" style="padding:4px 8px;border-radius:var(--r);border:0.5px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);font-size:12px;display:flex;align-items:center;gap:4px">
+          <i class="ti ti-arrows-sort" style="font-size:14px" aria-hidden="true"></i>
+        </button>
+      </div>
+      <!-- Lista de cards (scrollável) -->
+      <div id="nbListP" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:2px;scrollbar-width:thin"></div>
+      <!-- Botão Nova nota fixo no rodapé -->
+      <div style="padding-top:12px;border-top:0.5px solid var(--border);margin-top:8px">
+        <button onclick="nbCreate('pessoal')" style="width:100%;padding:9px;border-radius:var(--r);border:0.5px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;color:var(--text);font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s" onmouseover="this.style.background='var(--blue)';this.style.color='#fff';this.style.borderColor='var(--blue)'" onmouseout="this.style.background='var(--surface)';this.style.color='var(--text)';this.style.borderColor='var(--border)'">
+          <i class="ti ti-plus" style="font-size:14px" aria-hidden="true"></i> Nova nota
+        </button>
+      </div>
     </div>
 
     <!-- Editor -->
-    <main id="nbEditorP" style="display:flex;flex-direction:column;gap:1rem">
-      <div class="nb-empty" style="text-align:center;padding:50px;background:rgba(255,255,255,.02);border-radius:var(--r)">
+    <main id="nbEditorP" style="display:flex;flex-direction:column;gap:1rem;padding-left:24px;overflow-y:auto">
+      <div class="nb-empty" style="text-align:center;padding:50px">
         <div style="font-size:48px;opacity:.3;margin-bottom:12px">💡</div>
-        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione uma ideia ou crie uma nova</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique no card ao lado para começar</div>
-        <button class="btn btn-green" style="margin-top:16px;justify-content:center;width:100%;max-width:200px;margin-left:auto;margin-right:auto" onclick="nbCreate('pessoal')">＋ Nova ideia</button>
+        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione ou crie uma nota</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px">Use o botão "Nova nota" ao lado para começar</div>
       </div>
     </main>
   </div>
@@ -7412,10 +7433,10 @@ function stars(n){ return '★'.repeat(n||0)+'☆'.repeat(5-(n||0)); }
 
 // ══ NOTEBOOK GENÉRICO (Ideias / Livros / Cursos) ═════════════════════════════
 const _nbState = {
-  pessoal: { items:[], selectedId:null },
-  empresa: { items:[], selectedId:null },
-  livro:   { items:[], selectedId:null },
-  curso:   { items:[], selectedId:null },
+  pessoal: { items:[], selectedId:null, colorFilter:null, sortDir:'desc' },
+  empresa: { items:[], selectedId:null, colorFilter:null, sortDir:'desc' },
+  livro:   { items:[], selectedId:null, colorFilter:null, sortDir:'desc' },
+  curso:   { items:[], selectedId:null, colorFilter:null, sortDir:'desc' },
 };
 const NB_COLORS = ['amarelo','azul','verde','roxo','rosa','laranja'];
 const NB_SUFFIX = { pessoal:'P', empresa:'E', livro:'L', curso:'C' };
@@ -7436,29 +7457,66 @@ async function loadIdeias(tipo){
   } catch(e){ console.error(e); }
 }
 
+function nbSetFilter(tipo, color){
+  _nbState[tipo].colorFilter = color;
+  // update "Todos" button
+  const allBtn = document.getElementById('nbFilterAll-'+tipo);
+  if(allBtn) allBtn.style.background = color===null ? 'var(--blue)' : 'var(--surface)';
+  if(allBtn) allBtn.style.color = color===null ? '#fff' : 'var(--muted)';
+  // update dot borders
+  ['amarelo','azul','verde','roxo','rosa','laranja'].forEach(c=>{
+    const dot = document.getElementById('nbFilterDot-'+tipo+'-'+c);
+    if(dot) dot.style.border = c===color ? '2.5px solid var(--text)' : '1.5px solid transparent';
+  });
+  nbRenderList(tipo);
+}
+
+function nbToggleSort(tipo){
+  _nbState[tipo].sortDir = _nbState[tipo].sortDir === 'desc' ? 'asc' : 'desc';
+  const btn = document.getElementById('nbSortBtn-'+tipo);
+  if(btn) btn.title = _nbState[tipo].sortDir === 'desc' ? 'Mais recentes primeiro' : 'Mais antigas primeiro';
+  nbRenderList(tipo);
+}
+
 function nbRenderList(tipo){
   const list = document.getElementById(nbId('nbList', tipo));
   const searchId = nbId('nbSearch', tipo);
   const q = (document.getElementById(searchId)?.value || '').toLowerCase().trim();
-  let items = _nbState[tipo].items;
+  const cf = _nbState[tipo].colorFilter;
+  let items = [..._nbState[tipo].items];
   if(q){
     items = items.filter(i=>{
       const hay = (i.title||'') + ' ' + (i.content||'') + ' ' + (i.tags||[]).join(' ');
       return hay.toLowerCase().includes(q);
     });
   }
+  if(cf){
+    items = items.filter(i=>(i.color||'amarelo')===cf);
+  }
+  if(_nbState[tipo].sortDir === 'asc'){
+    items = items.slice().reverse();
+  }
   if(!items.length){
-    list.innerHTML = `<div style="grid-column:1/-1;color:var(--muted);text-align:center;padding:30px;font-size:13px">${q?'Nada encontrado':'Nenhuma ideia ainda'}</div>`;
+    list.innerHTML = `<div style="color:var(--muted);text-align:center;padding:30px;font-size:13px">${q||cf?'Nada encontrado':'Nenhuma nota ainda'}</div>`;
     return;
   }
   const sel = _nbState[tipo].selectedId;
+  const colorBg = {amarelo:'rgba(245,158,11,.15)',azul:'rgba(59,130,246,.15)',verde:'rgba(16,185,129,.15)',roxo:'rgba(168,85,247,.15)',rosa:'rgba(236,72,153,.15)',laranja:'rgba(249,115,22,.15)'};
+  const colorDot = {amarelo:'var(--yellow)',azul:'var(--blue)',verde:'var(--green)',roxo:'var(--purple)',rosa:'var(--pink)',laranja:'var(--orange)'};
   list.innerHTML = items.map(i=>{
-    const colorEmoji = {'vermelho':'🔴','amarelo':'🟡','verde':'🟢','azul':'🔵','roxo':'🟣'}[i.color||'amarelo'] || '🟡';
+    const c = i.color || 'amarelo';
+    const preview = (i.content||'').replace(/<[^>]*>/g,'').trim().slice(0,80) || '';
+    const isSelected = i.id===sel;
     return `
-      <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:10px;cursor:pointer;transition:.15s;${i.id===sel?'border-color:var(--blue)':''}" onclick="nbSelect('${tipo}',${i.id})">
-        <div style="font-size:16px;margin-bottom:6px">${colorEmoji}</div>
-        <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(i.title || 'Sem título')}</div>
-        <div style="font-size:11px;color:var(--muted)">${fmtDate(i.updated_at || i.created_at)}</div>
+      <div onclick="nbSelect('${tipo}',${i.id})" style="background:${isSelected?'var(--surface)':'transparent'};border:0.5px solid ${isSelected?'var(--blue)':'var(--border)'};border-radius:10px;padding:10px 12px;cursor:pointer;transition:.15s;${isSelected?'box-shadow:0 0 0 1px var(--blue)33':''}" onmouseover="if(${!isSelected})this.style.background='var(--surface)'" onmouseout="if(${!isSelected})this.style.background='transparent'">
+        <div style="display:flex;align-items:flex-start;gap:8px">
+          <div style="width:8px;height:8px;border-radius:50%;background:${colorDot[c]||'var(--yellow)'};margin-top:4px;flex-shrink:0"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(i.title||'Sem título')}</div>
+            ${preview?`<div style="font-size:11px;color:var(--muted);margin-top:2px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${escHtml(preview)}</div>`:''}
+            <div style="font-size:10px;color:var(--muted2);margin-top:4px">${fmtDate(i.updated_at||i.created_at)}</div>
+          </div>
+        </div>
       </div>`;
   }).join('');
 }
@@ -7504,25 +7562,24 @@ function nbRenderEditor(tipo, idea){
   const checklist = Array.isArray(idea.checklist) ? idea.checklist : [];
   const tags = Array.isArray(idea.tags) ? idea.tags : [];
 
+  const wordCount = (idea.content||'').trim().split(/\s+/).filter(Boolean).length;
   ed.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:0.5px solid var(--border)">
-      <div>
-        <h3 style="font-size:18px;font-weight:500;margin:0;color:var(--text)">${escHtml(idea.title||'Sem título')}</h3>
-        <div style="font-size:13px;color:var(--muted);margin-top:2px">${idea.created_at?'Criado em '+fmtDate(idea.created_at):''}</div>
-      </div>
-      <div style="display:flex;gap:8px">
+      <input id="nbTitle-${tipo}" value="${escHtml(idea.title||'')}" placeholder="Título da nota..." style="flex:1;font-size:18px;font-weight:500;color:var(--text);border:none;background:transparent;outline:none;min-width:0;margin-right:12px" oninput="nbField('${tipo}',${idea.id},'title',this.value);nbUpdateListTitle('${tipo}',${idea.id},this.value)"/>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span style="font-size:11px;color:var(--muted);white-space:nowrap">${wordCount} palavras</span>
         <button style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:0.5px solid var(--border);border-radius:var(--r);background:transparent;cursor:pointer;font-size:12px;color:var(--text)" onclick="nbExportIdea('${tipo}',${idea.id})">
           <i class="ti ti-download" style="font-size:14px" aria-hidden="true"></i> Exportar
         </button>
-        <button style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:0.5px solid var(--border);border-radius:var(--r);background:transparent;cursor:pointer;font-size:12px;color:var(--text)" onclick="nbDelete('${tipo}',${idea.id})">
-          <i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i> Deletar
+        <button title="Deletar" style="display:flex;align-items:center;padding:7px 9px;border:0.5px solid var(--border);border-radius:var(--r);background:transparent;cursor:pointer;color:var(--muted)" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'" onclick="nbDelete('${tipo}',${idea.id})">
+          <i class="ti ti-trash" style="font-size:15px" aria-hidden="true"></i>
         </button>
       </div>
     </div>
 
-    <div style="background:var(--surface);border-radius:var(--r);padding:12px;display:flex;gap:8px;flex-wrap:wrap">
-      ${NB_COLORS.map(c=>{const emoji={'vermelho':'🔴','amarelo':'🟡','verde':'🟢','azul':'🔵','roxo':'🟣'}[c]||'🟡';return `<div style="width:24px;height:24px;border-radius:50%;background:var(--${c==='vermelho'?'red':c==='verde'?'green':c==='azul'?'blue':c==='roxo'?'purple':'yellow'});cursor:pointer;border:${c===color?'2px':'1px'} solid var(--${c===color?'text':'border'});transition:.15s" onclick="nbSetColor('${tipo}',${idea.id},'${c}')" title="${c}"></div>`}).join('')}
-      <div style="font-size:12px;color:var(--muted);margin-left:8px;align-self:center">${colorsLbl}</div>
+    <div style="background:var(--surface);border-radius:var(--r);padding:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      ${NB_COLORS.map(c=>{const cssVar=c==='verde'?'green':c==='azul'?'blue':c==='roxo'?'purple':c==='rosa'?'pink':c==='laranja'?'orange':'yellow';return `<div style="width:22px;height:22px;border-radius:50%;background:var(--${cssVar});cursor:pointer;border:${c===color?'2.5px solid var(--text)':'1.5px solid transparent'};transition:.15s;box-sizing:border-box" onclick="nbSetColor('${tipo}',${idea.id},'${c}')" title="${c}"></div>`}).join('')}
+      <div style="font-size:12px;color:var(--muted);margin-left:6px">${colorsLbl}</div>
     </div>
 
     <div style="background:var(--surface);border-radius:var(--r);padding:14px">
@@ -7565,6 +7622,16 @@ function nbChecklistRowHtml(tipo, ideaId, item, idx){
     </label>`;
 }
 
+function nbUpdateListTitle(tipo, id, newTitle){
+  const suf = NB_SUFFIX[tipo];
+  const list = document.getElementById('nbList'+suf);
+  if(!list) return;
+  const card = list.querySelector(`[onclick*="nbSelect('${tipo}',${id})"]`);
+  if(!card) return;
+  const titleEl = card.querySelector('div[style*="font-weight:500"]');
+  if(titleEl) titleEl.textContent = newTitle || 'Sem título';
+}
+
 // ── Auto-save com debounce ───────────────────────────────────────────────────
 const _nbSaveTimers = {};
 function nbField(tipo, id, field, value){
@@ -7572,6 +7639,10 @@ function nbField(tipo, id, field, value){
   if(!idea) return;
   if(field === 'tags') idea.tags = value.split(',').map(t=>t.trim()).filter(Boolean);
   else idea[field] = value;
+  if(field === 'content'){
+    const wc = document.querySelector(`#nbEditor${NB_SUFFIX[tipo]} span[style*="palavras"]`);
+    if(wc) wc.textContent = value.trim().split(/\s+/).filter(Boolean).length + ' palavras';
+  }
   nbScheduleSave(tipo, id);
 }
 
