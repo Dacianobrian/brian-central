@@ -1073,24 +1073,29 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
     </div>
     <div class="hm-body">
 
-      <!-- KPIs Financeiro -->
+      <!-- KPIs Dashboard -->
       <div>
-        <div class="hm-sec-label">Financeiro — visão geral</div>
-        <div class="hm-kpi-grid">
-          <div class="hm-kpi">
-            <div class="hm-kpi-val" id="hmKpiReserva">—</div>
-            <div class="hm-kpi-label">Reserva de emergência</div>
-            <div class="hm-kpi-delta" id="hmKpiReservaDelta" style="color:var(--muted)">carregando…</div>
+        <div class="hm-sec-label">Status do dia</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px">
+          <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:12px">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Tarefas hoje</div>
+            <div style="font-size:20px;font-weight:700;color:var(--text)" id="hmTasksToday">0</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px" id="hmTasksTodayMeta">0 concluídas</div>
           </div>
-          <div class="hm-kpi">
-            <div class="hm-kpi-val" id="hmKpiFii">—</div>
-            <div class="hm-kpi-label">Renda FII / mês</div>
-            <div class="hm-kpi-delta" id="hmKpiFiiDelta" style="color:var(--muted)">carregando…</div>
+          <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:12px">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Gasto hoje</div>
+            <div style="font-size:20px;font-weight:700;color:var(--text)" id="hmSpendToday">R$ 0</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px">vs orçamento</div>
           </div>
-          <div class="hm-kpi">
-            <div class="hm-kpi-val" id="hmKpiSaude">—</div>
-            <div class="hm-kpi-label">Saúde financeira</div>
-            <div class="hm-kpi-delta" id="hmKpiSaudeDelta" style="color:var(--muted)">carregando…</div>
+          <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:12px">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Progresso metas</div>
+            <div style="font-size:20px;font-weight:700;color:var(--text)" id="hmGoalsProgress">—</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px">metas ativas</div>
+          </div>
+          <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:12px">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Hábitos semana</div>
+            <div style="font-size:20px;font-weight:700;color:var(--text)" id="hmHabitsWeek">—</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px">de 7 dias</div>
           </div>
         </div>
       </div>
@@ -1103,42 +1108,36 @@ tfoot td{padding:10px 14px;font-weight:700;border-top:1px solid var(--border2);b
         </div>
       </div>
 
-      <!-- Acesso rápido -->
+      <!-- Módulos principais -->
       <div>
-        <div class="hm-sec-label">Acesso rápido</div>
-        <div class="hm-mod-list">
-          <a class="hm-mod-item" href="https://dacianobrian.github.io/financeiro-brian" target="_blank" style="text-decoration:none;color:inherit">
-            <div class="hm-mod-icon" style="background:rgba(34,197,94,.12)">💰</div>
-            <div class="hm-mod-info">
-              <div class="hm-mod-name">Sistema Financeiro</div>
-              <div class="hm-mod-desc">Dashboard de finanças pessoais</div>
-            </div>
-            <span class="hm-mod-meta">↗</span>
+        <div class="hm-sec-label">Módulos</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+          <a href="https://dacianobrian.github.io/financeiro-brian" target="_blank" style="text-decoration:none;color:inherit;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:24px">💰</div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">Financeiro</div>
+            <div style="font-size:11px;color:var(--muted)">Dashboard pessoal</div>
+            <div style="font-size:12px;font-weight:600;color:var(--green);margin-top:4px" id="hmFinStatus">R$ 0,00</div>
           </a>
-          <div class="hm-mod-item" onclick="openModule('ideiasP')">
-            <div class="hm-mod-icon" style="background:rgba(202,138,4,.12)">💡</div>
-            <div class="hm-mod-info">
-              <div class="hm-mod-name">Vida de Brian</div>
-              <div class="hm-mod-desc">Notas pessoais, livros e cursos</div>
-            </div>
-            <span class="hm-mod-meta">→</span>
+
+          <div onclick="openModule('ideiasP')" style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:24px">💡</div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">Vida de Brian</div>
+            <div style="font-size:11px;color:var(--muted)">Notas & aprendizado</div>
+            <div style="font-size:12px;font-weight:600;color:var(--blue);margin-top:4px" id="hmIdeasCount">0 ideias</div>
           </div>
-          <div class="hm-mod-item" onclick="openModule('ideiasE')">
-            <div class="hm-mod-icon" style="background:rgba(124,58,237,.12)">🏢</div>
-            <div class="hm-mod-info">
-              <div class="hm-mod-name">Ideias Empresa</div>
-              <div class="hm-mod-desc">Estratégias, processos e negócios</div>
-            </div>
-            <span class="hm-mod-meta">→</span>
+
+          <div onclick="openModule('ideiasE')" style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:24px">🏢</div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">Ideias Empresa</div>
+            <div style="font-size:11px;color:var(--muted)">Negócios & estratégia</div>
+            <div style="font-size:12px;font-weight:600;color:var(--purple);margin-top:4px" id="hmBizIdeasCount">0 em andamento</div>
           </div>
-          <div class="hm-mod-item" onclick="openModule('ferramentas')">
-            <div class="hm-mod-icon" style="background:rgba(113,113,122,.12)">🛠</div>
-            <div class="hm-mod-info">
-              <div class="hm-mod-name">Dia a Dia</div>
-              <div class="hm-mod-desc">Tarefas, lista de compras e docs</div>
-              <div id="hmTaskCount" style="font-size:11px;color:var(--muted);margin-top:4px">Carregando...</div>
-            </div>
-            <span class="hm-mod-meta">→</span>
+
+          <div onclick="openModule('ferramentas')" style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:24px">✅</div>
+            <div style="font-size:13px;font-weight:500;color:var(--text)">Dia a Dia</div>
+            <div style="font-size:11px;color:var(--muted)">Tarefas & planejamento</div>
+            <div style="font-size:12px;font-weight:600;color:var(--orange);margin-top:4px" id="hmTaskCountCard">0 pendentes</div>
           </div>
         </div>
       </div>
@@ -5343,15 +5342,37 @@ function globalSearch(query){
   });
 }
 
-async function loadModuleSummary(){
+async async function loadModuleSummary(){
   try {
     const res = await fetch(`${REST}/tasks?status=eq.aberto`, {method:'GET', headers:HDR});
     const tasks = await res.json();
     const taskCount = tasks ? tasks.length : 0;
-    const el = document.getElementById('hmTaskCount');
-    if(el && taskCount > 0) {
-      el.textContent = `📋 ${taskCount} tarefa${taskCount !== 1 ? 's' : ''} pendente${taskCount !== 1 ? 's' : ''}`;
+    const el = document.getElementById('hmTaskCountCard');
+    if(el) {
+      el.textContent = `${taskCount} pendente${taskCount !== 1 ? 's' : ''}`;
     }
+
+    const el2 = document.getElementById('hmTasksToday');
+    const tasksToday = tasks ? tasks.filter(t => t.due_date === todayStr()).length : 0;
+    if(el2) el2.textContent = tasksToday.toString();
+
+    const el3 = document.getElementById('hmTasksTodayMeta');
+    const completedToday = tasks ? tasks.filter(t => t.status === 'concluida' && t.due_date === todayStr()).length : 0;
+    if(el3) el3.textContent = `${completedToday} concluída${completedToday !== 1 ? 's' : ''}`;
+  } catch(e) {}
+
+  try {
+    const res = await fetch(`${REST}/ideas?select=id`, {method:'GET', headers:HDR});
+    const ideas = await res.json();
+    const el = document.getElementById('hmIdeasCount');
+    if(el) el.textContent = `${ideas ? ideas.length : 0} ideia${ideas && ideas.length !== 1 ? 's' : ''}`;
+  } catch(e) {}
+
+  try {
+    const res = await fetch(`${REST}/ideas?type=eq.empresa&select=id`, {method:'GET', headers:HDR});
+    const bizIdeas = await res.json();
+    const el = document.getElementById('hmBizIdeasCount');
+    if(el) el.textContent = `${bizIdeas ? bizIdeas.length : 0} em andamento`;
   } catch(e) {}
 }
 
