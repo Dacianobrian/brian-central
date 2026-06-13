@@ -2535,7 +2535,7 @@ const SUPA_URL  = 'https://cathhujdhocioybdpnvc.supabase.co';
 const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhdGhodWpkaG9jaW95YmRwbnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MTUxODgsImV4cCI6MjA5MTI5MTE4OH0.5zO8sxWV1R_fVt9FPN4bDGXaCophee4gCh0jjEVp9DQ';
 const REST      = SUPA_URL + '/rest/v1';
 const HDR       = { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' };
-const PWD_HASH  = 'f3fe5a51a2be8c6dc715028858fcba82ee021be7687e4f95b45086b8ffb1a23f';
+const PWD_HASH  = 'Sm9ueXRlc3QxIQ==';
 // ══ SETTINGS ══════════════════════════════════════════════════════════════════
 const _SETTINGS_KEY='appSettings_v1';
 let _cfg={};
@@ -3160,15 +3160,9 @@ async function sincronizarSaldo(accountId, accountName){
 }
 
 // ══ AUTH ══════════════════════════════════════════════════════════════════════
-async function sha256(msg){
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-
-async function doLogin(){
+function doLogin(){
   const pwd = document.getElementById('loginPwd').value;
-  const hash = await sha256(pwd);
-  if(hash === PWD_HASH){
+  if(btoa(unescape(encodeURIComponent(pwd))) === PWD_HASH){
     localStorage.setItem('auth','1');
     showApp();
   } else {
