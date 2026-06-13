@@ -5228,7 +5228,7 @@ function toggleTheme(){
   if(btn) btn.textContent = theme === 'light' ? '☀️' : '🌙';
 })();
 
-async async function loadModuleSummary(){
+async function loadModuleSummary(){
   try {
     const res = await fetch(`${REST}/tasks?status=eq.aberto`, {method:'GET', headers:HDR});
     const tasks = await res.json();
