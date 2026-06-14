@@ -1975,25 +1975,46 @@ try{
 
 <!-- ══ ABA: IDEIAS EMPRESA ══ -->
 <div id="tabIdeiasE" style="display:none">
-  <div style="display:grid;grid-template-columns:280px 1fr;gap:1.5rem;padding:0 24px;margin:20px 0">
-    <!-- Sidebar -->
-    <div style="display:flex;flex-direction:column;gap:1rem">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-        <i class="ti ti-search" style="font-size:18px;color:var(--muted)" aria-hidden="true"></i>
-        <input class="nb-search" id="nbSearchE" placeholder="Buscar ideias..." style="flex:1;font-size:13px;border:0.5px solid var(--border);padding:8px 10px;border-radius:var(--r)" oninput="nbRenderList('empresa')"/>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px" id="nbListE"></div>
+  <!-- Topbar -->
+  <div style="display:flex;align-items:center;gap:10px;padding:12px 24px;border-bottom:0.5px solid var(--border)">
+    <span style="font-size:14px;font-weight:600;flex:1">🏢 Ideias de Empresa</span>
+    <div style="display:flex;border:0.5px solid var(--border);border-radius:8px;overflow:hidden">
+      <button id="emBtnLista" onclick="emSetView('lista')" style="padding:5px 10px;font-size:12px;border:none;background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:500"><i class="ti ti-layout-sidebar" style="font-size:13px" aria-hidden="true"></i> Lista</button>
+      <button id="emBtnKanban" onclick="emSetView('kanban')" style="padding:5px 10px;font-size:12px;border:none;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:4px"><i class="ti ti-layout-kanban" style="font-size:13px" aria-hidden="true"></i> Kanban</button>
     </div>
-
-    <!-- Editor -->
-    <main id="nbEditorE" style="display:flex;flex-direction:column;gap:1rem">
-      <div class="nb-empty" style="text-align:center;padding:50px;background:rgba(255,255,255,.02);border-radius:var(--r)">
-        <div style="font-size:48px;opacity:.3;margin-bottom:12px">🏢</div>
-        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione uma ideia ou crie uma nova</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:6px">Clique no card ao lado para começar</div>
-        <button class="btn btn-green" style="margin-top:16px;justify-content:center;width:100%;max-width:200px;margin-left:auto;margin-right:auto" onclick="nbCreate('empresa')">＋ Nova ideia</button>
+    <div style="display:flex;align-items:center;gap:6px;background:var(--surface);border:0.5px solid var(--border);border-radius:8px;padding:5px 10px;width:180px">
+      <i class="ti ti-search" style="font-size:13px;color:var(--muted)" aria-hidden="true"></i>
+      <input id="nbSearchE" placeholder="Buscar..." style="flex:1;font-size:12px;border:none;background:transparent;outline:none;color:var(--text)" oninput="nbRenderList('empresa')"/>
+    </div>
+    <button onclick="nbCreate('empresa')" style="padding:5px 12px;border-radius:8px;border:none;background:var(--blue);color:#fff;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px"><i class="ti ti-plus" style="font-size:13px" aria-hidden="true"></i> Nova ideia</button>
+  </div>
+  <!-- Vista Lista -->
+  <div id="emListaView" style="display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 168px)">
+    <div style="border-right:0.5px solid var(--border);display:flex;flex-direction:column;padding:12px;gap:8px">
+      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+        <button id="nbFilterAll-empresa" onclick="nbSetFilter('empresa',null)" style="padding:3px 9px;font-size:11px;border-radius:20px;background:var(--blue);color:#fff;border:0.5px solid transparent;cursor:pointer;font-weight:500">Todos</button>
+        <button onclick="nbSetFilter('empresa','amarelo')" id="nbFilterDot-empresa-amarelo" style="width:18px;height:18px;border-radius:50%;background:var(--yellow);border:1.5px solid transparent;cursor:pointer;padding:0" title="Amarelo"></button>
+        <button onclick="nbSetFilter('empresa','azul')" id="nbFilterDot-empresa-azul" style="width:18px;height:18px;border-radius:50%;background:var(--blue);border:1.5px solid transparent;cursor:pointer;padding:0" title="Azul"></button>
+        <button onclick="nbSetFilter('empresa','verde')" id="nbFilterDot-empresa-verde" style="width:18px;height:18px;border-radius:50%;background:var(--green);border:1.5px solid transparent;cursor:pointer;padding:0" title="Verde"></button>
+        <button onclick="nbSetFilter('empresa','roxo')" id="nbFilterDot-empresa-roxo" style="width:18px;height:18px;border-radius:50%;background:var(--purple);border:1.5px solid transparent;cursor:pointer;padding:0" title="Roxo"></button>
+        <button onclick="nbSetFilter('empresa','rosa')" id="nbFilterDot-empresa-rosa" style="width:18px;height:18px;border-radius:50%;background:var(--pink);border:1.5px solid transparent;cursor:pointer;padding:0" title="Rosa"></button>
+        <button onclick="nbToggleSort('empresa')" id="nbSortBtn-empresa" style="margin-left:auto;padding:3px 7px;border:0.5px solid var(--border);border-radius:7px;background:transparent;color:var(--muted);display:flex;align-items:center;cursor:pointer"><i class="ti ti-arrows-sort" style="font-size:13px" aria-hidden="true"></i></button>
+      </div>
+      <div id="nbListE" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px;scrollbar-width:thin"></div>
+      <div style="padding-top:10px;border-top:0.5px solid var(--border)">
+        <button onclick="nbCreate('empresa')" style="width:100%;padding:9px;border-radius:8px;border:0.5px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;color:var(--text);font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px" onmouseover="this.style.background='var(--blue)';this.style.color='#fff';this.style.borderColor='var(--blue)'" onmouseout="this.style.background='var(--surface)';this.style.color='var(--text)';this.style.borderColor='var(--border)'"><i class="ti ti-plus" style="font-size:14px" aria-hidden="true"></i> Nova ideia</button>
+      </div>
+    </div>
+    <main id="nbEditorE" style="display:flex;flex-direction:column;overflow:hidden">
+      <div class="nb-empty" style="text-align:center;padding:60px">
+        <div style="font-size:40px;opacity:.3;margin-bottom:12px">🏢</div>
+        <div style="font-size:14px;color:var(--muted2);font-weight:600">Selecione ou crie uma ideia</div>
       </div>
     </main>
+  </div>
+  <!-- Vista Kanban -->
+  <div id="emKanbanView" style="display:none;padding:16px 24px;overflow-x:auto;height:calc(100vh - 168px)">
+    <div id="emKanbanBoard" style="display:grid;grid-template-columns:repeat(4,260px);gap:12px;height:100%"></div>
   </div>
 </div><!-- /tabIdeiasE -->
 
@@ -7501,14 +7522,14 @@ function nbRenderList(tipo){
     return;
   }
   const sel = _nbState[tipo].selectedId;
-  const colorBg = {amarelo:'rgba(245,158,11,.15)',azul:'rgba(59,130,246,.15)',verde:'rgba(16,185,129,.15)',roxo:'rgba(168,85,247,.15)',rosa:'rgba(236,72,153,.15)',laranja:'rgba(249,115,22,.15)'};
   const colorDot = {amarelo:'var(--yellow)',azul:'var(--blue)',verde:'var(--green)',roxo:'var(--purple)',rosa:'var(--pink)',laranja:'var(--orange)'};
   list.innerHTML = items.map(i=>{
+    if(tipo === 'empresa') return emCardHtml(i, sel);
     const c = i.color || 'amarelo';
     const preview = (i.content||'').replace(/<[^>]*>/g,'').trim().slice(0,80) || '';
     const isSelected = i.id===sel;
     return `
-      <div onclick="nbSelect('${tipo}',${i.id})" style="background:${isSelected?'var(--surface)':'transparent'};border:0.5px solid ${isSelected?'var(--blue)':'var(--border)'};border-radius:10px;padding:10px 12px;cursor:pointer;transition:.15s;${isSelected?'box-shadow:0 0 0 1px var(--blue)33':''}" onmouseover="if(${!isSelected})this.style.background='var(--surface)'" onmouseout="if(${!isSelected})this.style.background='transparent'">
+      <div onclick="nbSelect('${tipo}',${i.id})" style="background:${isSelected?'var(--surface)':'transparent'};border:0.5px solid ${isSelected?'var(--blue)':'var(--border)'};border-radius:10px;padding:10px 12px;cursor:pointer;transition:.15s" onmouseover="if(!${isSelected})this.style.background='var(--surface)'" onmouseout="if(!${isSelected})this.style.background='transparent'">
         <div style="display:flex;align-items:flex-start;gap:8px">
           <div style="width:8px;height:8px;border-radius:50%;background:${colorDot[c]||'var(--yellow)'};margin-top:4px;flex-shrink:0"></div>
           <div style="flex:1;min-width:0">
@@ -7541,6 +7562,7 @@ function nbSelect(tipo, id){
 }
 
 function nbRenderEditor(tipo, idea){
+  if(tipo === 'empresa'){ emRenderEditor(idea); return; }
   const ed = document.getElementById(nbId('nbEditor', tipo));
   const color = idea.color || 'amarelo';
   const titlePh = (tipo==='livro') ? 'Título do livro... ex: Hábitos Atômicos — James Clear'
@@ -7622,6 +7644,362 @@ function nbChecklistRowHtml(tipo, ideaId, item, idx){
     </label>`;
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// ── EMPRESA MODULE ────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+let _emTab = 'geral';
+const EM_STATUS = {
+  explorando:{ label:'Explorando', bg:'rgba(83,74,183,.15)', color:'#3C3489' },
+  validando: { label:'Validando',  bg:'rgba(186,117,23,.15)', color:'#633806' },
+  execucao:  { label:'Em execução',bg:'rgba(29,158,117,.15)', color:'#065f46' },
+  arquivada: { label:'Arquivada',  bg:'var(--surface)',       color:'var(--muted)' }
+};
+const EM_SCORES = [
+  {key:'mercado',      label:'Tamanho do mercado'},
+  {key:'concorrencia', label:'Concorrência'},
+  {key:'facilidade',   label:'Facilidade de exec.'},
+  {key:'capital',      label:'Capital necessário'},
+  {key:'conhecimento', label:'Conhecimento meu'}
+];
+
+function emScoreAvg(scores){
+  if(!scores) return 0;
+  const vals = Object.values(scores).filter(v=>v>0);
+  if(!vals.length) return 0;
+  return vals.reduce((a,b)=>a+b,0)/vals.length;
+}
+
+function emCardHtml(i, sel){
+  const c = i.color||'amarelo';
+  const colorDot = {amarelo:'var(--yellow)',azul:'var(--blue)',verde:'var(--green)',roxo:'var(--purple)',rosa:'var(--pink)',laranja:'var(--orange)'};
+  const meta = i.meta||{};
+  const st = EM_STATUS[meta.status||'explorando']||EM_STATUS.explorando;
+  const pitch = meta.pitch||'';
+  const inv = meta.investment||0;
+  const rev = meta.revenue||0;
+  const avg = emScoreAvg(meta.scores);
+  const tags = Array.isArray(i.tags)?i.tags:[];
+  const isSel = i.id===sel;
+  const starsHtml = avg>0 ? Array.from({length:5},(_,idx)=>`<span style="font-size:10px;color:${idx<Math.round(avg)?'#BA7517':'var(--border)'}">&starf;</span>`).join('') : '';
+  const tagsHtml = tags.slice(0,2).map(t=>`<span style="font-size:10px;padding:2px 5px;border-radius:5px;background:var(--surface);color:var(--muted);border:0.5px solid var(--border)">${escHtml(t)}</span>`).join('');
+  const finHtml = (inv||rev)?`<div style="display:flex;gap:5px;margin-top:5px">${inv?`<span style="font-size:10px;padding:2px 6px;border-radius:5px;background:rgba(239,68,68,.1);color:var(--red);font-weight:500">inv ${shortBrl(inv)}</span>`:''} ${rev?`<span style="font-size:10px;padding:2px 6px;border-radius:5px;background:rgba(16,185,129,.1);color:var(--green);font-weight:500">rec ${shortBrl(rev)}/mês</span>`:''}</div>`:'';
+  return `
+    <div onclick="nbSelect('empresa',${i.id})" style="border:0.5px solid ${isSel?'var(--blue)':'var(--border)'};border-radius:10px;padding:10px 12px;cursor:pointer;background:${isSel?'var(--surface)':'transparent'};transition:.15s" onmouseover="if(!${isSel})this.style.background='var(--surface)'" onmouseout="if(!${isSel})this.style.background='transparent'">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+        <div style="width:7px;height:7px;border-radius:50%;background:${colorDot[c]||'var(--yellow)'};flex-shrink:0"></div>
+        <div style="font-size:13px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(i.title||'Sem título')}</div>
+        <span style="font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap;background:${st.bg};color:${st.color}">${st.label}</span>
+      </div>
+      ${pitch?`<div style="font-size:11px;color:var(--muted);font-style:italic;margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"${escHtml(pitch)}"</div>`:''}
+      <div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;gap:4px">${tagsHtml}</div><div>${starsHtml}</div></div>
+      ${finHtml}
+    </div>`;
+}
+
+function emSetView(view){
+  const lista = document.getElementById('emListaView');
+  const kanban = document.getElementById('emKanbanView');
+  const btnL = document.getElementById('emBtnLista');
+  const btnK = document.getElementById('emBtnKanban');
+  if(view==='kanban'){
+    lista.style.display='none'; kanban.style.display='block';
+    btnL.style.cssText='padding:5px 10px;font-size:12px;border:none;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:400';
+    btnK.style.cssText='padding:5px 10px;font-size:12px;border:none;background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:500';
+    emRenderKanban();
+  } else {
+    lista.style.display='grid'; kanban.style.display='none';
+    btnL.style.cssText='padding:5px 10px;font-size:12px;border:none;background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:500';
+    btnK.style.cssText='padding:5px 10px;font-size:12px;border:none;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:400';
+  }
+}
+
+function emRenderKanban(){
+  const board = document.getElementById('emKanbanBoard');
+  if(!board) return;
+  const items = _nbState['empresa'].items;
+  const colorDot = {amarelo:'var(--yellow)',azul:'var(--blue)',verde:'var(--green)',roxo:'var(--purple)',rosa:'var(--pink)',laranja:'var(--orange)'};
+  board.innerHTML = Object.entries(EM_STATUS).map(([s,st])=>{
+    const col = items.filter(i=>(i.meta?.status||'explorando')===s);
+    const cards = col.map(i=>{const m=i.meta||{};return `
+      <div onclick="nbSelect('empresa',${i.id});emSetView('lista')" style="background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:10px;cursor:pointer;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+          <div style="width:6px;height:6px;border-radius:50%;background:${colorDot[i.color||'amarelo']||'var(--yellow)'}"></div>
+          <div style="font-size:12px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(i.title||'Sem título')}</div>
+        </div>
+        ${m.pitch?`<div style="font-size:11px;color:var(--muted);font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"${escHtml(m.pitch)}"</div>`:''}
+        ${(m.investment||m.revenue)?`<div style="display:flex;gap:4px;margin-top:5px">${m.investment?`<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:var(--red)">${shortBrl(m.investment)}</span>`:''}${m.revenue?`<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:rgba(16,185,129,.1);color:var(--green)">${shortBrl(m.revenue)}/mês</span>`:''}</div>`:''}
+      </div>`;}).join('');
+    return `<div style="background:var(--surface);border-radius:10px;padding:12px;display:flex;flex-direction:column;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <span style="font-size:12px;font-weight:600;flex:1">${st.label}</span>
+        <span style="font-size:11px;padding:2px 7px;border-radius:10px;background:${st.bg};color:${st.color}">${col.length}</span>
+      </div>
+      <div style="flex:1;overflow-y:auto;scrollbar-width:thin">${cards||`<div style="font-size:12px;color:var(--muted);text-align:center;padding:20px">Nenhuma ideia</div>`}</div>
+      <button onclick="nbCreate('empresa')" style="margin-top:8px;padding:6px;border-radius:7px;border:0.5px dashed var(--border);background:transparent;cursor:pointer;font-size:12px;color:var(--muted);width:100%">+ Adicionar</button>
+    </div>`;
+  }).join('');
+}
+
+function emRenderEditor(idea){
+  const ed = document.getElementById('nbEditorE');
+  if(!ed) return;
+  const meta = idea.meta||{};
+  const status = meta.status||'explorando';
+  const wc = (idea.content||'').trim().split(/\s+/).filter(Boolean).length;
+  ed.innerHTML = `
+    <div style="padding:16px 20px 12px;border-bottom:0.5px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <input id="nbTitle-empresa" value="${escHtml(idea.title||'')}" placeholder="Nome da ideia..." style="flex:1;font-size:17px;font-weight:500;color:var(--text);border:none;background:transparent;outline:none" oninput="nbField('empresa',${idea.id},'title',this.value);nbUpdateListTitle('empresa',${idea.id},this.value)"/>
+        <div style="display:flex;gap:5px;align-items:center">
+          <span id="nbStatus-empresa" style="font-size:11px;color:var(--muted)">${wc} palavras</span>
+          <button onclick="nbExportIdea('empresa',${idea.id})" style="padding:5px 9px;border:0.5px solid var(--border);border-radius:7px;background:transparent;font-size:11px;color:var(--text);display:flex;align-items:center;gap:4px;cursor:pointer"><i class="ti ti-download" style="font-size:12px" aria-hidden="true"></i> Exportar</button>
+          <button title="Deletar" style="padding:5px 7px;border:0.5px solid var(--border);border-radius:7px;background:transparent;color:var(--muted);cursor:pointer" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'" onclick="nbDelete('empresa',${idea.id})"><i class="ti ti-trash" style="font-size:14px" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface);border-radius:8px;padding:7px 10px;margin-bottom:10px">
+        <i class="ti ti-bolt" style="font-size:12px;color:var(--muted)" aria-hidden="true"></i>
+        <span style="font-size:11px;font-weight:500;color:var(--muted);white-space:nowrap">Pitch</span>
+        <input id="emPitch-${idea.id}" value="${escHtml(meta.pitch||'')}" placeholder="Uma frase que resume a ideia..." style="flex:1;border:none;background:transparent;outline:none;font-size:13px;color:var(--text);font-style:italic" oninput="emSaveMeta(${idea.id},'pitch',this.value)"/>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <span style="font-size:12px;color:var(--muted);font-weight:500;margin-right:4px">Status</span>
+        ${Object.entries(EM_STATUS).map(([k,v])=>`<button onclick="emSetStatus(${idea.id},'${k}')" id="emSt-${idea.id}-${k}" style="padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;border:0.5px solid ${k===status?'transparent':'var(--border)'};background:${k===status?v.bg:'transparent'};color:${k===status?v.color:'var(--muted)'}">${v.label}</button>`).join('')}
+      </div>
+    </div>
+    <div style="display:flex;border-bottom:0.5px solid var(--border);padding:0 20px">
+      ${['geral','canvas','concorrentes','passos'].map(t=>`<button onclick="emSetTab('${t}',${idea.id})" id="emTab-${idea.id}-${t}" style="padding:9px 14px;font-size:12px;border:none;background:transparent;cursor:pointer;border-bottom:2px solid ${t===_emTab?'var(--blue)':'transparent'};color:${t===_emTab?'var(--blue)':'var(--muted)'};font-weight:${t===_emTab?'500':'400'}">${{geral:'Visão geral',canvas:'Canvas',concorrentes:'Concorrentes',passos:'Próximos passos'}[t]}</button>`).join('')}
+    </div>
+    <div id="emTabContent-${idea.id}" style="flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+      ${emTabContentHtml(idea)}
+    </div>`;
+}
+
+function emSetTab(tab, ideaId){
+  _emTab = tab;
+  const idea = _nbState['empresa'].items.find(i=>i.id===ideaId);
+  if(!idea) return;
+  ['geral','canvas','concorrentes','passos'].forEach(t=>{
+    const btn = document.getElementById(`emTab-${ideaId}-${t}`);
+    if(btn){ btn.style.borderBottom=t===tab?'2px solid var(--blue)':'2px solid transparent'; btn.style.color=t===tab?'var(--blue)':'var(--muted)'; btn.style.fontWeight=t===tab?'500':'400'; }
+  });
+  const content = document.getElementById(`emTabContent-${ideaId}`);
+  if(content){ content.innerHTML = emTabContentHtml(idea); }
+}
+
+function emTabContentHtml(idea){
+  const meta = idea.meta||{};
+  if(_emTab==='canvas') return emTabCanvasHtml(idea, meta);
+  if(_emTab==='concorrentes') return emTabConcorrentesHtml(idea, meta);
+  if(_emTab==='passos') return emTabPassosHtml(idea, meta);
+  return emTabGeralHtml(idea, meta);
+}
+
+function emTabGeralHtml(idea, meta){
+  const inv = meta.investment||0, rev = meta.revenue||0;
+  const scores = meta.scores||{}, avg = emScoreAvg(scores);
+  const payback = (inv&&rev) ? Math.round(inv/rev) : 0;
+  const validation = meta.validation||{};
+  const scoreRows = EM_SCORES.map(s=>{
+    const val = scores[s.key]||0;
+    const bc = val>=4?'var(--green)':val>=3?'var(--blue)':val>=2?'var(--yellow)':'var(--red)';
+    const dots = Array.from({length:5},(_,i)=>`<div onclick="emSetScore(${idea.id},'${s.key}',${i+1})" style="width:14px;height:14px;border-radius:50%;background:${i<val?bc:'var(--border)'};cursor:pointer;transition:.1s" title="${i+1}"></div>`).join('');
+    return `<div style="display:flex;align-items:center;gap:10px"><span style="font-size:12px;color:var(--text);width:140px;flex-shrink:0">${s.label}</span><div style="display:flex;gap:4px">${dots}</div><span style="font-size:12px;font-weight:500;color:var(--muted);width:16px">${val||'—'}</span></div>`;
+  }).join('');
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+      <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px">
+        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Investimento inicial</div>
+        <div id="emInvVal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--red)">${inv?shortBrl(inv):'—'}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">para começar</div>
+        <input type="number" value="${inv||''}" placeholder="ex: 5000" style="width:100%;margin-top:8px;font-size:12px;border:0.5px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--bg);color:var(--text);outline:none" oninput="emSaveMeta(${idea.id},'investment',+this.value||0)"/>
+      </div>
+      <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px">
+        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Receita potencial</div>
+        <div id="emRevVal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--green)">${rev?shortBrl(rev)+'/mês':'—'}</div>
+        <div id="emPayback-${idea.id}" style="font-size:10px;color:var(--muted);margin-top:2px">${payback?`payback ~${payback} meses`:'payback —'}</div>
+        <input type="number" value="${rev||''}" placeholder="ex: 3000" style="width:100%;margin-top:8px;font-size:12px;border:0.5px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--bg);color:var(--text);outline:none" oninput="emSaveMeta(${idea.id},'revenue',+this.value||0)"/>
+      </div>
+      <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px">
+        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Viabilidade</div>
+        <div id="emScoreVal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--blue)">${avg?avg.toFixed(1)+' / 5':'—'}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">score médio</div>
+      </div>
+    </div>
+    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
+      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">Score de viabilidade</div>
+      <div id="emScoreRows-${idea.id}" style="display:flex;flex-direction:column;gap:10px">${scoreRows}</div>
+      <div style="margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:var(--muted)">Score geral</span>
+        <span id="emScoreTotal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--blue)">${avg?avg.toFixed(1)+' / 5':'—'}</span>
+      </div>
+    </div>
+    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
+      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px">Validação da ideia</div>
+      ${[{key:'customer',q:'Quem é o cliente?',ph:'Ex: jovens de 25-35 anos, classe B, que usam apps...'},{key:'problem',q:'Qual problema resolve?',ph:'Ex: dificuldade de encontrar X de forma rápida...'},{key:'differential',q:'Qual o diferencial?',ph:'Ex: únicos com entrega em 30min e rastreamento em tempo real...'}].map(v=>`
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--muted);font-weight:500;margin-bottom:4px">${v.q}</div>
+          <textarea style="width:100%;border:0.5px solid var(--border);border-radius:7px;padding:7px 9px;font-size:12px;font-family:var(--font);background:var(--bg);color:var(--text);resize:none;outline:none;line-height:1.5" rows="2" placeholder="${v.ph}" oninput="emSaveValidation(${idea.id},'${v.key}',this.value)">${escHtml(validation[v.key]||'')}</textarea>
+        </div>`).join('')}
+    </div>
+    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
+      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px">Tags / Setor</div>
+      <input value="${escHtml((Array.isArray(idea.tags)?idea.tags:[]).join(', '))}" placeholder="Tech, SaaS, B2C, Produto..." style="width:100%;border:0.5px solid var(--border);border-radius:7px;padding:7px 9px;font-size:12px;background:var(--bg);color:var(--text);outline:none" oninput="nbField('empresa',${idea.id},'tags',this.value)"/>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Separe por vírgula · aparece como tag nos cards</div>
+    </div>`;
+}
+
+function emTabCanvasHtml(idea, meta){
+  const canvas = meta.canvas||{};
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      ${[{key:'value_prop',label:'Proposta de valor',ph:'O que você entrega de único...',icon:'ti-star'},{key:'customers',label:'Segmento de clientes',ph:'Quem vai pagar por isso...',icon:'ti-users'},{key:'channels',label:'Canais de venda',ph:'Como vai chegar ao cliente...',icon:'ti-rocket'},{key:'revenue_sources',label:'Fontes de receita',ph:'Como ganha dinheiro...',icon:'ti-coin'}].map(b=>`
+        <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px">
+          <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px"><i class="ti ${b.icon}" style="font-size:13px" aria-hidden="true"></i> ${b.label}</div>
+          <textarea style="width:100%;border:0.5px solid var(--border);border-radius:7px;padding:8px;font-size:12px;font-family:var(--font);background:var(--bg);color:var(--text);resize:none;outline:none;line-height:1.5;min-height:80px" placeholder="${b.ph}" oninput="emSaveCanvas(${idea.id},'${b.key}',this.value)">${escHtml(canvas[b.key]||'')}</textarea>
+        </div>`).join('')}
+    </div>
+    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
+      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px">Descrição completa</div>
+      <textarea style="width:100%;border:0.5px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px;font-family:var(--font);background:var(--bg);color:var(--text);resize:vertical;outline:none;line-height:1.6;min-height:100px" placeholder="Contexto, objetivo, público-alvo, como executar..." oninput="nbField('empresa',${idea.id},'content',this.value)">${escHtml(idea.content||'')}</textarea>
+    </div>`;
+}
+
+function emTabConcorrentesHtml(idea, meta){
+  const comps = Array.isArray(meta.competitors)?meta.competitors:[];
+  const rows = comps.map((c,idx)=>`
+    <div style="display:grid;grid-template-columns:140px 1fr auto;gap:8px;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--border)">
+      <input value="${escHtml(c.name||'')}" placeholder="Concorrente..." style="border:0.5px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;background:var(--bg);color:var(--text);outline:none" oninput="emEditComp(${idea.id},${idx},'name',this.value)"/>
+      <input value="${escHtml(c.differential||'')}" placeholder="Nosso diferencial..." style="border:0.5px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;background:var(--bg);color:var(--text);outline:none" oninput="emEditComp(${idea.id},${idx},'differential',this.value)"/>
+      <div style="display:flex;gap:5px;align-items:center">
+        <select onchange="emEditComp(${idea.id},${idx},'threat',this.value)" style="border:0.5px solid var(--border);border-radius:6px;padding:4px 6px;font-size:11px;background:var(--bg);color:var(--text);outline:none">
+          <option value="baixo" ${c.threat==='baixo'?'selected':''}>Baixa</option>
+          <option value="medio" ${c.threat==='medio'?'selected':''}>Média</option>
+          <option value="alto" ${(c.threat==='alto'||!c.threat)?'selected':''}>Alta</option>
+        </select>
+        <button onclick="emRemoveComp(${idea.id},${idx})" style="padding:4px;border:none;background:transparent;color:var(--muted);cursor:pointer"><i class="ti ti-x" style="font-size:13px" aria-hidden="true"></i></button>
+      </div>
+    </div>`).join('');
+  return `
+    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">Concorrentes</div>
+        <button onclick="emAddComp(${idea.id})" style="padding:4px 10px;border:0.5px solid var(--border);border-radius:7px;background:transparent;font-size:12px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px"><i class="ti ti-plus" style="font-size:12px" aria-hidden="true"></i> Adicionar</button>
+      </div>
+      ${comps.length?`<div style="display:grid;grid-template-columns:140px 1fr auto;gap:8px;margin-bottom:4px"><span style="font-size:10px;color:var(--muted);font-weight:500">Concorrente</span><span style="font-size:10px;color:var(--muted);font-weight:500">Nosso diferencial</span><span style="font-size:10px;color:var(--muted);font-weight:500">Ameaça</span></div>${rows}`:`<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Nenhum concorrente cadastrado</div>`}
+    </div>`;
+}
+
+function emTabPassosHtml(idea, meta){
+  const ck = Array.isArray(idea.checklist)?idea.checklist:[];
+  const done = ck.filter(c=>c.done).length, total = ck.length;
+  const pct = total?Math.round(done/total*100):0;
+  const rows = ck.map((c,idx)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--border)">
+      <input type="checkbox" ${c.done?'checked':''} onchange="nbToggleCheck('empresa',${idea.id},${idx})" style="cursor:pointer;flex-shrink:0"/>
+      <input value="${escHtml(c.text||'')}" placeholder="Próximo passo..." style="flex:1;border:none;background:transparent;font-size:13px;outline:none;color:var(--text);${c.done?'text-decoration:line-through;color:var(--muted)':''}" oninput="nbCheckText('empresa',${idea.id},${idx},this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();nbAddCheck('empresa',${idea.id})}"/>
+      <input type="date" value="${escHtml(c.due||'')}" style="border:0.5px solid var(--border);border-radius:6px;padding:3px 6px;font-size:11px;color:var(--muted);background:var(--bg);outline:none" onchange="emCheckDue(${idea.id},${idx},this.value)"/>
+      <button onclick="nbRemoveCheck('empresa',${idea.id},${idx})" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;padding:0">✕</button>
+    </div>`).join('');
+  return `
+    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${total>0?'8':'10'}px">
+        <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">Próximos passos${total?' — '+done+'/'+total+' ('+pct+'%)'':''}</div>
+        <button onclick="nbAddCheck('empresa',${idea.id})" style="padding:4px 10px;border:0.5px solid var(--border);border-radius:7px;background:transparent;font-size:12px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px"><i class="ti ti-plus" style="font-size:12px" aria-hidden="true"></i> Adicionar</button>
+      </div>
+      ${total>1?`<div style="height:4px;background:var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden"><div style="height:100%;background:var(--green);border-radius:4px;width:${pct}%;transition:.3s"></div></div>`:''}
+      ${rows||`<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Nenhum passo ainda — clique em Adicionar</div>`}
+    </div>`;
+}
+
+function emSaveMeta(id, key, value){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(!idea.meta) idea.meta={};
+  idea.meta[key] = value;
+  nbScheduleSave('empresa', id);
+}
+
+function emSetStatus(id, status){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(!idea.meta) idea.meta={};
+  idea.meta.status = status;
+  Object.keys(EM_STATUS).forEach(k=>{
+    const btn = document.getElementById(`emSt-${id}-${k}`);
+    if(!btn) return;
+    const st = EM_STATUS[k];
+    btn.style.background = k===status?st.bg:'transparent';
+    btn.style.color = k===status?st.color:'var(--muted)';
+    btn.style.border = `0.5px solid ${k===status?'transparent':'var(--border)'}`;
+  });
+  nbScheduleSave('empresa', id);
+  nbRenderList('empresa');
+}
+
+function emSetScore(id, crit, val){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(!idea.meta) idea.meta={};
+  if(!idea.meta.scores) idea.meta.scores={};
+  idea.meta.scores[crit] = val;
+  nbScheduleSave('empresa', id);
+  const content = document.getElementById(`emTabContent-${id}`);
+  if(content) content.innerHTML = emTabContentHtml(idea);
+}
+
+function emSaveValidation(id, key, value){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(!idea.meta) idea.meta={};
+  if(!idea.meta.validation) idea.meta.validation={};
+  idea.meta.validation[key] = value;
+  nbScheduleSave('empresa', id);
+}
+
+function emSaveCanvas(id, key, value){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(!idea.meta) idea.meta={};
+  if(!idea.meta.canvas) idea.meta.canvas={};
+  idea.meta.canvas[key] = value;
+  nbScheduleSave('empresa', id);
+}
+
+function emAddComp(id){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea) return;
+  if(!idea.meta) idea.meta={};
+  if(!Array.isArray(idea.meta.competitors)) idea.meta.competitors=[];
+  idea.meta.competitors.push({name:'',differential:'',threat:'alto'});
+  nbScheduleSave('empresa', id);
+  const content = document.getElementById(`emTabContent-${id}`);
+  if(content) content.innerHTML = emTabContentHtml(idea);
+}
+
+function emRemoveComp(id, idx){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea||!Array.isArray(idea.meta?.competitors)) return;
+  idea.meta.competitors.splice(idx,1);
+  nbScheduleSave('empresa', id);
+  const content = document.getElementById(`emTabContent-${id}`);
+  if(content) content.innerHTML = emTabContentHtml(idea);
+}
+
+function emEditComp(id, idx, field, value){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea||!Array.isArray(idea.meta?.competitors)||!idea.meta.competitors[idx]) return;
+  idea.meta.competitors[idx][field] = value;
+  nbScheduleSave('empresa', id);
+}
+
+function emCheckDue(id, idx, value){
+  const idea = _nbState['empresa'].items.find(i=>i.id===id);
+  if(!idea||!idea.checklist||!idea.checklist[idx]) return;
+  idea.checklist[idx].due = value;
+  nbScheduleSave('empresa', id);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 function nbUpdateListTitle(tipo, id, newTitle){
   const suf = NB_SUFFIX[tipo];
   const list = document.getElementById('nbList'+suf);
@@ -7665,6 +8043,7 @@ async function nbSave(tipo, id){
       tags: (idea.tags && idea.tags.length) ? idea.tags : null,
       checklist: idea.checklist || [],
       color: idea.color || 'amarelo',
+      meta: idea.meta || {},
       updated_at: new Date().toISOString()
     };
     const r = await fetch(`${REST}/ideas?id=eq.${id}`, {method:'PATCH', headers:{...HDR,'Prefer':'return=minimal'}, body:JSON.stringify(body)});
