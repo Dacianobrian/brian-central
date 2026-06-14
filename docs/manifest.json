@@ -1,0 +1,33 @@
+{
+  "name": "Brian Central",
+  "short_name": "Brian",
+  "description": "Cérebro pessoal — notas, ideias, hábitos",
+  "start_url": "/brian-central/",
+  "scope": "/brian-central/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%236366f1'/%3E%3Ctext y='.85em' font-size='140' x='20'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Ctext y='.85em' font-size='380' x='60'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["productivity", "finance", "lifestyle"]
+}

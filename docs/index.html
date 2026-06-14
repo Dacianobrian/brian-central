@@ -8,8 +8,9 @@
 <meta http-equiv="Expires" content="0"/>
 <title>Brian Central</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236366f1'/><text y='.9em' font-size='72' x='12'>⚡</text></svg>"/>
-<!-- manifest removido propositalmente -->
+<link rel="manifest" href="manifest.json"/>
 <meta name="theme-color" content="#6366f1"/>
+<link rel="apple-touch-icon" href="icon.svg"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Brian Central"/>
@@ -209,6 +210,106 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
   .header-top{padding:0 8px}
   .tab-btn{padding:0 8px;font-size:11.5px}
   .hm-kpi-grid{grid-template-columns:1fr}
+}
+
+/* ══ MOBILE COMPLETO (≤700px) ══════════════════════════════════════════════ */
+
+/* Botão "← Lista" no editor — só aparece no mobile */
+.nb-mobile-back{display:none;align-items:center;gap:6px;background:var(--surface2);border:0.5px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;margin-bottom:12px;width:fit-content}
+
+/* Home — nav icon-only em telas < 500px */
+@media(max-width:500px){
+  .hm-nav-item{font-size:0!important;padding:6px!important;min-width:44px;justify-content:center}
+  .hm-nav-icon{font-size:16px!important;width:32px;height:32px}
+  .hm-footer-item{font-size:0!important;padding:6px!important;justify-content:center}
+  .hm-footer{padding:6px!important}
+  .hm-body{padding:14px 14px 80px!important}
+  .hm-topbar{padding:16px 14px 12px!important}
+  .hm-topbar #hmSearch{width:140px!important;font-size:13px!important}
+}
+
+/* Notebook — Ideias Pessoais (inline-style grid override) */
+@media(max-width:700px){
+  /* Wrapper principal do tabIdeiasP */
+  #tabIdeiasP > div{
+    display:flex!important;
+    flex-direction:column!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:0 12px!important;
+    margin:12px 0!important;
+    gap:0!important;
+  }
+  /* Sidebar do pessoal */
+  #tabIdeiasP > div > div:first-child{
+    border-right:none!important;
+    border-bottom:0.5px solid var(--border);
+    padding-right:0!important;
+    padding-bottom:12px;
+    margin-bottom:0;
+  }
+  /* Lista de notas — altura limitada */
+  #nbListP{max-height:200px!important;min-height:80px}
+  /* Editor */
+  #nbEditorP{
+    padding-left:0!important;
+    min-height:50vh;
+    padding-top:14px;
+  }
+  /* Botão mobile back */
+  .nb-mobile-back{display:flex}
+
+  /* Notebook — Ideias Empresa */
+  #tabIdeiasE > div:first-child{
+    flex-wrap:wrap!important;
+    padding:8px 12px!important;
+    gap:6px!important;
+  }
+  /* Search empresa menor em mobile */
+  #tabIdeiasE > div:first-child > div[style*="width:180px"]{width:100%!important}
+  /* Vista lista empresa */
+  #emListaView{
+    display:flex!important;
+    flex-direction:column!important;
+    height:auto!important;
+  }
+  /* Sidebar empresa */
+  #emListaView > div:first-child{
+    border-right:none!important;
+    border-bottom:0.5px solid var(--border);
+    max-height:260px;
+    overflow-y:auto;
+  }
+  #nbListE{max-height:170px!important}
+  /* Editor empresa */
+  #nbEditorE{
+    min-height:60vh;
+    overflow-y:auto!important;
+  }
+  /* Tabs do editor empresa — scroll horizontal */
+  #nbEditorE > div:nth-child(2){
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    flex-shrink:0;
+  }
+  #nbEditorE > div:nth-child(2)::-webkit-scrollbar{display:none}
+  /* Conteúdo do tab empresa */
+  #nbEditorE [id^="emTabContent-"]{
+    overflow-y:auto!important;
+    padding:12px!important;
+  }
+  /* Kanban — scroll horizontal */
+  #emKanbanView{height:auto!important;min-height:60vh!important;padding:12px!important}
+  #emKanbanBoard{grid-template-columns:repeat(4,240px)!important}
+
+  /* Módulo header — esconde breadcrumb texto em mobile */
+  #moduleName{font-size:14px}
+
+  /* Inputs 16px evita zoom iOS */
+  input,textarea,select{font-size:16px!important}
+  /* Exceções: labels e badges pequenos não são inputs */
+  .nb-search,.nb-tags-input{font-size:16px!important}
 }
 .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:border-color var(--dur-normal),box-shadow var(--dur-normal)}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.45),transparent);opacity:0;transition:opacity var(--dur-normal)}
@@ -7586,6 +7687,7 @@ function nbRenderEditor(tipo, idea){
 
   const wordCount = (idea.content||'').trim().split(/\s+/).filter(Boolean).length;
   ed.innerHTML = `
+    <button class="nb-mobile-back" onclick="window.scrollTo({top:0,behavior:'smooth'})">← Lista</button>
     <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:0.5px solid var(--border)">
       <input id="nbTitle-${tipo}" value="${escHtml(idea.title||'')}" placeholder="Título da nota..." style="flex:1;font-size:18px;font-weight:500;color:var(--text);border:none;background:transparent;outline:none;min-width:0;margin-right:12px" oninput="nbField('${tipo}',${idea.id},'title',this.value);nbUpdateListTitle('${tipo}',${idea.id},this.value)"/>
       <div style="display:flex;gap:6px;align-items:center">
@@ -7747,6 +7849,7 @@ function emRenderEditor(idea){
   const status = meta.status||'explorando';
   const wc = (idea.content||'').trim().split(/\s+/).filter(Boolean).length;
   ed.innerHTML = `
+    <button class="nb-mobile-back" onclick="window.scrollTo({top:0,behavior:'smooth'})">← Lista</button>
     <div style="padding:16px 20px 12px;border-bottom:0.5px solid var(--border)">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
         <input id="nbTitle-empresa" value="${escHtml(idea.title||'')}" placeholder="Nome da ideia..." style="flex:1;font-size:17px;font-weight:500;color:var(--text);border:none;background:transparent;outline:none" oninput="nbField('empresa',${idea.id},'title',this.value);nbUpdateListTitle('empresa',${idea.id},this.value)"/>
@@ -8990,6 +9093,10 @@ async function shopDelete(id){
     shopRender();
     toast('Item excluído','ok');
   } catch(e){ toast('Erro ao excluir','err'); }
+}
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
 </script>
 </body>
