@@ -7903,7 +7903,7 @@ function emTabPassosHtml(idea, meta){
   return `
     <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${total>0?'8':'10'}px">
-        <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">Próximos passos${total?' — '+done+'/'+total+' ('+pct+'%)'':''}</div>
+        <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">Próximos passos${total?' — '+done+'/'+total+' ('+pct+'%)':''}</div>
         <button onclick="nbAddCheck('empresa',${idea.id})" style="padding:4px 10px;border:0.5px solid var(--border);border-radius:7px;background:transparent;font-size:12px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px"><i class="ti ti-plus" style="font-size:12px" aria-hidden="true"></i> Adicionar</button>
       </div>
       ${total>1?`<div style="height:4px;background:var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden"><div style="height:100%;background:var(--green);border-radius:4px;width:${pct}%;transition:.3s"></div></div>`:''}
