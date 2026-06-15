@@ -7638,6 +7638,7 @@ function nbRenderList(tipo){
             ${preview?`<div style="font-size:11px;color:var(--muted);margin-top:2px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${escHtml(preview)}</div>`:''}
             <div style="font-size:10px;color:var(--muted2);margin-top:4px">${fmtDate(i.updated_at||i.created_at)}</div>
           </div>
+          <button onclick="event.stopPropagation();nbDelete('${tipo}',${i.id})" title="Excluir" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:2px 4px;border-radius:5px;line-height:1;flex-shrink:0;opacity:.5;transition:.15s" onmouseover="this.style.opacity='1';this.style.color='var(--red)'" onmouseout="this.style.opacity='.5';this.style.color='var(--muted)'">×</button>
         </div>
       </div>`;
   }).join('');
@@ -7791,6 +7792,7 @@ function emCardHtml(i, sel){
         <div style="width:7px;height:7px;border-radius:50%;background:${colorDot[c]||'var(--yellow)'};flex-shrink:0"></div>
         <div style="font-size:13px;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(i.title||'Sem título')}</div>
         <span style="font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap;background:${st.bg};color:${st.color}">${st.label}</span>
+        <button onclick="event.stopPropagation();nbDelete('empresa',${i.id})" title="Excluir" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:2px 4px;border-radius:5px;line-height:1;flex-shrink:0;opacity:.45;transition:.15s" onmouseover="this.style.opacity='1';this.style.color='var(--red)'" onmouseout="this.style.opacity='.45';this.style.color='var(--muted)'">×</button>
       </div>
       ${pitch?`<div style="font-size:11px;color:var(--muted);font-style:italic;margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"${escHtml(pitch)}"</div>`:''}
       <div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;gap:4px">${tagsHtml}</div><div>${starsHtml}</div></div>
