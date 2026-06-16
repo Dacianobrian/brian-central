@@ -7751,6 +7751,15 @@ function nbChecklistRowHtml(tipo, ideaId, item, idx){
 // ── EMPRESA MODULE ────────────────────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 let _emTab = 'geral';
+let _emCollapsed = {};
+function emToggle(id, sec){
+  const key = sec+'-'+id;
+  _emCollapsed[key] = !_emCollapsed[key];
+  const body = document.getElementById('emSec-'+sec+'-'+id);
+  const arrow = document.getElementById('emArr-'+sec+'-'+id);
+  if(body) body.style.display = _emCollapsed[key] ? 'none' : '';
+  if(arrow) arrow.style.transform = _emCollapsed[key] ? 'rotate(-90deg)' : 'rotate(0deg)';
+}
 const EM_STATUS = {
   explorando:{ label:'Explorando', bg:'rgba(83,74,183,.15)', color:'#3C3489' },
   validando: { label:'Validando',  bg:'rgba(186,117,23,.15)', color:'#633806' },
@@ -7904,50 +7913,83 @@ function emTabGeralHtml(idea, meta){
   const scores = meta.scores||{}, avg = emScoreAvg(scores);
   const payback = (inv&&rev) ? Math.round(inv/rev) : 0;
   const validation = meta.validation||{};
+  const kpiCol = _emCollapsed['kpi-'+idea.id];
+  const scCol  = _emCollapsed['score-'+idea.id];
   const scoreRows = EM_SCORES.map(s=>{
     const val = scores[s.key]||0;
     const bc = val>=4?'var(--green)':val>=3?'var(--blue)':val>=2?'var(--yellow)':'var(--red)';
     const dots = Array.from({length:5},(_,i)=>`<div onclick="emSetScore(${idea.id},'${s.key}',${i+1})" style="width:14px;height:14px;border-radius:50%;background:${i<val?bc:'var(--border)'};cursor:pointer;transition:.1s" title="${i+1}"></div>`).join('');
     return `<div style="display:flex;align-items:center;gap:10px"><span style="font-size:12px;color:var(--text);width:140px;flex-shrink:0">${s.label}</span><div style="display:flex;gap:4px">${dots}</div><span style="font-size:12px;font-weight:500;color:var(--muted);width:16px">${val||'—'}</span></div>`;
   }).join('');
+
+  /* ── header de seção recolhível ── */
+  const secHead = (label, sec, badge='') => `
+    <div onclick="emToggle(${idea.id},'${sec}')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
+      <div style="display:flex;align-items:center;gap:7px">
+        <span style="font-size:11px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px">${label}</span>
+        ${badge?`<span style="font-size:11px;font-weight:600;color:var(--blue)">${badge}</span>`:''}
+      </div>
+      <svg id="emArr-${sec}-${idea.id}" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--muted);transition:transform .2s;transform:${_emCollapsed[sec+'-'+idea.id]?'rotate(-90deg)':'rotate(0deg)'}"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>`;
+
   return `
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-      <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px">
-        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Investimento inicial</div>
-        <div id="emInvVal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--red)">${inv?shortBrl(inv):'—'}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">para começar</div>
-        <input type="number" value="${inv||''}" placeholder="ex: 5000" style="width:100%;margin-top:8px;font-size:12px;border:0.5px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--bg);color:var(--text);outline:none" oninput="emSaveMeta(${idea.id},'investment',+this.value||0)"/>
+    <!-- ① ANOTAÇÃO DA IDEIA — sempre visível, destaque -->
+    <div style="border:0.5px solid var(--border);border-radius:10px;overflow:hidden">
+      <div style="padding:10px 14px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--border)">
+        <span style="font-size:11px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px">✏️ Anotação da ideia</span>
+        <span id="emNoteWc-${idea.id}" style="font-size:10px;color:var(--muted)">${(idea.content||'').trim().split(/\s+/).filter(Boolean).length} palavras</span>
       </div>
-      <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px">
-        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Receita potencial</div>
-        <div id="emRevVal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--green)">${rev?shortBrl(rev)+'/mês':'—'}</div>
-        <div id="emPayback-${idea.id}" style="font-size:10px;color:var(--muted);margin-top:2px">${payback?`payback ~${payback} meses`:'payback —'}</div>
-        <input type="number" value="${rev||''}" placeholder="ex: 3000" style="width:100%;margin-top:8px;font-size:12px;border:0.5px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--bg);color:var(--text);outline:none" oninput="emSaveMeta(${idea.id},'revenue',+this.value||0)"/>
-      </div>
-      <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px">
-        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Viabilidade</div>
-        <div id="emScoreVal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--blue)">${avg?avg.toFixed(1)+' / 5':'—'}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">score médio</div>
+      <textarea id="emNoteArea-${idea.id}" placeholder="Escreva tudo sobre essa ideia — contexto, como funciona, por que acredita nela, riscos, próximos passos iniciais..." style="width:100%;border:none;border-radius:0;padding:12px 14px;font-size:13px;font-family:var(--font);background:var(--bg);color:var(--text);resize:vertical;outline:none;line-height:1.7;min-height:120px;box-sizing:border-box" oninput="nbField('empresa',${idea.id},'content',this.value);const w=this.value.trim().split(/\\s+/).filter(Boolean).length;const el=document.getElementById('emNoteWc-${idea.id}');if(el)el.textContent=w+' palavras'">${escHtml(idea.content||'')}</textarea>
+    </div>
+
+    <!-- ② KPIs — recolhível -->
+    <div style="border:0.5px solid var(--border);border-radius:10px;padding:11px 14px">
+      ${secHead('Números', 'kpi', avg ? avg.toFixed(1)+' ★  ·  '+(inv?shortBrl(inv):'')+''+(rev?' → '+shortBrl(rev)+'/mês':'') : '')}
+      <div id="emSec-kpi-${idea.id}" style="display:${kpiCol?'none':''};margin-top:10px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
+          <div style="border:0.5px solid var(--border);border-radius:9px;padding:10px 12px">
+            <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Investimento</div>
+            <div id="emInvVal-${idea.id}" style="font-size:17px;font-weight:600;color:var(--red)">${inv?shortBrl(inv):'—'}</div>
+            <input type="number" value="${inv||''}" placeholder="ex: 5000" style="width:100%;margin-top:7px;font-size:12px;border:0.5px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--bg);color:var(--text);outline:none" oninput="emSaveMeta(${idea.id},'investment',+this.value||0)"/>
+          </div>
+          <div style="border:0.5px solid var(--border);border-radius:9px;padding:10px 12px">
+            <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Receita/mês</div>
+            <div id="emRevVal-${idea.id}" style="font-size:17px;font-weight:600;color:var(--green)">${rev?shortBrl(rev):'—'}</div>
+            <input type="number" value="${rev||''}" placeholder="ex: 3000" style="width:100%;margin-top:7px;font-size:12px;border:0.5px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--bg);color:var(--text);outline:none" oninput="emSaveMeta(${idea.id},'revenue',+this.value||0)"/>
+          </div>
+          <div style="border:0.5px solid var(--border);border-radius:9px;padding:10px 12px">
+            <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Payback</div>
+            <div id="emPayback-${idea.id}" style="font-size:17px;font-weight:600;color:var(--text)">${payback?payback+'m':'—'}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:7px">${payback?`~${payback} meses p/ retorno`:'preencha inv. e rec.'}</div>
+          </div>
+        </div>
+        <!-- Score rows dentro dos Números -->
+        <div style="border-top:0.5px solid var(--border);padding-top:10px">
+          <div style="font-size:10px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px">Score de viabilidade</div>
+          <div id="emScoreRows-${idea.id}" style="display:flex;flex-direction:column;gap:9px">${scoreRows}</div>
+          <div style="margin-top:10px;padding-top:8px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:var(--muted)">Score geral</span>
+            <span id="emScoreVal-${idea.id}" style="font-size:17px;font-weight:600;color:var(--blue)">${avg?avg.toFixed(1)+' / 5':'—'}</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
-      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">Score de viabilidade</div>
-      <div id="emScoreRows-${idea.id}" style="display:flex;flex-direction:column;gap:10px">${scoreRows}</div>
-      <div style="margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:12px;color:var(--muted)">Score geral</span>
-        <span id="emScoreTotal-${idea.id}" style="font-size:18px;font-weight:500;color:var(--blue)">${avg?avg.toFixed(1)+' / 5':'—'}</span>
+
+    <!-- ③ VALIDAÇÃO — recolhível -->
+    <div style="border:0.5px solid var(--border);border-radius:10px;padding:11px 14px">
+      ${secHead('Validação da ideia', 'val')}
+      <div id="emSec-val-${idea.id}" style="display:${_emCollapsed['val-'+idea.id]?'none':''};margin-top:10px">
+        ${[{key:'customer',q:'Quem é o cliente?',ph:'Ex: jovens de 25-35 anos, classe B, que usam apps...'},{key:'problem',q:'Qual problema resolve?',ph:'Ex: dificuldade de encontrar X de forma rápida...'},{key:'differential',q:'Qual o diferencial?',ph:'Ex: únicos com entrega em 30min e rastreamento em tempo real...'}].map(v=>`
+          <div style="margin-bottom:9px">
+            <div style="font-size:11px;color:var(--muted);font-weight:500;margin-bottom:4px">${v.q}</div>
+            <textarea style="width:100%;border:0.5px solid var(--border);border-radius:7px;padding:7px 9px;font-size:12px;font-family:var(--font);background:var(--bg);color:var(--text);resize:none;outline:none;line-height:1.5" rows="2" placeholder="${v.ph}" oninput="emSaveValidation(${idea.id},'${v.key}',this.value)">${escHtml(validation[v.key]||'')}</textarea>
+          </div>`).join('')}
       </div>
     </div>
-    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
-      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px">Validação da ideia</div>
-      ${[{key:'customer',q:'Quem é o cliente?',ph:'Ex: jovens de 25-35 anos, classe B, que usam apps...'},{key:'problem',q:'Qual problema resolve?',ph:'Ex: dificuldade de encontrar X de forma rápida...'},{key:'differential',q:'Qual o diferencial?',ph:'Ex: únicos com entrega em 30min e rastreamento em tempo real...'}].map(v=>`
-        <div style="margin-bottom:10px">
-          <div style="font-size:11px;color:var(--muted);font-weight:500;margin-bottom:4px">${v.q}</div>
-          <textarea style="width:100%;border:0.5px solid var(--border);border-radius:7px;padding:7px 9px;font-size:12px;font-family:var(--font);background:var(--bg);color:var(--text);resize:none;outline:none;line-height:1.5" rows="2" placeholder="${v.ph}" oninput="emSaveValidation(${idea.id},'${v.key}',this.value)">${escHtml(validation[v.key]||'')}</textarea>
-        </div>`).join('')}
-    </div>
-    <div style="border:0.5px solid var(--border);border-radius:9px;padding:12px 14px">
-      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px">Tags / Setor</div>
+
+    <!-- ④ TAGS -->
+    <div style="border:0.5px solid var(--border);border-radius:10px;padding:11px 14px">
+      <div style="font-size:11px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Tags / Setor</div>
       <input value="${escHtml((Array.isArray(idea.tags)?idea.tags:[]).join(', '))}" placeholder="Tech, SaaS, B2C, Produto..." style="width:100%;border:0.5px solid var(--border);border-radius:7px;padding:7px 9px;font-size:12px;background:var(--bg);color:var(--text);outline:none" oninput="nbField('empresa',${idea.id},'tags',this.value)"/>
       <div style="font-size:11px;color:var(--muted);margin-top:4px">Separe por vírgula · aparece como tag nos cards</div>
     </div>`;
