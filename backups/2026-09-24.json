@@ -1,0 +1,17 @@
+{
+  "exported_at": "2026-09-24T08:13:54Z",
+  "transactions": {"code":"42501","details":null,"hint":null,"message":"permission denied for table transactions"},
+  "accounts": {"code":"42501","details":null,"hint":null,"message":"permission denied for table accounts"},
+  "fii_portfolio": {"code":"42501","details":null,"hint":null,"message":"permission denied for table fii_portfolio"},
+  "planned_entries": {"code":"42501","details":null,"hint":null,"message":"permission denied for table planned_entries"},
+  "fixed_costs": {"code":"42501","details":null,"hint":null,"message":"permission denied for table fixed_costs"},
+  "goals": {"code":"42501","details":null,"hint":null,"message":"permission denied for table goals"},
+  "income_categories": {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.planned_entries'","message":"Could not find the table 'public.income_categories' in the schema cache"},
+  "expense_categories": {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.planned_entries'","message":"Could not find the table 'public.expense_categories' in the schema cache"},
+  "ideas": {"code":"42501","details":null,"hint":null,"message":"permission denied for table ideas"},
+  "habits": {"code":"42501","details":null,"hint":null,"message":"permission denied for table habits"},
+  "habit_checks": {"code":"42501","details":null,"hint":null,"message":"permission denied for table habit_checks"},
+  "agenda_events": {"code":"42501","details":null,"hint":null,"message":"permission denied for table agenda_events"},
+  "tasks": {"code":"42501","details":null,"hint":null,"message":"permission denied for table tasks"},
+  "shopping_items": {"code":"42501","details":null,"hint":null,"message":"permission denied for table shopping_items"}
+}
